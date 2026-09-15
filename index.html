@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0616">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
+<title>Nizwa Wallet</title>
+<style>
+:root{
+  --bg:#0b0616;
+  --bg2:radial-gradient(ellipse at 15% -5%,#2a1a4a 0%,#150a28 42%,#0b0616 100%);
+  --field:rgba(255,255,255,.055);
+  --text:#f4f2f9;
+  --muted:#9d97ad;
+  --line:rgba(255,255,255,.08);
+  --violet:#a78bfa;
+  --violet-dark:#7c3aed;
+  --violet-light:#c4b5fd;
+  --yellow:#ffc93c;
+  --error:#ff7f9d;
+  --success:#34d399;
+  --glass:rgba(255,255,255,.05);
+  --glass-strong:rgba(255,255,255,.09);
+  --border:rgba(255,255,255,.12);
+  --shadow:0 8px 28px rgba(0,0,0,.4);
+  --grad:linear-gradient(135deg,#a78bfa 0%,#7c3aed 100%);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;min-height:100%}
+body{
+  background:var(--bg);background-image:var(--bg2);background-attachment:fixed;
+  color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;transition:transform .15s,opacity .15s,background .2s}
+button:disabled{opacity:.4;cursor:not-allowed}
+button:active:not(:disabled){transform:scale(.97)}
+[hidden]{display:none!important}
+h1,h2,h3,p{margin:0 0 12px}
+h1{font-size:26px;font-weight:800;letter-spacing:-.6px}
+h2{font-size:17px;font-weight:700}
+h3{font-size:14px;font-weight:700}
+p{line-height:1.6}
+small,.muted{color:var(--muted)}
+small{font-size:12px;line-height:1.6}
+svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle;display:inline-block}
+.app{max-width:520px;margin:auto;min-height:100vh;min-height:100dvh;position:relative}
+
+header{
+  position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:calc(12px + env(safe-area-inset-top,0px)) 18px 12px;
+  background:var(--glass);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+}
+header .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:14px}
+header .brand .logo{
+  width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  background:var(--grad);color:#fff;
+}
+header .brand .logo svg{width:19px;height:19px;stroke:#fff;stroke-width:2.4}
+header .right{display:flex;gap:9px;align-items:center}
+.icon{
+  width:42px;height:42px;border-radius:50%;border:1px solid var(--border);
+  background:var(--glass-strong);display:flex;align-items:center;justify-content:center;
+  color:var(--text);position:relative;flex-shrink:0;
+}
+.icon:active{transform:scale(.92)}
+.icon .badge-dot{position:absolute;top:8px;right:9px;width:9px;height:9px;border-radius:50%;background:var(--error);border:2px solid var(--bg)}
+.avatar{background:var(--grad);color:#fff;font-weight:800;border:0}
+.omr-badge{
+  display:inline-flex;align-items:center;gap:6px;background:var(--glass-strong);
+  border:1px solid var(--border);border-radius:999px;padding:5px 11px;font-size:11px;font-weight:800;
+}
+.omr-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--violet)}
+
+main{padding:12px 18px calc(120px + env(safe-area-inset-bottom,0px))}
+
+.card{
+  border:1px solid var(--border);border-radius:24px;padding:18px;
+  background:var(--glass);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+  margin-bottom:14px;box-shadow:var(--shadow);
+  overflow-wrap:anywhere;
+}
+
+.hello h1{margin-bottom:2px}
+.hello p{margin-bottom:16px}
+
+.main-account{
+  border-radius:26px;padding:22px;margin:8px 0 16px;
+  background:linear-gradient(145deg,#a78bfa 0%,#7c3aed 45%,#3b1670 100%);
+  color:#fff;overflow:hidden;
+  box-shadow:0 20px 44px rgba(124,58,237,.4);
+}
+.ma-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.ma-label-wrap{display:flex;flex-direction:column;gap:3px}
+.ma-label{font-size:10.5px;letter-spacing:.6px;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.75)}
+.ma-num{font-size:12.5px;font-weight:700;font-family:ui-monospace,monospace;letter-spacing:1px}
+.ma-eye{
+  width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.3);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+}
+.ma-eye:active{transform:scale(.9)}
+.ma-eye svg{width:18px;height:18px}
+.ma-balance-wrap{margin-bottom:24px}
+.ma-balance-label{font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.7);font-weight:700;margin-bottom:6px}
+.ma-balance{font-size:40px;font-weight:800;letter-spacing:-1.4px;line-height:1;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.ma-balance small{font-size:15px;font-weight:700;color:rgba(255,255,255,.85)}
+.ma-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.ma-holder{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.ma-holder-label{font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.65);font-weight:700}
+.ma-holder-name{font-size:12px;font-weight:700;color:#fff;overflow-wrap:anywhere;line-height:1.3}
+.ma-chip{
+  width:42px;height:30px;border-radius:8px;flex-shrink:0;
+  background:linear-gradient(135deg,#fff0be,#dcb45a);
+  display:flex;align-items:center;justify-content:center;color:rgba(120,80,20,.7);
+}
+.ma-chip svg{width:18px;height:18px;stroke-width:2}
+
+.card-trigger{
+  display:flex;align-items:center;gap:12px;width:100%;
+  background:var(--glass-strong);border:1px solid var(--border);
+  border-radius:18px;padding:13px 14px;margin-bottom:12px;color:var(--text);
+  font-weight:700;font-size:13.5px;text-align:start;
+}
+.card-trigger:active{transform:scale(.98)}
+.card-trigger i{
+  width:38px;height:38px;border-radius:12px;background:var(--field);color:var(--violet);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.card-trigger .ct-badge{
+  background:var(--grad);color:#fff;font-size:11px;font-weight:800;
+  border-radius:999px;padding:3px 9px;margin-inline-start:auto;
+}
+.card-trigger .chev{color:var(--muted)}
+.card-trigger .chev svg{width:15px;height:15px}
+
+.card-preview{
+  border-radius:18px;padding:14px 16px;margin-bottom:14px;cursor:pointer;
+  background:linear-gradient(145deg,#a78bfa 0%,#8347e8 42%,#3b1670 100%);
+  color:#fff;box-shadow:0 12px 30px rgba(124,58,237,.32);
+  overflow:hidden;
+}
+.card-preview:active{transform:scale(.98)}
+.card-preview.frozen{filter:grayscale(.85) saturate(.55)}
+.cp-top{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:700}
+.cp-type{letter-spacing:.4px}
+.cp-num{font-family:ui-monospace,monospace;letter-spacing:1.6px;font-size:12px}
+.cp-bot{display:flex;justify-content:space-between;font-size:10.5px;opacity:.85;margin-top:8px}
+
+.nizwa-recipient{
+  margin-top:12px;border-radius:18px;
+  background:linear-gradient(135deg,rgba(167,139,250,.14),rgba(124,58,237,.06));
+  border:1px solid rgba(167,139,250,.32);
+  padding:14px;display:flex;gap:12px;align-items:center;
+  position:relative;
+}
+.nz-avatar{
+  width:52px;height:52px;border-radius:16px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;position:relative;
+  background:linear-gradient(145deg,#a78bfa,#7c3aed);
+  box-shadow:0 6px 18px rgba(124,58,237,.4);
+  color:#fff;font-weight:800;font-size:20px;
+}
+.nz-avatar::before{
+  content:"✓";position:absolute;right:-3px;bottom:-3px;width:20px;height:20px;border-radius:50%;
+  background:var(--success);color:#fff;font-size:11px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 3px var(--bg);
+}
+.nz-body{flex:1;min-width:0}
+.nz-name{font-size:14px;font-weight:800;color:var(--text);overflow-wrap:anywhere;line-height:1.35;margin-bottom:3px}
+.nz-number{font-size:11.5px;font-weight:600;color:var(--muted);font-family:ui-monospace,monospace;direction:ltr}
+.nz-verified{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.35);
+  color:var(--success);font-size:9.5px;font-weight:800;letter-spacing:.4px;
+  padding:3px 8px;border-radius:999px;margin-top:8px;text-transform:uppercase;
+}
+.nz-verified svg{width:11px;height:11px;stroke-width:2.6}
+.nz-badge-nizwa{position:absolute;top:8px;right:10px;font-size:9px;font-weight:800;color:var(--violet-light);letter-spacing:1.2px;opacity:.5}
+
+.dir-row{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid var(--line)}
+.dir-row:last-child{border-bottom:0}
+.dir-avatar{
+  width:38px;height:38px;border-radius:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;
+  background:rgba(167,139,250,.2);border:1px solid rgba(167,139,250,.3);color:var(--violet-light);
+}
+.dir-info{flex:1;min-width:0}
+.dir-name{font-size:13px;font-weight:700;overflow-wrap:anywhere}
+.dir-num{font-size:11px;color:var(--muted);font-family:ui-monospace,monospace;margin-top:2px;direction:ltr}
+
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:14px 10px}
+.quick button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11.5px;color:var(--text);padding:0;font-weight:600}
+.quick i{
+  width:52px;height:52px;border-radius:50%;border:1px solid var(--border);background:var(--glass-strong);
+  display:flex;align-items:center;justify-content:center;color:var(--violet);
+}
+.quick button:active i{transform:scale(.9)}
+
+.section{display:flex;justify-content:space-between;align-items:center;margin:0 0 6px}
+.section h2{margin:0;font-size:15px}
+.link{border:0;background:none;color:var(--violet);font-weight:700;min-height:44px;padding:8px;font-size:12.5px}
+
+.tx{display:flex;gap:11px;align-items:center;width:100%;border:0;border-bottom:1px solid var(--line);background:none;padding:12px 0;text-align:start;color:inherit}
+.tx:last-child{border-bottom:0}
+.tx i{width:40px;height:40px;border-radius:50%;background:var(--field);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--violet)}
+.tx>span{flex:1;min-width:0}
+.tx strong,.tx small{display:block;overflow-wrap:anywhere}
+.tx strong{font-size:13.5px;font-weight:700}
+.tx b{font-size:13.5px;white-space:nowrap;font-weight:800;color:var(--muted)}
+.tx b.in{color:var(--success)}
+
+.btn{
+  width:100%;min-height:52px;border-radius:16px;border:1px solid var(--border);
+  background:var(--glass-strong);font-weight:700;padding:12px;font-size:14.5px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn:active:not(:disabled){transform:scale(.97)}
+.primary{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 10px 26px rgba(124,58,237,.4)}
+.yellow{background:linear-gradient(135deg,#ffd75e,#ffc93c);color:#1f1600;border-color:transparent}
+.ghost{background:transparent;border-color:var(--line)}
+.danger{background:linear-gradient(135deg,#ff7f9d,#dc2656);color:#fff;border-color:transparent}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+.tile{
+  border:1px solid var(--border);background:var(--glass);
+  border-radius:20px;padding:16px;text-align:start;display:flex;flex-direction:column;gap:10px;
+  min-width:0;box-shadow:var(--shadow);
+}
+.tile:active{transform:scale(.97)}
+.tile i{width:40px;height:40px;border-radius:12px;background:var(--field);display:flex;align-items:center;justify-content:center;color:var(--violet)}
+.tile strong{font-size:13.5px;font-weight:700}
+.tile small{font-size:11px;color:var(--muted)}
+
+.field{display:block;margin:14px 0}
+.field>span{display:block;margin-bottom:7px;font-size:12.5px;color:var(--muted);font-weight:600}
+input,select,textarea{width:100%;min-width:0;background:var(--field);border:1px solid var(--line);border-radius:14px;padding:14px;font-size:16px}
+input:focus,select:focus,textarea:focus{border-color:var(--violet);outline:none;box-shadow:0 0 0 4px rgba(124,58,237,.16)}
+.input-row{display:flex;gap:8px;align-items:center}
+.input-row input{flex:1}
+.error{color:var(--error);font-size:12.5px;min-height:1em}
+.hint{padding:11px 13px;background:var(--field);border-radius:14px;font-size:11.5px;line-height:1.7;color:var(--muted);margin:14px 0}
+.caption{font-size:11px;text-align:center;color:var(--muted);margin:16px 0}
+.center{text-align:center}
+.back{margin-bottom:16px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+.back .title{font-weight:700;font-size:14.5px}
+
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;direction:ltr;margin:16px 0}
+.key{font-size:22px;background:var(--glass);border:1px solid var(--border);border-radius:18px;min-height:56px;font-weight:600}
+.key:active{transform:scale(.94);background:rgba(124,58,237,.14)}
+
+.amount{font-size:44px;font-weight:800;letter-spacing:-1.4px;margin:10px 0;overflow-wrap:anywhere}
+.amount small{font-size:13px}
+.details{margin:0}
+.detail{display:grid;grid-template-columns:minmax(80px,.8fr) minmax(0,1.3fr);gap:14px;padding:11px 0;border-bottom:1px solid var(--line);font-size:12.5px;line-height:1.7}
+.detail:last-child{border-bottom:0}
+dt{color:var(--muted);font-weight:600}
+dd{margin:0;text-align:end;font-weight:700;overflow-wrap:anywhere;unicode-bidi:plaintext}
+
+.filters{display:flex;gap:7px;overflow:auto;margin:12px 0;padding-bottom:4px}
+.filters::-webkit-scrollbar{display:none}
+.filter{white-space:nowrap;font-size:12.5px;border:1px solid var(--border);background:var(--glass);border-radius:999px;padding:9px 16px;font-weight:600}
+.filter.active{background:var(--grad);color:#fff;border-color:transparent}
+
+.menu-list{display:flex;flex-direction:column;gap:2px}
+.menu-item{
+  display:flex;align-items:center;gap:13px;padding:14px 4px;border-bottom:1px solid var(--line);
+  background:none;border:0;width:100%;text-align:start;color:var(--text);font-size:13.5px;
+  font-weight:600;min-height:50px;
+}
+.menu-item:last-child{border-bottom:0}
+.menu-item i{width:36px;height:36px;border-radius:11px;background:var(--field);color:var(--violet);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.menu-item i svg{width:17px;height:17px}
+.menu-item .mi-text{flex:1;min-width:0}
+.menu-item .mi-text small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;margin-top:2px}
+.menu-item .chev{color:var(--muted);flex-shrink:0}
+.menu-item .chev svg{width:15px;height:15px}
+
+.otp-shield{
+  width:72px;height:72px;margin:6px auto 16px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  background:var(--grad);
+  box-shadow:0 14px 32px rgba(124,58,237,.4);
+}
+.otp-shield svg{width:32px;height:32px}
+.otp-boxes{display:flex;justify-content:center;gap:9px;margin:22px 0 12px;direction:ltr}
+.otp-box{
+  width:44px;height:56px;border-radius:13px;border:1.5px solid var(--line);background:var(--field);
+  display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;position:relative;
+}
+.otp-box.filled{border-color:var(--violet);background:rgba(124,58,237,.09)}
+.otp-box.active{border-color:var(--violet);box-shadow:0 0 0 4px rgba(124,58,237,.16)}
+.otp-box.error{border-color:var(--error);background:rgba(200,30,74,.1)}
+.resend{text-align:center;font-size:12.5px;color:var(--muted);margin:6px 0 0}
+.resend b{color:var(--violet)}
+.otp-phone{display:inline-flex;align-items:center;gap:6px;background:var(--field);padding:6px 12px;border-radius:999px;font-weight:700;font-size:12.5px}
+
+.process{padding:36px 0 8px;text-align:center}
+.process-title{font-size:20px;font-weight:800;margin-bottom:24px}
+.reactor-wrap{position:relative;width:150px;height:150px;margin:14px auto 30px}
+.reactor{
+  position:absolute;inset:0;border-radius:50%;
+  border:3px solid rgba(167,139,250,.15);
+  border-top-color:#a78bfa;border-right-color:#ffc93c;
+  animation:spin 1.4s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.reactor-core{
+  position:absolute;inset:26px;border-radius:50%;
+  background:radial-gradient(circle at 32% 30%,rgba(167,139,250,.55),rgba(124,58,237,.15) 60%,transparent 75%);
+}
+.process-cancel{max-width:260px;margin:0 auto}
+
+.check{
+  width:80px;height:80px;display:flex;align-items:center;justify-content:center;border-radius:50%;
+  background:linear-gradient(140deg,#34d399,#10b981);color:#fff;margin:10px auto 16px;
+  box-shadow:0 14px 36px rgba(16,185,129,.36);
+}
+.check svg{width:42px;height:42px;stroke-width:3}
+.receipt{border-top:4px solid var(--violet);padding-top:22px}
+.bank-logo{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:18px;padding-bottom:18px;border-bottom:1px dashed var(--line)}
+.bank-logo .emblem{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--grad)}
+.bank-logo .emblem svg{width:32px;height:32px;stroke:#fff;stroke-width:2.6}
+.bank-logo .name{font-weight:800;font-size:14.5px}
+.bank-logo .sub{font-size:10.5px;color:var(--muted);text-transform:uppercase;font-weight:600}
+
+.setting{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.setting:last-child{border:0}
+.setting span{font-weight:600;font-size:13.5px}
+.switch{width:50px;height:29px;border-radius:999px;border:0;background:var(--line);position:relative;flex-shrink:0}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:23px;height:23px;border-radius:50%;background:#fff;transition:transform .25s}
+.switch[aria-checked="true"]{background:var(--grad)}
+.switch[aria-checked="true"]::after{transform:translateX(21px)}
+
+nav{position:fixed;bottom:calc(12px + env(safe-area-inset-bottom,0px));inset-inline:0;z-index:10;padding:0 18px;pointer-events:none}
+.nav-inner{
+  max-width:480px;margin:auto;display:flex;justify-content:space-around;align-items:center;padding:7px;
+  background:var(--glass-strong);border:1px solid var(--border);border-radius:999px;
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+  box-shadow:0 14px 40px rgba(20,10,60,.2);pointer-events:auto;
+}
+nav button{display:flex;align-items:center;gap:7px;border:0;background:none;color:var(--text);padding:9px 13px;min-height:46px;border-radius:999px;font-weight:700;font-size:12.5px}
+nav button span{display:none}
+nav button.active{background:var(--grad);color:#fff}
+nav button.active span{display:inline}
+
+dialog{
+  width:calc(100% - 28px);max-width:480px;max-height:88vh;margin:auto;padding:18px;
+  background:#150a28;color:var(--text);border:1px solid var(--border);
+  border-radius:26px;overflow:auto;
+}
+dialog::backdrop{background:rgba(10,5,25,.65)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.modal-head h2{margin:0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12.5px/1.8 system-ui}
+
+#toast{
+  position:fixed;z-index:100;left:50%;bottom:calc(94px + env(safe-area-inset-bottom,0px));
+  transform:translate(-50%,12px);opacity:0;pointer-events:none;
+  background:#1a0f30;color:var(--text);border:1px solid var(--border);
+  border-radius:999px;padding:12px 20px;max-width:calc(100% - 30px);width:max-content;
+  font-size:12.5px;font-weight:700;box-shadow:0 14px 36px rgba(20,10,60,.4);
+  transition:opacity .3s,transform .3s;
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+.ai-card{display:flex;gap:12px;align-items:flex-start;padding:14px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.25);border-radius:20px;margin-bottom:14px}
+.ai-avatar{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--grad);color:#fff}
+.ai-card .ai-text{font-size:12.5px;line-height:1.6}
+
+.search-bar{display:flex;align-items:center;gap:10px;background:var(--field);border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin-bottom:14px}
+.search-bar input{border:0;background:none;padding:0;font-size:14px;flex:1;outline:none}
+
+.chart-bars{display:flex;align-items:flex-end;gap:8px;height:100px;padding:8px 0}
+.chart-bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.chart-bar .bar{width:100%;max-width:40px;border-radius:8px 8px 4px 4px;background:linear-gradient(180deg,#a78bfa,#7c3aed);min-height:4px}
+.chart-bar small{font-size:10px;color:var(--muted)}
+
+.saving-toggle{display:flex;align-items:center;justify-content:space-between;padding:14px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);border-radius:18px;margin-bottom:14px}
+.saving-toggle .st-text{font-size:13px;font-weight:700;color:var(--success)}
+.saving-toggle .st-sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+.budget-alert{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:16px;background:rgba(255,201,60,.12);border:1px solid rgba(255,201,60,.3);margin-bottom:14px;font-size:12.5px;line-height:1.5}
+.budget-alert i{color:var(--yellow);flex-shrink:0;width:22px;height:22px}
+
+#printArea{display:none}
+@media print{body>*{display:none!important}body>#printArea{display:block!important;color:#000;background:#fff}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header id="header"></header>
+  <main id="view"></main>
+</div>
+<nav id="nav" hidden aria-label="Navigation"><div class="nav-inner" id="navInner"></div></nav>
+<dialog id="modal" aria-labelledby="modalTitle"></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="printArea"></div>
+
+<script>
+(function(){
+"use strict";
+
+var APP="Nizwa Wallet";
+var ACCOUNT="98869593";
+var PASSWORD="123123";
+var PIN_CODE="1234";
+var HOLDER="AHMED HILAL ABDULLAH AL QARTOUBI";
+var ARABIC_NAME="أحمد بن هلال بن عبدالله القرطوبي";
+var OTP_CODE="123321";
+var OTP_PHONE="+968 9X XXX 593";
+var STORE="nizwa-wallet-v30";
+var OTP_DURATION=12000;
+var OTP_TIMER=45;
+var DAILY_LIMIT=5000000;
+
+var DEFAULT_DIRECTORY={
+  "96664887":"KHAL#######################DANI",
+  "94841402":"MUBA######SHID",
+  "7782076":"STAN#############UCHI",
+  "97028158":"HAJI#######OMAR",
+  "98884354":"MASO#########################AABI",
+  "7525109":"SULI###############WAJU"
+};
+
+var FX={
+  FR:{currency:"EUR",rate:0.42},
+  US:{currency:"USD",rate:0.385},
+  IN:{currency:"INR",rate:32.1},
+  AE:{currency:"AED",rate:3.67},
+  GB:{currency:"GBP",rate:0.30}
+};
+
+var words={
+  welcome:["Bienvenue","Welcome","مرحبًا"],
+  tagline:["Gérez votre argent en toute simplicité.","Manage your money with ease.","أدر أموالك بكل سهولة."],
+  signIn:["Se connecter","Sign in","تسجيل الدخول"],
+  account:["Numéro de compte","Account number","رقم الحساب"],
+  password:["Mot de passe","Password","كلمة المرور"],
+  pin:["Code PIN","PIN code","الرمز السري"],
+  show:["Afficher","Show","إظهار"],
+  faceId:["Face ID","Face ID","Face ID"],
+  home:["Accueil","Home","الرئيسية"],
+  transfers:["Transferts","Transfers","التحويلات"],
+  cards:["Cartes","Cards","البطاقات"],
+  profile:["Profil","Profile","الملف"],
+  hello:["Bonjour, Ahmed","Hello, Ahmed","مرحبًا أحمد"],
+  balance:["Solde","Balance","الرصيد"],
+  send:["Envoyer","Send","إرسال"],
+  request:["Demander","Request","طلب"],
+  topup:["Recharger","Top Up","شحن"],
+  more:["Plus","More","المزيد"],
+  international:["International","International","دولي"],
+  local:["Transfert local","Local transfer","تحويل محلي"],
+  bank:["Virement bancaire","Bank transfer","تحويل بنكي"],
+  addCard:["Ajouter une carte","Add Card","إضافة بطاقة"],
+  cardAdded:["Carte ajoutée.","Card added.","تمت إضافة البطاقة."],
+  cardLimitMax:["Maximum 3 cartes.","Maximum 3 cards.","الحد الأقصى 3 بطاقات."],
+  cardRemoved:["Carte supprimée.","Card removed.","تم حذف البطاقة."],
+  freeze:["Geler la carte","Freeze card","تجميد البطاقة"],
+  unfreeze:["Dégeler la carte","Unfreeze card","إلغاء التجميد"],
+  frozen:["Gelée","Frozen","مجمّدة"],
+  active:["Active","Active","نشطة"],
+  holder:["Titulaire","Holder","الاسم"],
+  expires:["Exp.","Exp.","الانتهاء"],
+  cardNumber:["Numéro de carte","Card number","رقم البطاقة"],
+  cardSettings:["Paramètres de la carte","Card settings","إعدادات البطاقة"],
+  cardDetails:["Détails de la carte","Card details","تفاصيل البطاقة"],
+  removeCard:["Supprimer la carte","Remove card","حذف البطاقة"],
+  removeCardConfirm:["Confirmer la suppression ?","Confirm removal?","تأكيد الحذف؟"],
+  onlinePayments:["Paiements en ligne","Online payments","المدفوعات الإلكترونية"],
+  contactless:["Sans contact","Contactless","الدفع اللاتلامسي"],
+  atmWithdrawal:["Retraits DAB","ATM withdrawals","السحب من الصراف"],
+  cardLimit:["Plafond de la carte","Card limit","سقف البطاقة"],
+  cardLimitDaily:["Plafond journalier","Daily limit","السقف اليومي"],
+  recent:["Activité récente","Recent activity","النشاط الأخير"],
+  viewAll:["Tout voir","View All","عرض الكل"],
+  all:["Tout","All","الكل"],
+  out:["Dépenses","Expenses","المصروفات"],
+  in:["Entrées","Income","الإيداعات"],
+  empty:["Aucune opération.","No transactions yet.","لا توجد عمليات."],
+  back:["Retour","Back","رجوع"],
+  recipient:["Bénéficiaire","Recipient","المستفيد"],
+  number:["Numéro omanais","Omani number","رقم عُماني"],
+  name:["Nom du bénéficiaire","Recipient name","اسم المستفيد"],
+  country:["Pays","Country","الدولة"],
+  bankName:["Banque","Bank","البنك"],
+  referenceAccount:["Référence de compte","Account reference","مرجع الحساب"],
+  next:["Continuer","Continue","متابعة"],
+  amount:["Montant","Amount","المبلغ"],
+  note:["Note","Note","ملاحظة"],
+  addNote:["Ajouter une note","Add a note","إضافة ملاحظة"],
+  save:["Enregistrer","Save","حفظ"],
+  cancel:["Annuler","Cancel","إلغاء"],
+  close:["Fermer","Close","إغلاق"],
+  review:["Vérifier","Review","مراجعة"],
+  confirm:["Confirmer le transfert","Confirm transfer","تأكيد التحويل"],
+  sender:["Expéditeur","Sender","المرسل"],
+  fees:["Frais","Fees","الرسوم"],
+  total:["Total","Total","الإجمالي"],
+  method:["Moyen","Method","الوسيلة"],
+  wallet:["Portefeuille","Wallet","المحفظة"],
+  type:["Type","Type","النوع"],
+  processing:["Traitement en cours","Processing","جارٍ المعالجة"],
+  success:["Transfert réussi","Transfer successful","تم التحويل بنجاح"],
+  otpTitle:["Vérification","Verification","التحقق"],
+  otpDesc:["Saisissez le code à 6 chiffres envoyé au","Enter the 6-digit code sent to","أدخل الرمز المكوّن من 6 أرقام المرسل إلى"],
+  otpResend:["Renvoyer le code dans","Resend code in","إعادة إرسال الرمز خلال"],
+  otpResendNow:["Renvoyer le code","Resend code","إعادة إرسال الرمز"],
+  otpConfirm:["Confirmer","Confirm","تأكيد"],
+  otpInvalid:["Code incorrect. Veuillez réessayer.","Incorrect code. Please try again.","الرمز غير صحيح. حاول مرة أخرى."],
+  otpSent:["Code envoyé à nouveau.","Code sent again.","تم إرسال الرمز مرة أخرى."],
+  topupDone:["Rechargement effectué.","Top-up completed.","تم الشحن."],
+  receipt:["Reçu de transaction","Transaction receipt","إيصال المعاملة"],
+  id:["Référence","Reference","المرجع"],
+  date:["Date et heure","Date & time","التاريخ والوقت"],
+  status:["Statut","Status","الحالة"],
+  destination:["Destination","Destination","الوجهة"],
+  estimated:["Réception estimée","Estimated receipt","المبلغ المتوقع"],
+  fx:["Taux appliqué","Applied rate","سعر الصرف المطبق"],
+  share:["Partager","Share","مشاركة"],
+  download:["Télécharger","Download","تنزيل"],
+  print:["Imprimer / PDF","Print / PDF","طباعة"],
+  copyRef:["Copier la référence","Copy reference","نسخ المرجع"],
+  copyInfo:["Copier les informations","Copy details","نسخ المعلومات"],
+  copied:["Copié.","Copied.","تم النسخ."],
+  language:["Langue","Language","اللغة"],
+  dark:["Sombre","Dark","داكن"],
+  light:["Clair","Light","فاتح"],
+  system:["Système","System","النظام"],
+  hideBalance:["Masquer le solde","Hide balance","إخفاء الرصيد"],
+  notifications:["Notifications","Notifications","الإشعارات"],
+  notificationsPrefs:["Préférences de notification","Notification preferences","إعدادات الإشعارات"],
+  notifTransactions:["Transactions","Transactions","المعاملات"],
+  notifPromos:["Offres et promotions","Offers & promos","العروض والترويجات"],
+  notifSecurity:["Alertes de sécurité","Security alerts","تنبيهات الأمان"],
+  markRead:["Tout marquer comme lu","Mark all as read","تحديد الكل كمقروء"],
+  logout:["Se déconnecter","Sign out","تسجيل الخروج"],
+  invalidLogin:["Identifiants incorrects.","Incorrect credentials.","بيانات الدخول غير صحيحة."],
+  invalidNumber:["Saisissez 7 ou 8 chiffres.","Enter 7 or 8 digits.","أدخل 7 أو 8 أرقام."],
+  required:["Complétez les champs demandés.","Complete the required fields.","أكمل الحقول المطلوبة."],
+  insufficient:["Solde insuffisant.","Insufficient balance.","الرصيد غير كافٍ."],
+  invalidAmount:["Montant invalide.","Invalid amount.","مبلغ غير صالح."],
+  cancelled:["Opération annulée.","Cancelled.","أُلغيت العملية."],
+  generate:["Générer la demande","Generate request","إنشاء الطلب"],
+  storage:["Sauvegarde indisponible.","Storage unavailable.","التخزين غير متاح."],
+  help:["Nizwa Wallet est une application de gestion de portefeuille électronique.","Nizwa Wallet is an electronic wallet management app.","محفظة نزوى تطبيق لإدارة المحفظة الإلكترونية."],
+  about:["À propos","About","حول"],
+  helpTitle:["Aide et support","Help & support","المساعدة والدعم"],
+  faq:["Questions fréquentes","FAQ","الأسئلة الشائعة"],
+  terms:["Conditions d'utilisation","Terms of use","شروط الاستخدام"],
+  privacyPolicy:["Politique de confidentialité","Privacy policy","سياسة الخصوصية"],
+  version:["Version","Version","الإصدار"],
+  security:["Sécurité","Security","الأمان"],
+  changePassword:["Changer le mot de passe","Change password","تغيير كلمة المرور"],
+  changePin:["Changer le PIN","Change PIN","تغيير الرمز السري"],
+  biometrics:["Biométrie","Biometrics","المقاييس الحيوية"],
+  twoFactor:["Authentification à deux facteurs","Two-factor authentication","التحقق بخطوتين"],
+  personalInfo:["Informations personnelles","Personal information","المعلومات الشخصية"],
+  email:["E-mail","Email","البريد الإلكتروني"],
+  phone:["Téléphone","Phone","الهاتف"],
+  address:["Adresse","Address","العنوان"],
+  edit:["Modifier","Edit","تعديل"],
+  saved:["Enregistré.","Saved.","تم الحفظ."],
+  scheduled:["Transferts programmés","Scheduled transfers","التحويلات المجدولة"],
+  noScheduled:["Aucun transfert programmé.","No scheduled transfers.","لا توجد تحويلات مجدولة."],
+  limits:["Plafonds","Limits","السقف"],
+  dailyLimit:["Plafond journalier","Daily limit","السقف اليومي"],
+  monthlyLimit:["Plafond mensuel","Monthly limit","السقف الشهري"],
+  usedToday:["Utilisé aujourd'hui","Used today","المستخدم اليوم"],
+  statements:["Relevés","Statements","الكشوف"],
+  downloadStatement:["Télécharger le relevé","Download statement","تنزيل الكشف"],
+  referral:["Parrainage","Referral","الإحالة"],
+  inviteFriend:["Inviter un ami","Invite a friend","دعوة صديق"],
+  theme:["Thème","Theme","النسق"],
+  liveChat:["Chat en direct","Live chat","المحادثة المباشرة"],
+  callUs:["Appeler","Call us","اتصل بنا"],
+  emailUs:["Envoyer un e-mail","Email us","راسلنا"],
+  rateApp:["Noter l'application","Rate app","قيّم التطبيق"],
+  shareApp:["Partager l'application","Share app","شارك التطبيق"],
+  fees2:["Tarifs","Fees","الرسوم"],
+  notificationsEmpty:["Vous êtes à jour !","You're all caught up!","أنت على اطلاع!"],
+  recentRecipients:["Destinataires récents","Recent recipients","المستلمون الأخيرون"],
+  accountInfo:["Informations du compte","Account info","معلومات الحساب"],
+  iban:["IBAN","IBAN","IBAN"],
+  swift:["SWIFT","SWIFT","SWIFT"],
+  branch:["Agence","Branch","الفرع"],
+  accountType:["Type de compte","Account type","نوع الحساب"],
+  accountTypeValue:["Compte courant","Current account","الحساب الجاري"],
+  FR:["France","France","فرنسا"],
+  US:["États-Unis","United States","الولايات المتحدة"],
+  IN:["Inde","India","الهند"],
+  AE:["Émirats arabes unis","UAE","الإمارات"],
+  GB:["Royaume-Uni","United Kingdom","المملكة المتحدة"],
+  aiTitle:["Nizwa AI","Nizwa AI","نزوى الذكي"],
+  aiGreeting:["Bonjour Ahmed ! Votre solde est confortable.","Hello Ahmed! Your balance looks healthy.","مرحبًا أحمد! رصيدك جيد."],
+  aiInsight:["💡 Vous avez dépensé {x} OMR ce mois-ci.","💡 You spent {x} OMR this month.","💡 أنفقت {x} ر.ع هذا الشهر."],
+  aiSavingOn:["Mode économie activé.","Saving mode on.","تم تفعيل وضع التوفير."],
+  savingMode:["Mode économie","Saving mode","وضع التوفير"],
+  savingModeSub:["Limiter les dépenses non essentielles","Limit non-essential spending","تقييد النفقات غير الضرورية"],
+  searchPlaceholder:["Rechercher une transaction...","Search transactions...","ابحث في المعاملات..."],
+  spendingChart:["Dépenses par mois","Monthly spending","المصروفات الشهرية"],
+  totalSpent:["Total dépensé","Total spent","إجمالي المنفق"],
+  aiChat:["Poser une question","Ask a question","اطرح سؤالاً"],
+  aiReply:["Je suis votre assistant Nizwa.","I'm your Nizwa assistant.","أنا مساعد نزوى."],
+  close2:["Fermer","Close","إغلاق"],
+  budgetAlert:["Attention : vous avez dépensé {x} OMR ce mois-ci.","Warning: you've spent {x} OMR this month.","تنبيه: أنفقت {x} ر.ع هذا الشهر."],
+  budgetDismiss:["Ignorer","Dismiss","تجاهل"],
+  directory:["Répertoire","Directory","دفتر الأرقام"],
+  directorySub:["Gérer les numéros enregistrés","Manage saved numbers","إدارة الأرقام المسجلة"],
+  addContact:["Ajouter un numéro","Add a number","إضافة رقم"],
+  contactName:["Nom","Name","الاسم"],
+  contactNumber:["Numéro","Number","الرقم"],
+  contactSaved:["Contact enregistré.","Contact saved.","تم حفظ الرقم."],
+  contactDeleted:["Contact supprimé.","Contact deleted.","تم حذف الرقم."],
+  contactExists:["Ce numéro existe déjà.","This number already exists.","هذا الرقم مسجل مسبقًا."],
+  deleteContactConfirm:["Confirmer la suppression ?","Confirm deletion?","تأكيد الحذف؟"],
+  directoryEmpty:["Aucun contact enregistré.","No contacts saved.","لا توجد أرقام مسجلة."],
+  verifiedRecipient:["Vérifié","Verified","موثّق"],
+  nizwaBadge:["NIZWA","NIZWA","نزوى"],
+  nizwaDirectory:["Répertoire Nizwa","Nizwa Directory","دفتر نزوى"],
+  deleteBeneficiary:["Supprimer","Delete","حذف"],
+  cvv:["CVV","CVV","CVV"]
+};
+
+function $(s){return document.querySelector(s);}
+function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s));}
+function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+
+var DEFAULT_STATE={
+  balanceBaisa:1250000,
+  hidden:false,
+  frozen:false,
+  lang:"fr",
+  theme:"dark",
+  transactions:[
+    {id:"TX001",at:Date.now()-86400000*2,name:"FARD AL BALUSHI",destination:"+968 91257747",kind:"Transfert local",note:"",amountBaisa:15000,dir:"in"},
+    {id:"TX002",at:Date.now()-86400000*5,name:"BASIM AL HINAI",destination:"+968 79323766",kind:"Transfert local",note:"",amountBaisa:7500,dir:"out"},
+    {id:"TX003",at:Date.now()-86400000*12,name:"JEAN DUPONT",destination:"France",kind:"International",note:"",amountBaisa:20000,dir:"out"},
+    {id:"TX004",at:Date.now()-86400000*20,name:"Rechargement",destination:"Portefeuille",kind:"Rechargement",note:"",amountBaisa:50000,dir:"in"}
+  ],
+  cards:[
+    {id:"c1",last4:"7216",exp:"05/27",type:"VISA",frozen:false,online:true,contactless:true,atm:true,dailyLimit:1000000},
+    {id:"c2",last4:"4364",exp:"12/29",type:"MASTERCARD",frozen:false,online:true,contactless:true,atm:true,dailyLimit:1000000}
+  ],
+  notifications:[
+    {id:"n1",title:"Bienvenue sur Nizwa Wallet",body:"Votre portefeuille est prêt.",at:Date.now()-86400000,read:false,kind:"info"},
+    {id:"n2",title:"Paiement reçu",body:"+ 150,000 OMR de FARD AL BALUSHI",at:Date.now()-3600000,read:false,kind:"in"},
+    {id:"n3",title:"Nouvelle carte",body:"Votre carte VISA est active.",at:Date.now()-600000,read:false,kind:"card"}
+  ],
+  notifPrefs:{transactions:true,promos:false,security:true},
+  biometrics:false,
+  twoFactor:true,
+  hideBalanceOnLaunch:false,
+  savingMode:false,
+  budgetAlertDismissed:false,
+  directory:{},
+  email:"ahmed.alqartoubi@example.com",
+  phone:"+968 98869593",
+  address:"Al Qurum, Muscat, Oman"
+};
+
+var state=JSON.parse(JSON.stringify(DEFAULT_STATE));
+for (var k in DEFAULT_DIRECTORY){ state.directory[k]=DEFAULT_DIRECTORY[k]; }
+
+try {
+  var stored=localStorage.getItem(STORE);
+  if (stored){
+    var s=JSON.parse(stored);
+    if (s && typeof s==="object"){
+      for (var key in s){
+        if (key==="directory" && s.directory && typeof s.directory==="object"){
+          for (var dk in s.directory){ state.directory[dk]=s.directory[dk]; }
+        } else if (key!=="directory"){
+          state[key]=s[key];
+        }
+      }
+    }
+  }
+} catch(e){}
+
+function t(key){
+  var arr=words[key];
+  if (!arr) return key;
+  var idx=state.lang==="fr"?0:state.lang==="en"?1:2;
+  return arr[idx];
+}
+function locale(){return state.lang==="fr"?"fr-FR":state.lang==="en"?"en-GB":"ar-OM";}
+function money(b){
+  var n=b/1000;
+  var parts=Math.abs(n).toFixed(3).split(".");
+  var intPart=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g," ");
+  return intPart+"."+parts[1];
+}
+function when(x){
+  var d=new Date(x);
+  var y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");
+  var h=String(d.getHours()).padStart(2,"0"),mn=String(d.getMinutes()).padStart(2,"0");
+  return y+"-"+m+"-"+day+" "+h+":"+mn;
+}
+function whenShort(x){
+  var d=new Date(x);
+  var m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");
+  var h=String(d.getHours()).padStart(2,"0"),mn=String(d.getMinutes()).padStart(2,"0");
+  return day+"/"+m+" "+h+":"+mn;
+}
+function monthKey(x){
+  var d=new Date(x);
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+}
+function lookupDirectory(input){
+  if (!input) return null;
+  var cleaned=String(input).replace(/\D/g,"");
+  if (!cleaned) return null;
+  if (state.directory[cleaned]) return {number:cleaned,name:state.directory[cleaned]};
+  if (cleaned.length===7 && state.directory["0"+cleaned]) return {number:"0"+cleaned,name:state.directory["0"+cleaned]};
+  if (cleaned.length===8 && cleaned.charAt(0)==="0" && state.directory[cleaned.slice(1)]) return {number:cleaned.slice(1),name:state.directory[cleaned.slice(1)]};
+  return null;
+}
+
+var logged=false;
+var page="login";
+var pageParam=null;
+var draft=null;
+var raw="";
+var filter="all";
+var searchQuery="";
+var receiptTx=null;
+var pending=null;
+var timer=null;
+var started=0;
+var toastTimer;
+var modalTx=null;
+var otpInput="";
+var otpError=false;
+var resendTimer=null;
+var resendCountdown=0;
+
+var view=$("#view");
+var modal=$("#modal");
+
+var paths={
+  home:'<path d="m3 10 9-7 9 7v10H3zM9 20v-7h6v7"/>',
+  send:'<path d="M6 18 18 6M8 6h10v10"/>',
+  receive:'<path d="M18 6 6 18M16 18H6V8"/>',
+  topup:'<rect x="3" y="6" width="18" height="12" rx="3"/><path d="M12 9v6M9 12h6"/>',
+  more:'<circle cx="6" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="18" cy="12" r="1.2"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  bank:'<path d="m2 8 10-5 10 5H2ZM4 21h16M5 11v7M12 11v7M19 11v7"/>',
+  back:'<path d="m15 5-7 7 7 7"/>',
+  eye:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12"/><circle cx="12" cy="12" r="3"/>',
+  eyeOff:'<path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a18.5 18.5 0 0 1 5.06-5.94M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22"/>',
+  check:'<path d="m5 12 4 4L19 6"/>',
+  bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/>',
+  card:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/>',
+  lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  unlock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.46-2"/>',
+  shield:'<path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/>',
+  smartphone:'<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M12 18h.01"/>',
+  chevron:'<path d="m9 6 6 6-6 6"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/>',
+  faceId:'<path d="M4 8V6a2 2 0 0 1 2-2h2M20 8V6a2 2 0 0 0-2-2h-2M4 16v2a2 2 0 0 0 2 2h2M20 16v2a2 2 0 0 1-2 2h-2"/><path d="M9 10v1M15 10v1M9 15s1 1 3 1 3-1 3-1"/>',
+  download:'<path d="M12 3v12m-5-5 5 5 5-5M5 21h14"/>',
+  share:'<path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v14"/>',
+  print:'<path d="M6 9V2h12v7M6 18H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2M6 14h12v8H6z"/>',
+  copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
+  sparkles:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/>',
+  wallet:'<path d="M3 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M16 12h3"/>',
+  trash:'<path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14M10 11v6M14 11v6"/>',
+  edit:'<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/>',
+  calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/>',
+  chart:'<path d="M3 3v18h18M7 15l4-4 4 3 5-6"/>',
+  gift:'<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13M12 8a3 3 0 1 0-3-3c0 1.5 1.5 3 3 3zM12 8a3 3 0 1 1 3-3c0 1.5-1.5 3-3 3z"/>',
+  mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  phone:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
+  pin:'<path d="M12 2a6 6 0 0 0-6 6c0 3 2 5 3 7l1 4h4l1-4c1-2 3-4 3-7a6 6 0 0 0-6-6z"/>',
+  file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>',
+  help:'<circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/>',
+  chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  star:'<path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>',
+  logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',
+  key:'<circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3"/>',
+  settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/>',
+  robot:'<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V5M8 3h8M9 14h.01M15 14h.01M9 17h6"/>',
+  alert:'<path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>',
+  contacts:'<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M8.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM20 8v6M23 11h-6"/>'
+};
+function icon(n){
+  var p=paths[n]||paths.send;
+  return '<svg viewBox="0 0 24 24" aria-hidden="true">'+p+'</svg>';
+}
+
+function back(p,title){
+  return '<div class="back"><button class="icon" data-page="'+p+'" aria-label="'+esc(t("back"))+'">'+icon("back")+'</button>'+(title?'<span class="title">'+esc(title)+'</span>':'')+'<span style="width:42px"></span></div>';
+}
+function detail(k,v){
+  return '<div class="detail"><dt>'+esc(t(k))+'</dt><dd>'+esc(v)+'</dd></div>';
+}
+function rows(l){
+  var out="";
+  for (var i=0;i<l.length;i++){ out+=detail(l[i][0],l[i][1]); }
+  return '<dl class="details">'+out+'</dl>';
+}
+function field(k,id,v,x){
+  v=v||"";x=x||"";
+  return '<label class="field"><span>'+esc(t(k))+'</span><input id="'+id+'" value="'+esc(v)+'" '+x+'></label>';
+}
+function formError(){return '<p id="formError" class="error" role="alert"></p>';}
+function menuItem(label,opts){
+  opts=opts||{};
+  return '<button type="button" class="menu-item" '+(opts.action?'data-action="'+opts.action+'"':'')+' '+(opts.page?'data-page="'+opts.page+'"':'')+' '+(opts.param?'data-param="'+esc(opts.param)+'"':'')+'>'+(opts.icon?'<i>'+icon(opts.icon)+'</i>':'')+'<span class="mi-text">'+esc(label)+(opts.sub?'<small>'+esc(opts.sub)+'</small>':'')+'</span><span class="chev">'+icon("chevron")+'</span></button>';
+}
+
+function error(m){
+  var e=$("#formError");
+  if (e) e.textContent=m;
+  else toast(m);
+}
+function toast(m){
+  clearTimeout(toastTimer);
+  var el=$("#toast");
+  if (!el) return;
+  el.textContent=m;
+  el.classList.add("show");
+  toastTimer=setTimeout(function(){el.classList.remove("show");},3000);
+}
+function save(){
+  try { localStorage.setItem(STORE,JSON.stringify(state)); }
+  catch(e){ toast(t("storage")); }
+}
+function applyAppearance(){
+  document.documentElement.lang=state.lang;
+  document.documentElement.dir=state.lang==="ar"?"rtl":"ltr";
+  var th=state.theme;
+  if (th==="system"){
+    th=(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";
+  }
+  document.documentElement.dataset.theme=th;
+}
+function bankNizwaLogo(){return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V5l7 9 7-9v14"/></svg>';}
+
+function navigate(p,param){
+  if (!logged) p="login";
+  if ((p==="recipient"||p==="amount"||p==="review"||p==="otp") && !draft) p="transfers";
+  page=p;
+  pageParam=param||null;
+  render();
+  window.scrollTo(0,0);
+}
+
+function render(){
+  applyAppearance();
+  var unread=0;
+  for (var i=0;i<state.notifications.length;i++){ if (!state.notifications[i].read) unread++; }
+  var headerEl=$("#header");
+  if (headerEl){
+    if (logged){
+      headerEl.innerHTML='<div class="brand"><span class="logo">'+bankNizwaLogo()+'</span>Nizwa Wallet</div><div class="right"><span class="omr-badge"><span class="dot"></span>OMR</span><button class="icon" data-page="notifications" aria-label="Notifications">'+icon("bell")+(unread>0?'<span class="badge-dot"></span>':'')+'</button><button class="icon avatar" data-page="profile" aria-label="Profil">A</button></div>';
+    } else {
+      headerEl.innerHTML='<div class="brand"><span class="logo">'+bankNizwaLogo()+'</span>Nizwa Wallet</div>';
+    }
+  }
+  var navEl=$("#nav");
+  if (navEl) navEl.hidden=!logged || ["home","transfers","cards","profile"].indexOf(page)===-1;
+  var navInner=$("#navInner");
+  if (navInner){
+    var tabs=[["home","home","Accueil"],["transfers","send","Transferts"],["cards","card","Cartes"],["profile","user","Profil"]];
+    var out="";
+    for (var j=0;j<tabs.length;j++){
+      var tb=tabs[j];
+      out+='<button data-page="'+tb[0]+'" class="'+(page===tb[0]?"active":"")+'" aria-label="'+tb[2]+'">'+icon(tb[1])+'<span>'+tb[2]+'</span></button>';
+    }
+    navInner.innerHTML=out;
+  }
+  var pages={
+    login:login,home:home,transfers:transfers,recipient:recipient,amount:amount,review:review,otp:otp,processing:processing,success:success,
+    history:history,cards:cards,cardDetail:cardDetail,cardSettings:cardSettings,profile:profile,notifications:notifications,
+    scheduled:scheduled,limits:limits,statements:statements,accountInfo:accountInfo,
+    security:security,changePassword:changePassword,changePin:changePin,personalInfo:personalInfo,editInfo:editInfo,
+    help:help,faq:faq,terms:terms,about:about,referral:referral,fees:fees,directory:directory,contactForm:contactForm
+  };
+  var fn=pages[page]||home;
+  if (view) view.innerHTML=fn();
+  if (page==="amount") updateAmount();
+  if (page==="processing") updateProgress();
+  if (page==="otp" && !resendTimer) startResendTimer();
+  updateAi();
+}
+
+function monthlySpent(){
+  var k=monthKey(Date.now());
+  var total=0;
+  for (var i=0;i<state.transactions.length;i++){
+    var x=state.transactions[i];
+    if (x.dir==="out" && monthKey(x.at)===k) total+=x.amountBaisa;
+  }
+  return total;
+}
+function updateAi(){
+  var el=$("#aiText");
+  if (!el) return;
+  var spent=monthlySpent();
+  if (state.savingMode) el.innerHTML=t("aiSavingOn");
+  else if (spent>30000) el.innerHTML=t("aiInsight").replace("{x}",money(spent));
+  else el.innerHTML=t("aiGreeting");
+}
+function toggleSavingMode(){
+  state.savingMode=!state.savingMode;
+  save();
+  toast(state.savingMode?t("aiSavingOn"):t("close2"));
+  render();
+}
+function toggleBalance(){
+  state.hidden=!state.hidden;
+  save();
+  render();
+}
+
+function login(){
+  return '<div style="padding-top:18px"><div class="card"><div style="text-align:center;margin-bottom:18px"><div class="otp-shield" style="width:64px;height:64px;margin-bottom:10px">'+bankNizwaLogo()+'</div><h1 style="margin-bottom:4px">'+esc(t("welcome"))+'</h1><p class="muted" style="margin:0">'+esc(t("tagline"))+'</p></div><form id="loginForm">'+field("account","loginAccount",ACCOUNT,'autocomplete="username" inputmode="numeric" required')+'<label class="field"><span>'+esc(t("password"))+'</span><div class="input-row"><input id="loginPassword" type="password" autocomplete="current-password" value="'+PASSWORD+'" required><button type="button" class="icon" id="pwToggle" data-action="password" aria-label="'+esc(t("show"))+'">'+icon("eye")+'</button></div></label><button class="btn primary" type="submit">'+esc(t("signIn"))+'</button>'+formError()+'</form><div style="margin-top:12px;text-align:center"><button type="button" class="btn ghost" data-action="faceId">'+icon("faceId")+' Face ID</button></div></div></div>';
+}
+
+function home(){
+  var c=state.cards[0];
+  var cFrozen=c && (c.frozen||state.frozen);
+  var spent=monthlySpent();
+  var nearLimit=spent>40000 && !state.budgetAlertDismissed;
+  return '<div class="hello"><h1>'+esc(t("hello"))+'</h1><p class="muted">'+esc(t("tagline"))+'</p></div>'+
+  (nearLimit?'<div class="budget-alert"><i>'+icon("alert")+'</i><div style="flex:1"><b>'+esc(t("budgetAlert").replace("{x}",money(spent)))+'</b></div><button type="button" class="link" style="min-height:auto;padding:2px 4px;font-size:11.5px" data-action="dismissBudget">'+esc(t("budgetDismiss"))+'</button></div>':'')+
+  '<div class="main-account"><div class="ma-head"><div class="ma-label-wrap"><span class="ma-label">'+esc(t("account"))+'</span><span class="ma-num">•••• '+ACCOUNT.slice(-4)+'</span></div><button type="button" class="ma-eye" data-action="toggleBalance" aria-label="'+esc(t("hideBalance"))+'">'+icon(state.hidden?"eyeOff":"eye")+'</button></div><div class="ma-balance-wrap"><div class="ma-balance-label">'+esc(t("balance"))+'</div><div class="ma-balance"><bdi>'+(state.hidden?"•••••••":money(state.balanceBaisa))+'</bdi><small>OMR</small></div></div><div class="ma-foot"><div class="ma-holder"><span class="ma-holder-label">'+esc(t("holder"))+'</span><span class="ma-holder-name">'+HOLDER+'</span></div><div class="ma-chip">'+icon("wallet")+'</div></div></div>'+
+  '<button type="button" class="card-trigger" data-page="cards"><i>'+icon("card")+'</i><span>'+esc(t("cards"))+'</span><span class="ct-badge">'+state.cards.length+'</span><span class="chev">'+icon("chevron")+'</span></button>'+
+  '<div class="card-preview'+(cFrozen?" frozen":"")+'" data-page="cardDetail" data-param="'+(c?esc(c.id):"")+'"><div class="cp-top"><span class="cp-type">'+(c?esc(c.type):"VISA")+'</span><span class="cp-num">•••• '+(c?esc(c.last4):"----")+'</span></div><div class="cp-bot"><span>'+esc(t("expires"))+' '+(c?esc(c.exp):"--/--")+'</span><span>'+esc(t("holder"))+' · '+HOLDER.split(" ")[0]+'</span></div></div>'+
+  '<div class="ai-card"><div class="ai-avatar">'+icon("robot")+'</div><div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:800;color:var(--violet-light);margin-bottom:3px">'+esc(t("aiTitle"))+'</div><div class="ai-text" id="aiText">'+esc(t("aiGreeting"))+'</div><button class="link" style="min-height:28px;padding:2px 0;font-size:11.5px" data-action="aiChat">'+esc(t("aiChat"))+'</button></div></div>'+
+  '<div class="card quick"><button data-action="transfers" '+(cFrozen?"disabled":"")+'><i>'+icon("send")+'</i>'+esc(t("send"))+'</button><button data-action="request"><i>'+icon("receive")+'</i>'+esc(t("request"))+'</button><button data-action="topup" '+(cFrozen?"disabled":"")+'><i>'+icon("topup")+'</i>'+esc(t("topup"))+'</button><button data-page="transfers"><i>'+icon("more")+'</i>'+esc(t("more"))+'</button></div>'+
+  '<div class="saving-toggle"><div><div class="st-text">'+esc(t("savingMode"))+'</div><div class="st-sub">'+esc(t("savingModeSub"))+'</div></div><button type="button" class="switch" role="switch" aria-checked="'+state.savingMode+'" data-action="toggleSaving"></button></div>'+
+  '<div class="card"><div class="section"><h2>'+esc(t("recent"))+'</h2><button class="link" data-page="history">'+esc(t("viewAll"))+'</button></div>'+txList(state.transactions.slice(0,4))+'</div>'+
+  '<div class="card"><div class="section"><h2>'+esc(t("spendingChart"))+'</h2><span class="muted" style="font-size:12px">'+esc(t("totalSpent"))+': '+money(spent)+' OMR</span></div>'+chartHTML()+'</div>'+
+  '<p lang="ar" dir="rtl" class="caption">'+ARABIC_NAME+'</p>';
+}
+
+function chartHTML(){
+  var months=[];
+  var now=new Date();
+  for (var i=5;i>=0;i--){
+    var d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    var k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+    var label=["Jan","Fév","Mar","Avr","Mai","Juin","Juil","Août","Sep","Oct","Nov","Déc"][d.getMonth()];
+    var spent=0;
+    for (var j=0;j<state.transactions.length;j++){
+      var x=state.transactions[j];
+      if (x.dir==="out" && monthKey(x.at)===k) spent+=x.amountBaisa;
+    }
+    months.push({label:label,spent:spent});
+  }
+  var max=1;
+  for (var m=0;m<months.length;m++){ if (months[m].spent>max) max=months[m].spent; }
+  var out='<div class="chart-bars">';
+  for (var n=0;n<months.length;n++){
+    var mm=months[n];
+    var h=Math.max(4,(mm.spent/max)*80);
+    out+='<div class="chart-bar"><div class="bar" style="height:'+h+'px"></div><small>'+esc(mm.label)+'</small></div>';
+  }
+  out+='</div>';
+  return out;
+}
+
+function transfers(){
+  var lock=state.frozen?"disabled":"";
+  return '<h1>'+esc(t("transfers"))+'</h1><div class="grid">'+
+    '<button class="tile" data-action="start" data-kind="local" '+lock+'><i>'+icon("send")+'</i><strong>'+esc(t("local"))+'</strong></button>'+
+    '<button class="tile" data-action="start" data-kind="international" '+lock+'><i>'+icon("globe")+'</i><strong>'+esc(t("international"))+'</strong></button>'+
+    '<button class="tile" data-action="start" data-kind="bank" '+lock+'><i>'+icon("bank")+'</i><strong>'+esc(t("bank"))+'</strong></button>'+
+    '<button class="tile" data-action="request"><i>'+icon("receive")+'</i><strong>'+esc(t("request"))+'</strong></button>'+
+    '<button class="tile" data-action="topup" '+lock+'><i>'+icon("topup")+'</i><strong>'+esc(t("topup"))+'</strong></button>'+
+    '<button class="tile" data-action="addCard"><i>'+icon("card")+'</i><strong>'+esc(t("addCard"))+'</strong></button>'+
+    '</div>'+
+    '<div class="card menu-list">'+
+    menuItem(t("scheduled"),{icon:"calendar",page:"scheduled",sub:t("noScheduled")})+
+    menuItem(t("limits"),{icon:"chart",page:"limits",sub:money(DAILY_LIMIT)+" OMR"})+
+    '</div>';
+}
+
+function startTransfer(k){
+  if (["local","international","bank"].indexOf(k)===-1) return;
+  draft={kind:k,name:"",number:"",bank:"",country:"FR",note:"",amountBaisa:0};
+  raw="";
+  navigate("recipient");
+}
+
+function recipient(){
+  var local=draft.kind==="local";
+  return back("transfers",t(draft.kind))+
+  '<form id="recipientForm">'+
+  (local
+    ? '<label class="field"><span>'+esc(t("number"))+'</span><input id="number" inputmode="tel" maxlength="24" value="'+esc(draft.number)+'" placeholder="+968" required autocomplete="off"><div id="recipientMatch"></div></label>'
+    : field("name","name",draft.name,'maxlength="60" required'))+
+  (draft.kind==="international"?'<label class="field"><span>'+esc(t("country"))+'</span><select id="country">'+Object.keys(FX).map(function(c){return '<option value="'+c+'"'+(draft.country===c?" selected":"")+'>'+esc(t(c))+' · '+FX[c].currency+'</option>';}).join("")+'</select></label>':"")+
+  (draft.kind==="bank"?field("bankName","bank",draft.bank,'maxlength="60" required')+field("referenceAccount","reference",draft.number,'maxlength="40" required'):"")+
+  formError()+
+  '<button type="submit" class="btn primary">'+esc(t("next"))+'</button>'+
+  '</form>';
+}
+
+function recipientCardHTML(match){
+  if (!match) return "";
+  var initial=(match.name.replace(/[^A-Za-z\u0600-\u06FF]/g,"").charAt(0)||"?").toUpperCase();
+  return '<div class="nizwa-recipient"><div class="nz-avatar">'+esc(initial)+'</div><div class="nz-body"><div class="nz-name">'+esc(match.name)+'</div><div class="nz-number">+968 '+esc(match.number)+'</div><div class="nz-verified">'+icon("check")+' '+esc(t("verifiedRecipient"))+'</div></div></div>';
+}
+
+function normalizedPhone(v){
+  var s=String(v).replace(/[٠-٩]/g,function(c){return String(c.charCodeAt(0)-1632);}).replace(/[۰-۹]/g,function(c){return String(c.charCodeAt(0)-1776);}).replace(/[\s()-]/g,"");
+  if (s.indexOf("+968")===0) s=s.slice(4);
+  else if (s.indexOf("00968")===0) s=s.slice(5);
+  else if (/^968\d{7,8}$/.test(s)) s=s.slice(3);
+  return s;
+}
+function parseAmount(v){
+  var s=String(v).trim().replace(",",".");
+  if (!/^\d{1,7}(?:\.\d{0,3})?$/.test(s)) return null;
+  var parts=s.split(".");
+  var w=parts[0],f=parts[1]||"";
+  while (f.length<3) f+="0";
+  var b=Number(w)*1000+Number(f);
+  return isFinite(b)?b:null;
+}
+function destination(d){
+  if (!d) return "";
+  if (d.kind==="local") return "+968 "+d.number;
+  if (d.kind==="international") return t(d.country);
+  if (d.kind==="topup") return t("wallet");
+  return d.number||d.bank||"";
+}
+
+function amount(){
+  return back("recipient",draft.name||t("amount"))+
+  '<div class="center">'+
+  '<small>'+esc(t("wallet"))+' · '+ACCOUNT+'</small>'+
+  '<h2 style="margin-top:18px"><bdi>'+esc(draft.name||"—")+'</bdi></h2>'+
+  '<p class="muted"><bdi>'+esc(destination(draft))+'</bdi></p>'+
+  '<div class="amount"><bdi id="amountValue">0</bdi> <small>OMR</small></div>'+
+  '<small>'+esc(t("balance"))+' : '+(state.hidden?"••••••":money(state.balanceBaisa))+' OMR</small>'+
+  '<p><button class="link" data-action="note">'+esc(draft.note||t("addNote"))+'</button></p>'+
+  '</div>'+
+  '<div id="quote"></div>'+
+  '<div class="keypad">'+
+  ["1","2","3","4","5","6","7","8","9",".","0","⌫"].map(function(k){return '<button type="button" class="key" data-key="'+k+'" aria-label="'+k+'">'+k+'</button>';}).join("")+
+  '</div>'+formError()+
+  '<button class="btn primary" data-action="review">'+esc(t("next"))+'</button>';
+}
+
+function pressKey(k){
+  if (k==="⌫") raw=raw.slice(0,-1);
+  else if (k==="."){ if (raw.indexOf(".")>=0) return; raw=(raw||"0")+"."; }
+  else {
+    var parts=raw.split(".");
+    if (parts[1] && parts[1].length>=3) return;
+    if (raw==="0") raw=k; else raw+=k;
+    if (raw.replace(".","").length>10) raw=raw.slice(0,-1);
+  }
+  updateAmount();
+}
+function updateAmount(){
+  var el=$("#amountValue");
+  if (el) el.textContent=raw===""?"0":raw;
+  var q=$("#quote");
+  if (!q||!draft) return;
+  var b=parseAmount(raw)||0;
+  var lines=[["amount",money(b)+" OMR"],["fees",money(0)+" OMR"],["total",money(b)+" OMR"]];
+  if (draft.kind==="international"){
+    var fx=FX[draft.country];
+    var est=(b/1000*fx.rate).toFixed(2);
+    lines.splice(1,0,["estimated",est+" "+fx.currency]);
+    lines.push(["fx",t("fx")]);
+  }
+  q.innerHTML='<div class="card">'+rows(lines)+'</div>';
+}
+
+function review(){
+  var b=parseAmount(raw)||0;
+  return back("amount",t("review"))+
+  '<div class="card">'+
+  rows([
+    ["recipient",draft.name||"—"],
+    ["destination",destination(draft)],
+    ["sender",ACCOUNT],
+    ["amount",money(b)+" OMR"],
+    ["fees",money(0)+" OMR"],
+    ["total",money(b)+" OMR"],
+    ["method",t("wallet")],
+    ["type",t(draft.kind)]
+  ].concat(draft.note?[["note",draft.note]]:[]))+
+  '</div>'+
+  '<button class="btn primary" data-action="confirm">'+esc(t("confirm"))+'</button>'+
+  '<p style="height:10px"></p>'+
+  '<button class="btn ghost" data-page="amount">'+esc(t("back"))+'</button>';
+}
+
+function otp(){
+  var boxes="";
+  for (var i=0;i<6;i++){
+    var filled=otpInput[i]||"";
+    var active=i===otpInput.length && !otpError;
+    var cls="otp-box"+(filled?" filled":"")+(active?" active":"")+(otpError?" error":"");
+    boxes+='<div class="'+cls+'">'+filled+'</div>';
+  }
+  return '<div class="back"><button class="icon" data-action="cancelOtp" aria-label="'+esc(t("back"))+'">'+icon("back")+'</button></div>'+
+  '<div class="card" style="text-align:center">'+
+  '<div class="otp-shield">'+icon("shield")+'</div>'+
+  '<h1 style="margin-bottom:8px">'+esc(t("otpTitle"))+'</h1>'+
+  '<p class="muted" style="margin-bottom:16px">'+esc(t("otpDesc"))+'</p>'+
+  '<div class="otp-phone">'+icon("smartphone")+' '+OTP_PHONE+'</div>'+
+  '<div class="otp-boxes">'+boxes+'</div>'+
+  (otpError?'<p class="error center" style="margin-top:4px">'+esc(t("otpInvalid"))+'</p>':'<p class="error center" style="margin-top:4px"></p>')+
+  '<p class="resend" id="resendLine">'+(resendCountdown>0?esc(t("otpResend"))+' <b>00:'+String(resendCountdown).padStart(2,"0")+'</b>':'<button class="link" data-action="resendOtp" style="min-height:auto">'+esc(t("otpResendNow"))+'</button>')+'</p>'+
+  '</div>'+
+  '<div class="keypad">'+
+  ["1","2","3","4","5","6","7","8","9","","0","⌫"].map(function(k){
+    if (k==="") return '<button type="button" class="key" disabled style="opacity:0"></button>';
+    return '<button type="button" class="key" data-otpkey="'+k+'" aria-label="'+k+'">'+k+'</button>';
+  }).join("")+
+  '</div>'+
+  '<button class="btn primary" data-action="submitOtp" '+(otpInput.length!==6?"disabled":"")+'>'+esc(t("otpConfirm"))+'</button>';
+}
+
+function pressOtp(k){
+  if (otpError){ otpInput=""; otpError=false; }
+  if (k==="⌫") otpInput=otpInput.slice(0,-1);
+  else if (/^\d$/.test(k)){ if (otpInput.length<6) otpInput+=k; }
+  if (otpInput.length===6){
+    var captured=otpInput;
+    render();
+    setTimeout(function(){
+      if (otpInput!==captured) return;
+      if (captured===OTP_CODE) startProcessing();
+      else {
+        otpError=true;
+        render();
+        setTimeout(function(){ otpInput=""; otpError=false; render(); },900);
+      }
+    },180);
+  } else render();
+}
+
+function startResendTimer(){
+  clearInterval(resendTimer);
+  resendCountdown=OTP_TIMER;
+  resendTimer=setInterval(function(){
+    if (page!=="otp"){ clearInterval(resendTimer); resendTimer=null; return; }
+    resendCountdown=Math.max(0,resendCountdown-1);
+    var line=$("#resendLine");
+    if (line){
+      line.innerHTML=resendCountdown>0?(esc(t("otpResend"))+' <b>00:'+String(resendCountdown).padStart(2,"0")+'</b>'):'<button class="link" data-action="resendOtp" style="min-height:auto">'+esc(t("otpResendNow"))+'</button>';
+    }
+    if (resendCountdown<=0){ clearInterval(resendTimer); resendTimer=null; }
+  },1000);
+}
+
+function processing(){
+  return '<div class="process"><div class="reactor-wrap"><div class="reactor"><div class="reactor-core"></div></div></div><h2 class="process-title">'+esc(t("processing"))+'</h2><button class="btn ghost process-cancel" id="cancelProcessBtn" data-action="cancelProcess">'+esc(t("cancel"))+'</button></div>';
+}
+function updateProgress(){
+  if (!pending) return;
+  var elapsed=Date.now()-started;
+  var linear=Math.min(1,elapsed/OTP_DURATION);
+  var cancelBtn=$("#cancelProcessBtn");
+  if (cancelBtn){
+    if (linear>0.55){
+      cancelBtn.style.opacity="0";
+      cancelBtn.style.pointerEvents="none";
+    } else {
+      cancelBtn.style.opacity="1";
+      cancelBtn.style.pointerEvents="auto";
+    }
+  }
+}
+
+function startProcessing(){
+  var b=parseAmount(raw);
+  if (!b||b<=0){ toast(t("invalidAmount")); navigate("amount"); return; }
+  if (b>state.balanceBaisa){ toast(t("insufficient")); navigate("amount"); return; }
+  pending={amountBaisa:b};
+  started=Date.now();
+  clearInterval(timer);
+  timer=setInterval(function(){
+    updateProgress();
+    if (Date.now()-started>=OTP_DURATION){ clearInterval(timer); timer=null; finishProcessing(); }
+  },150);
+  navigate("processing");
+}
+function cancelProcessing(){
+  if (timer){ clearInterval(timer); timer=null; }
+  pending=null; raw=""; otpInput="";
+  if (resendTimer){ clearInterval(resendTimer); resendTimer=null; }
+  toast(t("cancelled"));
+  navigate("home");
+}
+function finishProcessing(){
+  if (!pending||!draft) return;
+  var b=pending.amountBaisa;
+  var tx={
+    id:"NW"+Date.now().toString(36).toUpperCase()+Math.floor(Math.random()*900+100),
+    at:Date.now(),
+    name:draft.name||t("wallet"),
+    destination:destination(draft),
+    kind:t(draft.kind),
+    note:draft.note||"",
+    amountBaisa:b,
+    dir:"out"
+  };
+  state.transactions.unshift(tx);
+  state.balanceBaisa-=b;
+  state.notifications.unshift({
+    id:"n"+Date.now(),
+    title:t("success"),
+    body:money(b)+" OMR · "+tx.name,
+    at:Date.now(),
+    read:false,
+    kind:"out"
+  });
+  save();
+  receiptTx=tx; pending=null; draft=null; raw=""; otpInput="";
+  if (resendTimer){ clearInterval(resendTimer); resendTimer=null; }
+  navigate("success");
+}
+
+function success(){
+  var x=receiptTx;
+  if (!x) return home();
+  return '<div class="center"><div class="check">'+icon("check")+'</div><h1>'+esc(t("success"))+'</h1></div>'+
+  '<div class="card receipt">'+
+  '<div class="bank-logo"><div class="emblem">'+bankNizwaLogo()+'</div><div class="name">Bank Nizwa</div><div class="sub">'+esc(t("receipt"))+'</div></div>'+
+  rows([
+    ["status",t("success")],
+    ["amount",money(x.amountBaisa)+" OMR"],
+    ["recipient",x.name],
+    ["destination",x.destination],
+    ["sender",ACCOUNT],
+    ["date",when(x.at)],
+    ["id",x.id]
+  ].concat(x.note?[["note",x.note]]:[]))+
+  '</div>'+
+  '<button class="btn primary" data-action="share">'+icon("share")+' '+esc(t("share"))+'</button>'+
+  '<p style="height:10px"></p>'+
+  '<div class="grid"><button class="btn" data-action="print">'+icon("print")+' '+esc(t("print"))+'</button><button class="btn" data-action="download">'+icon("download")+' '+esc(t("download"))+'</button></div>'+
+  '<p style="height:10px"></p>'+
+  '<button class="btn" data-action="copyInfo">'+icon("copy")+' '+esc(t("copyInfo"))+'</button>'+
+  '<p style="height:10px"></p>'+
+  '<button class="btn ghost" data-page="home">'+esc(t("home"))+'</button>';
+}
+
+function history(){
+  var list=state.transactions.filter(function(x){ return filter==="all"||x.dir===filter; });
+  if (searchQuery){
+    var q=searchQuery.toLowerCase();
+    list=list.filter(function(x){
+      return (x.name||"").toLowerCase().indexOf(q)>=0 || (x.destination||"").toLowerCase().indexOf(q)>=0;
+    });
+  }
+  return '<h1>'+esc(t("history"))+'</h1>'+
+  '<div class="search-bar">'+icon("search")+'<input id="txSearch" type="search" placeholder="'+esc(t("searchPlaceholder"))+'" value="'+esc(searchQuery)+'"></div>'+
+  '<div class="filters">'+
+  [["all","all"],["in","in"],["out","out"]].map(function(p){return '<button type="button" class="filter '+(filter===p[0]?"active":"")+'" data-filter="'+p[0]+'">'+esc(t(p[1]))+'</button>';}).join("")+
+  '</div>'+
+  '<div class="card">'+txList(list)+'</div>';
+}
+
+function txList(list){
+  if (!list.length) return '<p class="muted center" style="padding:20px 0">'+esc(t("empty"))+'</p>';
+  return list.map(function(x){
+    return '<button type="button" class="tx" data-ref="'+esc(x.id)+'"><i>'+icon(x.dir==="in"?"receive":"send")+'</i><span><strong>'+esc(x.name)+'</strong><small>'+esc(whenShort(x.at))+' · '+esc(x.kind||"")+'</small></span><b class="'+(x.dir==="in"?"in":"")+'">'+(x.dir==="in"?"+":"−")+money(x.amountBaisa)+'</b></button>';
+  }).join("");
+}
+
+function cards(){
+  return '<h1>'+esc(t("cards"))+'</h1>'+
+  state.cards.map(function(c){
+    var frozen=c.frozen||state.frozen;
+    return '<div class="card" data-page="cardDetail" data-param="'+esc(c.id)+'" style="cursor:pointer;padding:18px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><strong style="font-size:14.5px">'+esc(c.type)+'</strong>'+(frozen?'<span style="background:var(--field);color:var(--violet);padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700">'+icon("lock")+' '+esc(t("frozen"))+'</span>':'<span style="background:var(--field);color:var(--violet);padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700">'+esc(t("active"))+'</span>')+'</div><div style="font:600 14px ui-monospace,monospace;letter-spacing:2px;direction:ltr;margin-bottom:10px">•••• •••• •••• '+esc(c.last4)+'</div><div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted)"><span>'+esc(t("holder"))+' · '+HOLDER.split(" ")[0]+'</span><span>'+esc(t("expires"))+' '+esc(c.exp)+'</span></div></div>';
+  }).join("")+
+  '<button class="btn" data-action="addCard">'+icon("plus")+' '+esc(t("addCard"))+'</button>'+
+  '<div class="card menu-list" style="margin-top:14px">'+
+  menuItem(t("cardSettings"),{icon:"settings",page:"cardSettings",param:state.cards[0]?state.cards[0].id:"",sub:state.cards[0]?(state.cards[0].type+" •••• "+state.cards[0].last4):""})+
+  menuItem(t("limits"),{icon:"chart",page:"limits"})+
+  '</div>';
+}
+
+function cardDetail(){
+  var c=null;
+  for (var i=0;i<state.cards.length;i++){ if (state.cards[i].id===pageParam) c=state.cards[i]; }
+  if (!c) c=state.cards[0];
+  if (!c) return cards();
+  var isFrozen=c.frozen||state.frozen;
+  return back("cards",c.type+" •••• "+c.last4)+
+  '<div class="card-preview'+(isFrozen?" frozen":"")+'" style="margin-bottom:14px"><div class="cp-top"><span class="cp-type">'+esc(c.type)+'</span><span class="cp-num">•••• '+esc(c.last4)+'</span></div><div class="cp-bot"><span>'+esc(t("expires"))+' '+esc(c.exp)+'</span><span>'+esc(t("holder"))+' · '+HOLDER.split(" ").slice(0,2).join(" ")+'</span></div></div>'+
+  '<div class="card menu-list">'+
+  menuItem(t("cardDetails"),{icon:"info",action:"cardFullDetails",param:c.id})+
+  menuItem(t("cardSettings"),{icon:"settings",page:"cardSettings",param:c.id})+
+  menuItem(isFrozen?t("unfreeze"):t("freeze"),{icon:isFrozen?"unlock":"lock",action:"toggleCardFreeze",param:c.id})+
+  menuItem(t("cardLimit"),{icon:"chart",action:"cardLimit",param:c.id,sub:money(c.dailyLimit)+" OMR"})+
+  '</div>'+
+  '<button class="btn danger" data-action="removeCard" data-param="'+esc(c.id)+'">'+icon("trash")+' '+esc(t("removeCard"))+'</button>';
+}
+
+function cardSettings(){
+  var c=null;
+  for (var i=0;i<state.cards.length;i++){ if (state.cards[i].id===pageParam) c=state.cards[i]; }
+  if (!c) c=state.cards[0];
+  if (!c) return cards();
+  return back("cardDetail",t("cardSettings"))+
+  '<div class="card"><div style="display:flex;align-items:center;gap:12px;margin-bottom:8px"><i style="width:40px;height:40px;border-radius:13px;background:var(--field);color:var(--violet);display:flex;align-items:center;justify-content:center">'+icon("card")+'</i><div><strong>'+esc(c.type)+'</strong><div class="muted" style="font-size:11.5px">•••• '+esc(c.last4)+'</div></div></div></div>'+
+  '<div class="card">'+
+  '<div class="setting"><span>'+esc(t("onlinePayments"))+'</span><button type="button" class="switch" role="switch" aria-checked="'+c.online+'" data-toggle="card_online" data-card="'+esc(c.id)+'"></button></div>'+
+  '<div class="setting"><span>'+esc(t("contactless"))+'</span><button type="button" class="switch" role="switch" aria-checked="'+c.contactless+'" data-toggle="card_contactless" data-card="'+esc(c.id)+'"></button></div>'+
+  '<div class="setting"><span>'+esc(t("atmWithdrawal"))+'</span><button type="button" class="switch" role="switch" aria-checked="'+c.atm+'" data-toggle="card_atm" data-card="'+esc(c.id)+'"></button></div>'+
+  '<div class="setting"><span>'+esc(t("freeze"))+'</span><button type="button" class="switch" role="switch" aria-checked="'+c.frozen+'" data-toggle="card_freeze" data-card="'+esc(c.id)+'"></button></div>'+
+  '</div>'+
+  '<div class="card menu-list">'+
+  menuItem(t("cardLimitDaily"),{icon:"chart",action:"cardLimit",param:c.id,sub:money(c.dailyLimit)+" OMR"})+
+  menuItem(t("cardDetails"),{icon:"info",action:"cardFullDetails",param:c.id})+
+  '</div>'+
+  '<button class="btn danger" data-action="removeCard" data-param="'+esc(c.id)+'">'+icon("trash")+' '+esc(t("removeCard"))+'</button>';
+}
+
+function profile(){
+  return '<div class="card" style="text-align:center;padding:24px 18px"><div class="avatar icon" style="width:72px;height:72px;margin:0 auto 12px;font-size:26px;border:0">A</div><h2 style="margin-bottom:4px">'+HOLDER+'</h2><p lang="ar" dir="rtl" class="muted" style="margin:0 0 12px">'+ARABIC_NAME+'</p><div class="otp-phone">'+icon("smartphone")+' +968 '+ACCOUNT+'</div></div>'+
+  '<div class="card menu-list">'+
+  menuItem(t("personalInfo"),{icon:"user",page:"personalInfo"})+
+  menuItem(t("accountInfo"),{icon:"wallet",page:"accountInfo"})+
+  menuItem(t("security"),{icon:"shield",page:"security"})+
+  menuItem(t("statements"),{icon:"file",page:"statements"})+
+  menuItem(t("scheduled"),{icon:"calendar",page:"scheduled"})+
+  menuItem(t("limits"),{icon:"chart",page:"limits"})+
+  '</div>'+
+  '<div class="card menu-list">'+
+  menuItem(t("language")+" · "+state.lang.toUpperCase(),{icon:"globe",action:"langPicker"})+
+  menuItem(t("theme")+" · "+t(state.theme),{icon:"sparkles",action:"themePicker"})+
+  menuItem(t("notificationsPrefs"),{icon:"bell",action:"notifPrefs"})+
+  menuItem(t("hideBalance"),{icon:state.hidden?"eyeOff":"eye",action:"toggleBalance"})+
+  menuItem(t("nizwaDirectory"),{icon:"contacts",page:"directory",sub:t("directorySub")})+
+  '</div>'+
+  '<div class="card menu-list">'+
+  menuItem(t("referral"),{icon:"gift",page:"referral"})+
+  menuItem(t("fees2"),{icon:"info",page:"fees"})+
+  menuItem(t("helpTitle"),{icon:"help",page:"help"})+
+  menuItem(t("about"),{icon:"info",page:"about"})+
+  '</div>'+
+  '<button class="btn yellow" data-action="logout">'+icon("logout")+' '+esc(t("logout"))+'</button>'+
+  '<p class="caption">'+APP+' · Version 30.0.0</p>';
+}
+
+function notifications(){
+  var list=state.notifications.slice().sort(function(a,b){return b.at-a.at;});
+  var unreadCount=0;
+  for (var i=0;i<list.length;i++){ if (!list[i].read) unreadCount++; }
+  return back("home",t("notifications"))+
+  '<div class="card" style="padding:12px 18px"><div style="display:flex;justify-content:space-between;align-items:center"><span class="muted" style="font-size:12.5px">'+unreadCount+' '+(state.lang==="fr"?"nouvelles":"")+'</span><button class="link" data-action="markAllRead">'+esc(t("markRead"))+'</button></div></div>'+
+  (list.length?list.map(function(n){
+    return '<div class="card" style="padding:14px;'+(n.read?"opacity:.65":"")+'"><div style="display:flex;gap:11px;align-items:flex-start"><i style="width:38px;height:38px;border-radius:50%;background:var(--field);color:var(--violet);display:flex;align-items:center;justify-content:center;flex-shrink:0">'+icon(n.kind==="in"?"receive":n.kind==="card"?"card":"bell")+'</i><div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between;gap:8px"><strong style="font-size:13.5px">'+esc(n.title)+'</strong>'+(n.read?"":'<span style="width:7px;height:7px;border-radius:50%;background:var(--violet);margin-top:6px;flex-shrink:0"></span>')+'</div><p class="muted" style="margin:4px 0 4px;font-size:12.5px;line-height:1.5">'+esc(n.body)+'</p><small style="font-size:11px">'+esc(whenShort(n.at))+'</small></div></div></div>';
+  }).join(""):'<div class="card center" style="padding:36px 18px"><div class="muted">'+esc(t("notificationsEmpty"))+'</div></div>');
+}
+
+function directory(){
+  var entries=Object.keys(state.directory).sort().map(function(k){return [k,state.directory[k]];});
+  return back("profile",t("nizwaDirectory"))+
+  '<div class="card" style="padding:14px 18px"><p class="muted" style="margin:0;font-size:12px;line-height:1.6">'+(state.lang==="fr"?"Ces numéros sont reconnus automatiquement lors d\'un transfert.":state.lang==="en"?"These numbers are auto-recognized during transfers.":"يتم التعرف على هذه الأرقام تلقائيًا عند التحويل.")+'</p></div>'+
+  '<div class="card" style="padding:6px 18px">'+
+  (entries.length?entries.map(function(e){
+    var num=e[0],name=e[1];
+    var initial=(name.replace(/[^A-Za-z\u0600-\u06FF]/g,"").charAt(0)||"?").toUpperCase();
+    return '<div class="dir-row"><div class="dir-avatar">'+esc(initial)+'</div><div class="dir-info"><div class="dir-name">'+esc(name)+'</div><div class="dir-num">+968 '+esc(num)+'</div></div><button type="button" class="icon" style="width:34px;height:34px" data-action="deleteContact" data-param="'+esc(num)+'">'+icon("trash")+'</button></div>';
+  }).join(""):'<p class="muted center" style="padding:20px 0">'+esc(t("directoryEmpty"))+'</p>')+
+  '</div>'+
+  '<button class="btn primary" data-page="contactForm">'+icon("plus")+' '+esc(t("addContact"))+'</button>';
+}
+
+function contactForm(){
+  return back("directory",t("addContact"))+
+  '<form id="contactForm">'+
+  field("contactNumber","cNumber","",'inputmode="numeric" maxlength="12" required autocomplete="off" placeholder="XXXXXXXX"')+
+  field("contactName","cName","",'maxlength="60" required')+
+  formError()+
+  '<button type="submit" class="btn primary">'+esc(t("save"))+'</button>'+
+  '</form>'+
+  '<p class="hint">'+esc(state.lang==="fr"?"Le numéro peut contenir 7 ou 8 chiffres.":state.lang==="en"?"Number can be 7 or 8 digits.":"يمكن أن يكون الرقم 7 أو 8 خانات.")+'</p>';
+}
+
+function scheduled(){
+  return back("transfers",t("scheduled"))+'<div class="card center" style="padding:28px"><p class="muted">'+esc(t("noScheduled"))+'</p></div>';
+}
+function limits(){
+  return back("profile",t("limits"))+
+  '<div class="card"><h3>'+esc(t("dailyLimit"))+'</h3><div style="font-size:22px;font-weight:800;margin:8px 0">'+money(DAILY_LIMIT)+' <small style="font-size:12.5px;font-weight:600">OMR</small></div><small>'+esc(t("usedToday"))+': '+money(0)+' OMR</small></div>'+
+  '<div class="card"><h3>'+esc(t("monthlyLimit"))+'</h3><div style="font-size:22px;font-weight:800;margin:8px 0">'+money(DAILY_LIMIT*20)+' <small style="font-size:12.5px;font-weight:600">OMR</small></div></div>';
+}
+function statements(){
+  var months=["Août 2026","Juillet 2026","Juin 2026","Mai 2026","Avril 2026","Mars 2026"];
+  return back("profile",t("statements"))+'<div class="card menu-list">'+months.map(function(m){return menuItem(m,{icon:"file",action:"downloadStatement",param:m,sub:"PDF"});}).join("")+'</div>';
+}
+function accountInfo(){
+  return back("profile",t("accountInfo"))+'<div class="card">'+rows([["account",ACCOUNT],["iban","OM12 0000 1234 5678 9012 345"],["swift","BNIZOMRU"],["branch","Muscat – Al Qurum"],["accountType",t("accountTypeValue")],["holder",HOLDER]])+'</div><button class="btn" data-action="copyAccount">'+icon("copy")+' '+esc(t("copyInfo"))+'</button>';
+}
+function security(){
+  return back("profile",t("security"))+
+  '<div class="card menu-list">'+menuItem(t("changePassword"),{icon:"key",page:"changePassword"})+menuItem(t("changePin"),{icon:"pin",page:"changePin"})+'</div>'+
+  '<div class="card">'+
+  '<div class="setting"><span>'+esc(t("biometrics"))+'</span><button type="button" class="switch" role="switch" aria-checked="'+state.biometrics+'" data-toggle="biometrics"></button></div>'+
+  '<div class="setting"><span>'+esc(t("twoFactor"))+'</span><button type="button" class="switch" role="switch" aria-checked="'+state.twoFactor+'" data-toggle="twoFactor"></button></div>'+
+  '</div>';
+}
+function changePassword(){
+  return back("security",t("changePassword"))+'<form id="cpForm"><label class="field"><span>'+esc(t("password"))+'</span><input id="cpCurrent" type="password" required></label><label class="field"><span>Nouveau mot de passe</span><input id="cpNew" type="password" required></label><label class="field"><span>Confirmer</span><input id="cpConfirm" type="password" required></label>'+formError()+'<button type="submit" class="btn primary">'+esc(t("save"))+'</button></form>';
+}
+function changePin(){
+  return back("security",t("changePin"))+'<form id="cpinForm"><label class="field"><span>'+esc(t("pin"))+'</span><input id="pinCurrent" inputmode="numeric" maxlength="4" required></label><label class="field"><span>Nouveau PIN</span><input id="pinNew" inputmode="numeric" maxlength="4" required></label><label class="field"><span>Confirmer</span><input id="pinConfirm" inputmode="numeric" maxlength="4" required></label>'+formError()+'<button type="submit" class="btn primary">'+esc(t("save"))+'</button></form>';
+}
+function personalInfo(){
+  var items=[["user",t("name"),HOLDER],["mail",t("email"),state.email],["phone",t("phone"),state.phone],["info",t("address"),state.address]];
+  return back("profile",t("personalInfo"))+'<div class="card menu-list">'+items.map(function(it){return '<div class="menu-item" style="cursor:default"><i>'+icon(it[0])+'</i><span class="mi-text">'+esc(it[1])+'<small>'+esc(it[2])+'</small></span></div>';}).join("")+'</div><button class="btn primary" data-page="editInfo">'+icon("edit")+' '+esc(t("edit"))+'</button>';
+}
+function editInfo(){
+  return back("personalInfo",t("edit"))+'<form id="editInfoForm"><label class="field"><span>'+esc(t("email"))+'</span><input id="edEmail" type="email" value="'+esc(state.email)+'" required></label><label class="field"><span>'+esc(t("phone"))+'</span><input id="edPhone" value="'+esc(state.phone)+'" required></label><label class="field"><span>'+esc(t("address"))+'</span><input id="edAddress" value="'+esc(state.address)+'" required></label>'+formError()+'<button type="submit" class="btn primary">'+esc(t("save"))+'</button></form>';
+}
+function help(){
+  return back("profile",t("helpTitle"))+'<div class="card menu-list">'+menuItem(t("faq"),{icon:"help",page:"faq"})+menuItem(t("liveChat"),{icon:"chat",action:"liveChat"})+menuItem(t("callUs"),{icon:"phone",action:"callUs",sub:"+968 24 000 000"})+menuItem(t("emailUs"),{icon:"mail",action:"emailUs",sub:"support@nizwawallet.om"})+'</div>';
+}
+function faq(){
+  var items=[["Comment effectuer un transfert ?","Ouvrez l'onglet Transferts, choisissez le type puis suivez les étapes."],["Le code OTP n'arrive pas","Vérifiez votre réseau, puis appuyez sur « Renvoyer le code »."],["Comment gérer le répertoire ?","Profil > Répertoire Nizwa."]];
+  return back("help",t("faq"))+items.map(function(it){return '<div class="card"><h3 style="margin-bottom:8px">'+esc(it[0])+'</h3><p class="muted" style="margin:0;font-size:12.5px;line-height:1.6">'+esc(it[1])+'</p></div>';}).join("");
+}
+function terms(){return back("about",t("terms"))+'<div class="card"><p class="muted" style="line-height:1.8;font-size:12.5px">'+esc(t("help"))+'</p></div>';}
+function about(){
+  return back("profile",t("about"))+'<div class="card" style="text-align:center;padding:28px 18px"><div class="otp-shield" style="width:68px;height:68px">'+bankNizwaLogo()+'</div><h2 style="margin:6px 0 4px">Nizwa Wallet</h2><p class="muted" style="font-size:12.5px;margin:0">Version 30.0.0</p></div>'+
+  '<div class="card menu-list">'+menuItem(t("terms"),{icon:"file",page:"terms"})+menuItem(t("privacyPolicy"),{icon:"shield",page:"terms"})+menuItem(t("rateApp"),{icon:"star",action:"rateApp"})+menuItem(t("shareApp"),{icon:"share",action:"shareApp"})+'</div>'+
+  '<p class="caption" lang="ar" dir="rtl">'+ARABIC_NAME+'</p>';
+}
+function referral(){
+  return back("profile",t("referral"))+'<div class="card" style="text-align:center;padding:28px 18px"><div class="otp-shield" style="width:68px;height:68px">'+icon("gift")+'</div><h2 style="margin:6px 0">Parrainez vos amis</h2><p class="muted" style="font-size:12.5px">Obtenez 5 OMR pour chaque ami.</p><div class="otp-phone" style="margin-top:14px">CODE : AHMED2026</div></div><button class="btn primary" data-action="shareReferral">'+icon("share")+' '+esc(t("inviteFriend"))+'</button>';
+}
+function fees(){
+  return back("profile",t("fees2"))+'<div class="card">'+rows([["Transfert local","Gratuit"],["Transfert international","2,000 OMR"],["Virement bancaire","1,000 OMR"],["Rechargement","Gratuit"]])+'</div>';
+}
+
+function doLogin(){
+  var a=$("#loginAccount").value.trim();
+  var p=$("#loginPassword").value;
+  if (a===ACCOUNT && p===PASSWORD){ logged=true; navigate("home"); }
+  else error(t("invalidLogin"));
+}
+function faceIdLogin(){
+  logged=true;
+  toast("Face ID");
+  setTimeout(function(){navigate("home");},250);
+}
+function updateRecipientMatch(){
+  var inp=$("#number");
+  var wrap=$("#recipientMatch");
+  if (!inp||!wrap) return;
+  var cleaned=normalizedPhone(inp.value);
+  if (!cleaned||cleaned.length<7){ wrap.innerHTML=""; return; }
+  var match=lookupDirectory(cleaned);
+  if (match) wrap.innerHTML=recipientCardHTML(match);
+  else wrap.innerHTML="";
+}
+function submitRecipient(){
+  if (!draft) return;
+  if (draft.kind==="local"){
+    var n=normalizedPhone($("#number").value);
+    if (!/^\d{7,8}$/.test(n)){ error(t("invalidNumber")); return; }
+    var match=lookupDirectory(n);
+    if (match){ draft.number=match.number; draft.name=match.name; }
+    else { draft.number=n; draft.name="+968 "+n; }
+  } else if (draft.kind==="international"){
+    var nm=$("#name").value.trim();
+    if (!nm){ error(t("required")); return; }
+    draft.name=nm;
+    draft.country=$("#country").value;
+  } else if (draft.kind==="bank"){
+    var b=$("#bank").value.trim(),r=$("#reference").value.trim();
+    if (!b||!r){ error(t("required")); return; }
+    draft.bank=b; draft.number=r; draft.name=b;
+  }
+  navigate("amount");
+}
+function goToOtp(){
+  var b=parseAmount(raw);
+  if (!b||b<=0){ error(t("invalidAmount")); return; }
+  if (b>state.balanceBaisa){ error(t("insufficient")); return; }
+  otpInput=""; otpError=false;
+  if (resendTimer){ clearInterval(resendTimer); resendTimer=null; }
+  navigate("otp");
+}
+function addCard(){
+  if (state.cards.length>=3){ toast(t("cardLimitMax")); return; }
+  var last4=String(Math.floor(1000+Math.random()*9000));
+  var now=new Date();
+  var m=String(now.getMonth()+1).padStart(2,"0");
+  var y=String((now.getFullYear()+3)%100);
+  state.cards.push({id:"c"+Date.now(),last4:last4,exp:m+"/"+y,type:"VISA",frozen:false,online:true,contactless:true,atm:true,dailyLimit:1000000});
+  save(); toast(t("cardAdded")); render();
+}
+function removeCard(id){
+  if (!confirm(t("removeCardConfirm"))) return;
+  state.cards=state.cards.filter(function(c){return c.id!==id;});
+  if (!state.cards.length) state.cards=JSON.parse(JSON.stringify(DEFAULT_STATE.cards));
+  save();
+  toast(t("cardRemoved"));
+  if (page==="cardDetail"||page==="cardSettings") navigate("cards");
+  else render();
+}
+function togglePassword(){
+  var inp=$("#loginPassword"),btn=$("#pwToggle");
+  if (!inp||!btn) return;
+  var show=inp.type==="password";
+  inp.type=show?"text":"password";
+  btn.innerHTML=icon(show?"eyeOff":"eye");
+}
+function toggleSetting(k,cardId){
+  if (k==="frozen") state.frozen=!state.frozen;
+  else if (k==="biometrics") state.biometrics=!state.biometrics;
+  else if (k==="twoFactor") state.twoFactor=!state.twoFactor;
+  else if (k.indexOf("card_")===0){
+    var c=null;
+    for (var i=0;i<state.cards.length;i++){ if (state.cards[i].id===cardId) c=state.cards[i]; }
+    if (!c) return;
+    var f=k.slice(5);
+    if (f==="freeze") c.frozen=!c.frozen;
+    else c[f]=!c[f];
+  }
+  save(); render();
+}
+function markAllRead(){
+  state.notifications.forEach(function(n){n.read=true;});
+  save(); render();
+}
+function addContact(){
+  var numRaw=($("#cNumber")?$("#cNumber").value:"").replace(/\D/g,"");
+  var name=($("#cName")?$("#cName").value:"").trim();
+  if (!numRaw||!name){ error(t("required")); return; }
+  if (numRaw.length<7||numRaw.length>12){ error(t("invalidNumber")); return; }
+  if (state.directory[numRaw]){ error(t("contactExists")); return; }
+  state.directory[numRaw]=name;
+  save();
+  toast(t("contactSaved"));
+  navigate("directory");
+}
+function deleteContact(num){
+  if (!confirm(t("deleteContactConfirm"))) return;
+  delete state.directory[num];
+  save();
+  toast(t("contactDeleted"));
+  render();
+}
+function copyText(s){
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(s);
+      toast(t("copied"));
+      return;
+    }
+  } catch(e){}
+  var ta=document.createElement("textarea");
+  ta.value=s;
+  ta.style.position="fixed";
+  ta.style.opacity="0";
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); toast(t("copied")); } catch(x){ toast("Copié"); }
+  ta.remove();
+}
+function receiptText(){
+  var x=receiptTx;
+  if (!x) return "";
+  return [
+    APP+" — Bank Nizwa",
+    t("id")+": "+x.id,
+    t("date")+": "+when(x.at),
+    t("recipient")+": "+x.name,
+    t("destination")+": "+x.destination,
+    t("amount")+": "+money(x.amountBaisa)+" OMR",
+    t("status")+": "+t("success")
+  ].join("\n");
+}
+function shareReceipt(){
+  if (!receiptTx) return;
+  var txt=receiptText();
+  if (navigator.share) navigator.share({title:APP,text:txt}).catch(function(){copyText(txt);});
+  else copyText(txt);
+}
+function downloadReceipt(){
+  if (!receiptTx) return;
+  var blob=new Blob([receiptText()],{type:"text/plain;charset=utf-8"});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement("a");
+  a.href=url;
+  a.download="recu-"+receiptTx.id+".txt";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(function(){URL.revokeObjectURL(url);},2000);
+}
+function preparePrint(){
+  var x=receiptTx;
+  if (!x) return;
+  $("#printArea").innerHTML='<div style="padding:24px;font-family:system-ui"><h1 style="color:#5b21b6">Nizwa Wallet</h1><h2>Bank Nizwa — '+esc(t("receipt"))+'</h2>'+rows([["status",t("success")],["amount",money(x.amountBaisa)+" OMR"],["recipient",x.name],["destination",x.destination],["sender",ACCOUNT],["date",when(x.at)],["id",x.id]])+'</div>';
+}
+function openTx(ref){
+  var x=null;
+  for (var i=0;i<state.transactions.length;i++){ if (state.transactions[i].id===ref) x=state.transactions[i]; }
+  if (!x) return;
+  modalTx=x;
+  openModal("tx");
+}
+function openModal(kind){
+  var title="",body="";
+  if (kind==="note"){ title=t("note"); body='<label class="field"><span>'+esc(t("note"))+'</span><textarea id="noteText" maxlength="140">'+esc(draft?draft.note:"")+'</textarea></label><button class="btn primary" data-action="saveNote">'+esc(t("save"))+'</button>'; }
+  else if (kind==="topup"){ title=t("topup"); body='<label class="field"><span>'+esc(t("amount"))+'</span><input id="topupAmount" inputmode="decimal" placeholder="10.000"></label><button class="btn primary" data-action="doTopup">'+esc(t("topup"))+'</button>'; }
+  else if (kind==="request"){ title=t("request"); body='<label class="field"><span>'+esc(t("amount"))+'</span><input id="reqAmount" inputmode="decimal" placeholder="10.000"></label><button class="btn primary" data-action="generate">'+esc(t("generate"))+'</button><div id="reqOut"></div>'; }
+  else if (kind==="langPicker"){ title=t("language"); body='<div class="card menu-list" style="margin:0">'+[["fr","Français"],["en","English"],["ar","العربية"]].map(function(p){return menuItem(p[1],{action:"setLang",param:p[0],icon:state.lang===p[0]?"check":"globe"});}).join("")+'</div>'; }
+  else if (kind==="themePicker"){ title=t("theme"); body='<div class="card menu-list" style="margin:0">'+[["dark",t("dark")],["light",t("light")],["system",t("system")]].map(function(p){return menuItem(p[1],{action:"setTheme",param:p[0],icon:state.theme===p[0]?"check":"sparkles"});}).join("")+'</div>'; }
+  else if (kind==="notifPrefs"){ title=t("notificationsPrefs"); body='<div class="card" style="margin:0"><div class="setting"><span>'+esc(t("notifTransactions"))+'</span><button type="button" class="switch" role="switch" aria-checked="'+state.notifPrefs.transactions+'" data-toggle="notif_transactions"></button></div><div class="setting"><span>'+esc(t("notifPromos"))+'</span><button type="button" class="switch" role="switch" aria-checked="'+state.notifPrefs.promos+'" data-toggle="notif_promos"></button></div><div class="setting"><span>'+esc(t("notifSecurity"))+'</span><button type="button" class="switch" role="switch" aria-checked="'+state.notifPrefs.security+'" data-toggle="notif_security"></button></div></div>'; }
+  else if (kind==="cardFullDetails"){ var c=null; for (var i=0;i<state.cards.length;i++){ if (state.cards[i].id===pageParam) c=state.cards[i]; } if (!c) c=state.cards[0]; if (!c) return; title=t("cardDetails"); body='<div class="card" style="margin:0">'+rows([["cardNumber","•••• •••• •••• "+c.last4],["expires",c.exp],["cvv","•••"],["holder",HOLDER],["type",c.type]])+'</div>'; }
+  else if (kind==="cardLimit"){ var c2=null; for (var j=0;j<state.cards.length;j++){ if (state.cards[j].id===pageParam) c2=state.cards[j]; } if (!c2) c2=state.cards[0]; if (!c2) return; title=t("cardLimitDaily"); body='<label class="field"><span>'+esc(t("amount"))+' (OMR)</span><input id="newLimit" inputmode="decimal" value="'+(c2.dailyLimit/1000).toFixed(3)+'"></label><button class="btn primary" data-action="saveCardLimit" data-param="'+esc(c2.id)+'">'+esc(t("save"))+'</button>'; }
+  else if (kind==="aiChat"){ title=t("aiTitle"); body='<div class="ai-card" style="margin-bottom:14px"><div class="ai-avatar">'+icon("robot")+'</div><div class="ai-text">'+esc(t("aiReply"))+'</div></div><div class="card" style="margin:0 0 12px">'+rows([["totalSpent",money(monthlySpent())+" OMR"],["balance",(state.hidden?"••••••":money(state.balanceBaisa))+" OMR"],["recent",String(state.transactions.length)]])+'</div><button class="btn primary" data-action="aiTip">'+icon("sparkles")+' Conseil</button>'; }
+  else if (kind==="tx"&&modalTx){ var x=modalTx; title=t("receipt"); body='<div class="card receipt" style="margin:0"><div class="bank-logo"><div class="emblem">'+bankNizwaLogo()+'</div><div class="name">Bank Nizwa</div></div>'+rows([["recipient",x.name],["destination",x.destination],["amount",money(x.amountBaisa)+" OMR"],["date",when(x.at)],["id",x.id]].concat(x.note?[["note",x.note]]:[]))+'</div><p style="height:10px"></p><button class="btn" data-action="copyRef">'+icon("copy")+' '+esc(t("copyRef"))+'</button>'; }
+  modal.innerHTML='<div class="modal-head"><h2>'+esc(title)+'</h2><button type="button" class="icon" data-close aria-label="'+esc(t("close"))+'">✕</button></div>'+body;
+  if (!modal.open) modal.showModal();
+}
+function closeModal(){
+  if (!modal.open) return;
+  modal.close();
+}
+function saveNote(){
+  if (!draft) return;
+  var ta=$("#noteText");
+  if (!ta) return;
+  draft.note=ta.value.trim().slice(0,140);
+  closeModal(); render();
+}
+function doTopup(){
+  var b=parseAmount($("#topupAmount").value);
+  if (!b||b<=0){ toast(t("invalidAmount")); return; }
+  state.balanceBaisa+=b;
+  state.transactions.unshift({id:"NW"+Date.now().toString(36).toUpperCase(),at:Date.now(),name:t("wallet"),destination:t("wallet"),kind:t("topup"),note:"",amountBaisa:b,dir:"in"});
+  state.notifications.unshift({id:"n"+Date.now(),title:t("topupDone"),body:"+"+money(b)+" OMR",at:Date.now(),read:false,kind:"in"});
+  save(); closeModal(); toast(t("topupDone")); render();
+}
+function genRequest(){
+  var b=parseAmount($("#reqAmount").value);
+  if (!b||b<=0){ toast(t("invalidAmount")); return; }
+  var txt=t("request")+" — "+money(b)+" OMR\nNizwa Wallet · Bank Nizwa\n"+ACCOUNT+"\n"+HOLDER;
+  var out=$("#reqOut");
+  if (out) out.innerHTML='<pre>'+esc(txt)+'</pre><button class="btn" data-action="copyInfo">'+icon("copy")+' '+esc(t("copyInfo"))+'</button>';
+  modalTx={reqText:txt};
+}
+
+document.addEventListener("submit",function(e){
+  if (e.target.id==="loginForm"){ e.preventDefault(); doLogin(); }
+  else if (e.target.id==="recipientForm"){ e.preventDefault(); submitRecipient(); }
+  else if (e.target.id==="contactForm"){ e.preventDefault(); addContact(); }
+  else if (e.target.id==="cpForm"){
+    e.preventDefault();
+    var a=$("#cpCurrent").value,b=$("#cpNew").value,c=$("#cpConfirm").value;
+    if (a!==PASSWORD){ error("Mot de passe actuel incorrect"); return; }
+    if (b.length<6){ error("6 caractères minimum"); return; }
+    if (b!==c){ error("Les mots de passe ne correspondent pas"); return; }
+    toast(t("saved")); navigate("security");
+  }
+  else if (e.target.id==="cpinForm"){
+    e.preventDefault();
+    var a2=$("#pinCurrent").value,b2=$("#pinNew").value,c2=$("#pinConfirm").value;
+    if (a2!==PIN_CODE){ error("PIN actuel incorrect"); return; }
+    if (!/^\d{4}$/.test(b2)){ error("4 chiffres"); return; }
+    if (b2!==c2){ error("Les PIN ne correspondent pas"); return; }
+    toast(t("saved")); navigate("security");
+  }
+  else if (e.target.id==="editInfoForm"){
+    e.preventDefault();
+    state.email=$("#edEmail").value.trim();
+    state.phone=$("#edPhone").value.trim();
+    state.address=$("#edAddress").value.trim();
+    save(); toast(t("saved")); navigate("personalInfo");
+  }
+});
+
+document.addEventListener("input",function(e){
+  if (e.target.id==="txSearch"){
+    searchQuery=e.target.value;
+    render();
+    var inp=$("#txSearch");
+    if (inp){ inp.focus(); var v=inp.value; inp.value=""; inp.value=v; }
+  }
+  if (e.target.id==="number") updateRecipientMatch();
+});
+
+document.addEventListener("click",function(e){
+  if (e.target===modal){ closeModal(); return; }
+  var cl=e.target.closest("[data-close]");
+  if (cl){ e.preventDefault(); closeModal(); return; }
+  var kind=e.target.closest("[data-kind]");
+  if (kind){ e.preventDefault(); startTransfer(kind.dataset.kind); return; }
+  var a=e.target.closest("[data-action]");
+  if (a){ e.preventDefault(); handleAction(a.dataset.action,a.dataset.param); return; }
+  var tog=e.target.closest("[data-toggle]");
+  if (tog){
+    e.preventDefault();
+    var k=tog.dataset.toggle;
+    if (k.indexOf("notif_")===0){
+      var key=k.slice(6);
+      state.notifPrefs[key]=!state.notifPrefs[key];
+      save();
+      tog.setAttribute("aria-checked",String(state.notifPrefs[key]));
+    } else toggleSetting(k,tog.dataset.card);
+    return;
+  }
+  var tx=e.target.closest("[data-ref]");
+  if (tx){ e.preventDefault(); openTx(tx.dataset.ref); return; }
+  var pg=e.target.closest("[data-page]");
+  if (pg){ e.preventDefault(); navigate(pg.dataset.page,pg.dataset.param||null); return; }
+  var f=e.target.closest("[data-filter]");
+  if (f){ e.preventDefault(); filter=f.dataset.filter; render(); return; }
+  var key2=e.target.closest("[data-key]");
+  if (key2){ e.preventDefault(); pressKey(key2.dataset.key); return; }
+  var okey=e.target.closest("[data-otpkey]");
+  if (okey){ e.preventDefault(); pressOtp(okey.dataset.otpkey); return; }
+});
+
+modal.addEventListener("cancel",function(e){ e.preventDefault(); closeModal(); });
+
+document.addEventListener("keydown",function(e){
+  if (page!=="otp") return;
+  if (/^\d$/.test(e.key)){ e.preventDefault(); pressOtp(e.key); }
+  else if (e.key==="Backspace"){ e.preventDefault(); pressOtp("⌫"); }
+});
+
+function handleAction(a,param){
+  switch(a){
+    case "addCard": addCard(); break;
+    case "toggleBalance": toggleBalance(); break;
+    case "note": openModal("note"); break;
+    case "request": openModal("request"); break;
+    case "topup": openModal("topup"); break;
+    case "transfers": navigate("transfers"); break;
+    case "review": goToOtp(); break;
+    case "confirm": goToOtp(); break;
+    case "submitOtp": pressOtp(""); break;
+    case "cancelOtp":
+      if (resendTimer){ clearInterval(resendTimer); resendTimer=null; }
+      otpInput=""; otpError=false;
+      navigate("review");
+      break;
+    case "resendOtp": toast(t("otpSent")); startResendTimer(); break;
+    case "cancelProcess": cancelProcessing(); break;
+    case "password": togglePassword(); break;
+    case "faceId": faceIdLogin(); break;
+    case "saveNote": saveNote(); break;
+    case "doTopup": doTopup(); break;
+    case "generate": genRequest(); break;
+    case "share": shareReceipt(); break;
+    case "download": downloadReceipt(); break;
+    case "print": preparePrint(); setTimeout(function(){window.print();},80); break;
+    case "copyInfo": copyText(receiptTx?receiptText():(modalTx&&modalTx.reqText?modalTx.reqText:"")); break;
+    case "copyRef": copyText(modalTx?modalTx.id:""); break;
+    case "copyAccount": copyText("IBAN: OM12 0000 1234 5678 9012 345\nAccount: "+ACCOUNT+"\nSWIFT: BNIZOMRU"); break;
+    case "langPicker": openModal("langPicker"); break;
+    case "setLang": state.lang=param; save(); applyAppearance(); closeModal(); render(); break;
+    case "themePicker": openModal("themePicker"); break;
+    case "setTheme": state.theme=param; save(); applyAppearance(); closeModal(); render(); break;
+    case "notifPrefs": openModal("notifPrefs"); break;
+    case "markAllRead": markAllRead(); break;
+    case "deleteContact": deleteContact(param); break;
+    case "toggleCardFreeze":
+      for (var i=0;i<state.cards.length;i++){ if (state.cards[i].id===param){ state.cards[i].frozen=!state.cards[i].frozen; break; } }
+      save(); render();
+      break;
+    case "cardFullDetails": pageParam=param; openModal("cardFullDetails"); break;
+    case "cardLimit": pageParam=param; openModal("cardLimit"); break;
+    case "saveCardLimit":
+      var c=null;
+      for (var j=0;j<state.cards.length;j++){ if (state.cards[j].id===param) c=state.cards[j]; }
+      var b=parseAmount($("#newLimit").value);
+      if (c&&b&&b>0){ c.dailyLimit=b; save(); closeModal(); render(); toast(t("saved")); }
+      break;
+    case "removeCard": removeCard(param); break;
+    case "downloadStatement": toast(t("saved")); break;
+    case "liveChat": toast("Chat bientôt disponible"); break;
+    case "callUs": window.location.href="tel:+96824000000"; break;
+    case "emailUs": window.location.href="mailto:support@nizwawallet.om"; break;
+    case "rateApp": toast("Merci !"); break;
+    case "shareApp":
+      if (navigator.share) navigator.share({title:"Nizwa Wallet",text:"Découvrez Nizwa Wallet"}).catch(function(){});
+      else copyText("Nizwa Wallet — https://nizwawallet.om");
+      break;
+    case "shareReferral":
+      var txt="Rejoignez Nizwa Wallet avec mon code AHMED2026";
+      if (navigator.share) navigator.share({title:"Nizwa Wallet",text:txt}).catch(function(){copyText(txt);});
+      else copyText(txt);
+      break;
+    case "toggleSaving": toggleSavingMode(); break;
+    case "aiChat": openModal("aiChat"); break;
+    case "aiTip": toast(state.savingMode?t("aiSavingOn"):t("aiInsight").replace("{x}",money(monthlySpent()))); break;
+    case "dismissBudget": state.budgetAlertDismissed=true; save(); render(); break;
+    case "start": startTransfer(param||"local"); break;
+    case "logout":
+      if (timer){ clearInterval(timer); timer=null; }
+      if (resendTimer){ clearInterval(resendTimer); resendTimer=null; }
+      logged=false; draft=null; pending=null; raw=""; receiptTx=null;
+      filter="all"; searchQuery=""; otpInput="";
+      navigate("login");
+      break;
+  }
+}
+
+applyAppearance();
+navigate("login");
+
+})();
+</script>
+</body>
+</html>
