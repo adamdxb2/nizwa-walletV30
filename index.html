@@ -68,14 +68,6 @@ main{padding:14px 18px calc(120px + env(safe-area-inset-bottom,0px))}
 .cp-top{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:700}
 .cp-num{font-family:ui-monospace,monospace;letter-spacing:1.6px;font-size:12px}
 .cp-bot{display:flex;justify-content:space-between;font-size:10.5px;opacity:.85;margin-top:8px}
-.nizwa-recipient{margin-top:12px;border-radius:18px;background:linear-gradient(135deg,rgba(167,139,250,.14),rgba(124,58,237,.06));border:1px solid rgba(167,139,250,.32);padding:14px;display:flex;gap:12px;align-items:center;position:relative}
-.nz-avatar{width:52px;height:52px;border-radius:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;background:var(--grad);box-shadow:0 6px 18px rgba(124,58,237,.35);color:#fff;font-weight:800;font-size:20px}
-.nz-avatar::before{content:"✓";position:absolute;right:-3px;bottom:-3px;width:20px;height:20px;border-radius:50%;background:var(--success);color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px var(--bg)}
-.nz-body{flex:1;min-width:0}
-.nz-name{font-size:14px;font-weight:800;overflow-wrap:anywhere;line-height:1.35;margin-bottom:3px}
-.nz-number{font-size:11.5px;font-weight:600;color:var(--muted);font-family:ui-monospace,monospace;direction:ltr}
-.nz-verified{display:inline-flex;align-items:center;gap:4px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--success);font-size:9.5px;font-weight:800;letter-spacing:.4px;padding:3px 8px;border-radius:999px;margin-top:8px;text-transform:uppercase}
-.nz-verified svg{width:11px;height:11px;stroke-width:2.6}
 .dir-row{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid var(--line)}
 .dir-row:last-child{border-bottom:0}
 .dir-avatar{width:38px;height:38px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;background:rgba(124,58,237,.12);border:1px solid var(--border);color:var(--violet)}
@@ -188,13 +180,14 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12.5px/1.8 system-ui}
 .ios-notif{position:fixed;top:calc(6px + env(safe-area-inset-top,0px));left:8px;right:8px;max-width:470px;margin:0 auto;z-index:99999;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(40px) saturate(180%);backdrop-filter:blur(40px) saturate(180%);border-radius:24px;padding:13px 15px;display:flex;gap:11px;align-items:flex-start;box-shadow:0 12px 44px rgba(60,20,120,.16),0 1px 0 rgba(255,255,255,.8) inset,0 0 0 .5px rgba(124,58,237,.1);transform:translateY(-150%);opacity:0;transition:transform .65s cubic-bezier(.16,1,.3,1),opacity .35s ease-out;pointer-events:none;will-change:transform,opacity}
 .ios-notif.show{transform:translateY(0);opacity:1;pointer-events:auto}
 .ios-notif-icon{width:38px;height:38px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--grad);color:#fff;box-shadow:0 2px 8px rgba(124,58,237,.3)}
+.ios-notif-icon.success{background:linear-gradient(140deg,#34d399,#10b981);box-shadow:0 2px 8px rgba(16,185,129,.35)}
 .ios-notif-icon svg{width:22px;height:22px;stroke-width:2.4}
 .ios-notif-content{flex:1;min-width:0}
 .ios-notif-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
 .ios-notif-app{font-size:11px;font-weight:600;color:#7a6b94;letter-spacing:.3px;text-transform:uppercase}
 .ios-notif-time{font-size:11px;color:#a296b8;font-weight:500}
-.ios-notif-title{font-size:14px;font-weight:700;color:#1a0e2e;margin-bottom:2px;line-height:1.25;letter-spacing:-.15px}
-.ios-notif-body{font-size:13.5px;color:#4a3d61;line-height:1.3;overflow-wrap:anywhere;letter-spacing:-.1px}
+.ios-notif-title{font-size:14px;font-weight:700;color:#1a0e2e;margin-bottom:2px;line-height:1.25}
+.ios-notif-body{font-size:13.5px;color:#4a3d61;line-height:1.3;overflow-wrap:anywhere}
 .ios-notif-body b{color:#1a0e2e;font-weight:700}
 .nz-blur-name{opacity:0;filter:blur(24px);transform:scale(.94);transition:opacity 1.6s cubic-bezier(.22,.9,.24,1),filter 3.2s cubic-bezier(.22,.9,.24,1),transform 2s cubic-bezier(.22,.9,.24,1);will-change:opacity,filter,transform}
 .nz-blur-name.revealed{opacity:1;filter:blur(0);transform:scale(1)}
@@ -216,6 +209,44 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12.5px/1.8 system-ui}
 @keyframes chatIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .chat-msg.left{background:rgba(255,255,255,.95);color:var(--text);border:1px solid var(--line);border-bottom-left-radius:4px}
 .chat-msg.right{background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;border-bottom-right-radius:4px;margin-left:auto}
+.country-row{display:flex;align-items:center;gap:12px;padding:13px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+.country-row:last-child{border-bottom:0}
+.country-flag{font-size:24px;flex-shrink:0;width:32px;text-align:center}
+.country-info{flex:1;min-width:0}
+.country-name{font-size:13.5px;font-weight:700}
+.country-dial{font-size:11.5px;color:var(--muted);font-family:ui-monospace,monospace;margin-top:2px}
+.converter-box{background:linear-gradient(135deg,rgba(167,139,250,.12),rgba(124,58,237,.06));border:1px solid rgba(167,139,250,.3);border-radius:20px;padding:16px;margin:14px 0}
+.converter-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0}
+.converter-label{font-size:12px;color:var(--muted);font-weight:600}
+.converter-value{font-size:15px;font-weight:800;font-family:ui-monospace,monospace}
+.converter-arrow{text-align:center;color:var(--violet);padding:4px 0}
+.converter-arrow svg{width:20px;height:20px}
+.method-tile{display:flex;flex-direction:column;gap:10px;padding:18px;border-radius:20px;background:var(--glass);border:1px solid var(--border);text-align:start;box-shadow:var(--shadow);width:100%}
+.method-tile.selected{border-color:var(--violet);background:rgba(124,58,237,.06);box-shadow:0 6px 20px rgba(124,58,237,.15)}
+.method-tile i{width:44px;height:44px;border-radius:14px;background:var(--field);display:flex;align-items:center;justify-content:center;color:var(--violet)}
+.method-tile strong{font-size:14px}
+.method-tile small{font-size:11.5px;color:var(--muted)}
+.wallet-chip{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1.5px solid var(--border);background:var(--glass-strong);font-size:12.5px;font-weight:700}
+.wallet-chip.selected{border-color:var(--violet);background:rgba(124,58,237,.1);color:var(--violet)}
+.wallet-chip.mtn{border-color:#ffcc00;background:rgba(255,204,0,.12);color:#a67c00}
+.wallet-chip.mtn.selected{background:#ffcc00;color:#000}
+.wallet-chip.orange{border-color:#ff7900;background:rgba(255,121,0,.12);color:#d95400}
+.wallet-chip.orange.selected{background:#ff7900;color:#fff}
+.wallet-chip.moov{border-color:#00a0e1;background:rgba(0,160,225,.12);color:#006f9c}
+.wallet-chip.moov.selected{background:#00a0e1;color:#fff}
+.int-receipt-header{background:linear-gradient(135deg,#a78bfa 0%,#7c3aed 50%,#5b21b6 100%);border-radius:20px;padding:22px 18px;color:#fff;text-align:center;margin-bottom:16px;position:relative;overflow:hidden}
+.int-receipt-header::before{content:"";position:absolute;top:-50%;right:-30%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.25),transparent 70%)}
+.int-receipt-header .irh-emblem{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.int-receipt-header .irh-emblem svg{width:28px;height:28px;stroke:#fff;stroke-width:2.4}
+.int-receipt-header .irh-title{font-size:14px;font-weight:800;letter-spacing:.4px;position:relative;z-index:1}
+.int-receipt-header .irh-sub{font-size:10.5px;opacity:.85;text-transform:uppercase;letter-spacing:.6px;font-weight:700;position:relative;z-index:1;margin-top:2px}
+.int-receipt-header .irh-amount{font-size:32px;font-weight:800;letter-spacing:-1px;margin-top:12px;position:relative;z-index:1;font-variant-numeric:tabular-nums}
+.int-receipt-header .irh-amount small{font-size:14px;font-weight:700;opacity:.85}
+.int-receipt-header .irh-xof{font-size:15px;font-weight:700;opacity:.9;margin-top:2px;position:relative;z-index:1}
+.int-badge-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:12px;position:relative;z-index:1}
+.int-badge{padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);font-size:10.5px;font-weight:800;letter-spacing:.3px;text-transform:uppercase}
+.pending-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(245,158,11,.12);color:var(--yellow);padding:3px 9px;border-radius:999px;font-size:10.5px;font-weight:800;letter-spacing:.3px;text-transform:uppercase}
+.done-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(16,185,129,.12);color:var(--success);padding:3px 9px;border-radius:999px;font-size:10.5px;font-weight:800;letter-spacing:.3px;text-transform:uppercase}
 #printArea{display:none}
 @media print{body>*{display:none!important}body>#printArea{display:block!important;color:#000;background:#fff}}
 </style>
@@ -240,11 +271,16 @@ var APP="Nizwa Wallet",ACCOUNT="98869593",PASSWORD="123123",PIN_CODE="1234";
 var HOLDER="AHMED HILAL ABDULLAH AL QARTOUBI";
 var ARABIC_NAME="أحمد بن هلال بن عبدالله القرطوبي";
 var OTP_CODE="123321",OTP_PHONE="+968 9X XXX 593";
-var STORE="nizwa-wallet-v32",DAILY_LIMIT=5000000;
+var STORE="nizwa-wallet-v33",DAILY_LIMIT=5000000;
+var OMR_TO_XOF=1470;
+var INT_FEES_BAISA=3000;
+var INT_METHODS=["moneygram","mtn","orange","moov"];
 
-var TIMING={pageNav:200,buttonTap:130,modalOpen:240,modalClose:180,toast:3200,iosNotif:6000,notifDelay:27990,processing:12000,otpResend:45,otpAutoSubmit:180,otpErrorReset:900,nameReveal:10000};
+var TIMING={pageNav:200,buttonTap:130,toast:3200,iosNotif:6000,processing:12000,intProcessing:26000,otpResend:45,otpAutoSubmit:180,otpErrorReset:900,nameReveal:10000,intReviewDelay:10000,intOtpDelay:8000,intNotif1Delay:4000,intNotif2Delay:60000};
 
-var DEFAULT_DIRECTORY={"96664887":"KHAL#######################DANI","94841402":"MUBA######SHID","7782076":"STAN#############UCHI","97028158":"HAJI#######OMAR","98884354":"MASO#########################AABI","7525109":"SULI###############WAJU"};
+var COUNTRIES_RAW="CI|Côte d'Ivoire|+225|🇨🇮|MTN,Orange,Moov;SN|Sénégal|+221|🇸🇳|Orange,Wave,Free;ML|Mali|+223|🇲🇱|Orange,Moov;BF|Burkina Faso|+226|🇧🇫|Orange,Moov;NE|Niger|+227|🇳🇪|Orange,Moov;TG|Togo|+228|🇹🇬|Flooz,T-Money;BJ|Bénin|+229|🇧🇯|MTN,Moov;GN|Guinée|+224|🇬🇳|Orange,MTN;GW|Guinée-Bissau|+245|🇬🇼|Orange;LR|Libéria|+231|🇱🇷|MTN,Orange;SL|Sierra Leone|+232|🇸🇱|Orange,Africell;GH|Ghana|+233|🇬🇭|MTN,Vodafone,AirtelTigo;NG|Nigéria|+234|🇳🇬|MTN,Airtel,Glo;CM|Cameroun|+237|🇨🇲|MTN,Orange;CF|RCA|+236|🇨🇫|Orange;TD|Tchad|+235|🇹🇩|Airtel,Moov;CG|Congo|+242|🇨🇬|MTN,Airtel;CD|RD Congo|+243|🇨🇩|Vodacom,Orange,Airtel;GA|Gabon|+241|🇬🇦|Airtel,Moov;GQ|Guinée Éq.|+240|🇬🇶|Orange;MR|Mauritanie|+222|🇲🇷|Mauritel;GM|Gambie|+220|🇬🇲|Africell;MA|Maroc|+212|🇲🇦|;DZ|Algérie|+213|🇩🇿|;TN|Tunisie|+216|🇹🇳|;LY|Libye|+218|🇱🇾|;EG|Égypte|+20|🇪🇬|;SD|Soudan|+249|🇸🇩|;ET|Éthiopie|+251|🇪🇹|;KE|Kenya|+254|🇰🇪|M-Pesa,Airtel;TZ|Tanzanie|+255|🇹🇿|Vodacom,Airtel;UG|Ouganda|+256|🇺🇬|MTN,Airtel;RW|Rwanda|+250|🇷🇼|MTN,Airtel;BI|Burundi|+257|🇧🇮|;ZA|Afrique du Sud|+27|🇿🇦|;ZW|Zimbabwe|+263|🇿🇼|;ZM|Zambie|+260|🇿🇲|;MZ|Mozambique|+258|🇲🇿|;MG|Madagascar|+261|🇲🇬|;MU|Maurice|+230|🇲🇺|;AO|Angola|+244|🇦🇴|;NA|Namibie|+264|🇳🇦|;BW|Botswana|+267|🇧🇼|;FR|France|+33|🇫🇷|;BE|Belgique|+32|🇧🇪|;CH|Suisse|+41|🇨🇭|;DE|Allemagne|+49|🇩🇪|;IT|Italie|+39|🇮🇹|;ES|Espagne|+34|🇪🇸|;PT|Portugal|+351|🇵🇹|;NL|Pays-Bas|+31|🇳🇱|;GB|Royaume-Uni|+44|🇬🇧|;IE|Irlande|+353|🇮🇪|;SE|Suède|+46|🇸🇪|;NO|Norvège|+47|🇳🇴|;DK|Danemark|+45|🇩🇰|;FI|Finlande|+358|🇫🇮|;AT|Autriche|+43|🇦🇹|;PL|Pologne|+48|🇵🇱|;CZ|Tchéquie|+420|🇨🇿|;HU|Hongrie|+36|🇭🇺|;RO|Roumanie|+40|🇷🇴|;BG|Bulgarie|+359|🇧🇬|;GR|Grèce|+30|🇬🇷|;HR|Croatie|+385|🇭🇷|;RS|Serbie|+381|🇷🇸|;RU|Russie|+7|🇷🇺|;UA|Ukraine|+380|🇺🇦|;TR|Turquie|+90|🇹🇷|;US|États-Unis|+1|🇺🇸|;CA|Canada|+1|🇨🇦|;MX|Mexique|+52|🇲🇽|;BR|Brésil|+55|🇧🇷|;AR|Argentine|+54|🇦🇷|;CL|Chili|+56|🇨🇱|;CO|Colombie|+57|🇨🇴|;PE|Pérou|+51|🇵🇪|;AE|Émirats|+971|🇦🇪|;SA|Arabie Saoudite|+966|🇸🇦|;QA|Qatar|+974|🇶🇦|;KW|Koweït|+965|🇰🇼|;BH|Bahreïn|+973|🇧🇭|;OM|Oman|+968|🇴🇲|;JO|Jordanie|+962|🇯🇴|;LB|Liban|+961|🇱🇧|;IQ|Irak|+964|🇮🇶|;IR|Iran|+98|🇮🇷|;IN|Inde|+91|🇮🇳|;PK|Pakistan|+92|🇵🇰|;BD|Bangladesh|+880|🇧🇩|;LK|Sri Lanka|+94|🇱🇰|;NP|Népal|+977|🇳🇵|;CN|Chine|+86|🇨🇳|;JP|Japon|+81|🇯🇵|;KR|Corée du Sud|+82|🇰🇷|;TH|Thaïlande|+66|🇹🇭|;VN|Vietnam|+84|🇻🇳|;PH|Philippines|+63|🇵🇭|;ID|Indonésie|+62|🇮🇩|;MY|Malaisie|+60|🇲🇾|;SG|Singapour|+65|🇸🇬|;AU|Australie|+61|🇦🇺|;NZ|Nouvelle-Zélande|+64|🇳🇿";
+
+var COUNTRIES=COUNTRIES_RAW.split(";").map(function(s){var p=s.split("|");return {c:p[0],n:p[1],d:p[2],f:p[3],w:p[4]?p[4].split(","):[]};});
 
 var FX={FR:{currency:"EUR",rate:0.42},US:{currency:"USD",rate:0.385},IN:{currency:"INR",rate:32.1},AE:{currency:"AED",rate:3.67},GB:{currency:"GBP",rate:0.30}};
 
@@ -291,7 +327,7 @@ otpResendNow:["Renvoyer le code","Resend code","إعادة إرسال الرمز
 otpInvalid:["Code incorrect. Veuillez réessayer.","Incorrect code. Please try again.","الرمز غير صحيح. حاول مرة أخرى."],
 otpSent:["Code envoyé à nouveau.","Code sent again.","تم إرسال الرمز مرة أخرى."],topupDone:["Rechargement effectué.","Top-up completed.","تم الشحن."],
 receipt:["Reçu de transaction","Transaction receipt","إيصال المعاملة"],id:["Référence","Reference","المرجع"],
-date:["Date et heure","Date & time","التاريخ والوقت"],status:["Statut","Status","الحالة"],
+date:["Date et heure","Date & Time","التاريخ والوقت"],status:["Statut","Status","الحالة"],
 destination:["Destination","Destination","الوجهة"],estimated:["Réception estimée","Estimated receipt","المبلغ المتوقع"],
 fx:["Taux appliqué","Applied rate","سعر الصرف المطبق"],share:["Partager","Share","مشاركة"],
 download:["Télécharger","Download","تنزيل"],print:["Imprimer / PDF","Print / PDF","طباعة"],
@@ -369,43 +405,83 @@ supportSubjectTransaction:["Problème de transaction","Transaction problem","م�
 supportSubjectCard:["Problème de carte","Card problem","مشكلة في البطاقة"],
 supportSubjectLogin:["Problème de connexion","Login problem","مشكلة في تسجيل الدخول"],
 supportSubjectOther:["Autre","Other","أخرى"],
-supportLiveChatSoon:["Chat disponible bientôt. Utilisez le formulaire.","Chat coming soon. Use the form.","الدردشة قريبًا. استخدم النموذج."],
+supportLiveChatSoon:["Chat disponible bientôt.","Chat coming soon.","الدردشة قريبًا."],
 supportChatMsg1:["Bonjour ! Je suis Sara de Nizwa Wallet. Comment puis-je vous aider ?","Hello! I'm Sara from Nizwa Wallet. How can I help you?","مرحبًا! أنا سارة من محفظة نزوى. كيف أساعدك؟"],
-supportChatMsg2:["Je comprends votre situation. Un instant, je consulte votre dossier...","I understand. One moment, checking your file...","أفهم وضعك. لحظة، أراجع ملفك..."],
-supportChatMsg3:["Merci pour votre patience. Un agent va prendre le relais.","Thank you for your patience. An agent will take over.","شكرًا لصبرك. سيتولى الأمر موظف مختص."],
-supportOnline:["En ligne","Online","متصل"],supportOffline:["Hors ligne","Offline","غير متصل"]
+supportChatMsg2:["Un instant, je consulte votre dossier...","One moment, checking your file...","لحظة، أراجع ملفك..."],
+supportChatMsg3:["Merci. Un agent va prendre le relais.","Thank you. An agent will take over.","شكرًا. سيتولى الأمر موظف مختص."],
+intTitle:["Transfert International","International Transfer","التحويل الدولي"],
+intSelectCountry:["Sélectionnez le pays","Select the country","اختر الدولة"],
+intSearch:["Rechercher un pays...","Search a country...","ابحث عن دولة..."],
+intMethod:["Méthode d'envoi","Send method","طريقة الإرسال"],
+intMethodDesc:["Choisissez le service","Choose the service","اختر الخدمة"],
+intMoneyGram:["MoneyGram","MoneyGram","MoneyGram"],
+intMoneyGramDesc:["Envoi mondial via MoneyGram","Worldwide transfer via MoneyGram","إرسال عالمي عبر MoneyGram"],
+intEwallet:["E-wallet","E-wallet","محفظة إلكترونية"],
+intEwalletDesc:["Envoi vers un portefeuille mobile","Send to a mobile wallet","إرسال إلى محفظة موبايل"],
+intWalletProvider:["Fournisseur","Provider","المزود"],
+intRecipientInfo:["Informations du destinataire","Recipient info","معلومات المستقبل"],
+intFullName:["Nom complet","Full name","الاسم الكامل"],
+intFullNamePh:["Ex: Jean Kouassi","Ex: Jean Kouassi","مثال: Jean Kouassi"],
+intPhoneNumber:["Numéro de téléphone","Phone number","رقم الهاتف"],
+intPhonePh:["Ex: 07 XX XX XX XX","Ex: 07 XX XX XX XX","مثال: 07 XX XX XX XX"],
+intWalletNumber:["Numéro e-wallet","E-wallet number","رقم المحفظة الإلكترونية"],
+intWalletNumberPh:["Ex: 07 XX XX XX XX","Ex: 07 XX XX XX XX","مثال: 07 XX XX XX XX"],
+intAmountTitle:["Montant à envoyer","Amount to send","المبلغ المرسل"],
+intYouSend:["Vous envoyez","You send","أنت ترسل"],
+intTheyReceive:["Ils reçoivent","They receive","يستلمون"],
+intRate:["Taux appliqué","Applied rate","سعر الصرف المطبق"],
+intFees:["Frais de transfert","Transfer fees","رسوم التحويل"],
+intTotalDebit:["Total débité","Total debit","المجموع الخصم"],
+intReviewTitle:["Vérification","Review","المراجعة"],
+intProcessingTitle:["Traitement du virement international","International transfer processing","معالجة التحويل الدولي"],
+intReceiptTitle:["Reçu de virement international","International Transfer Receipt","إيصال التحويل الدولي"],
+intService:["Service","Service","الخدمة"],
+intRef:["Référence","Reference","المرجع"],
+intPending:["En cours","Pending","قيد التنفيذ"],
+intCompleted:["Terminé","Completed","مكتمل"],
+intSenderName:["Nom de l'expéditeur","Sender name","اسم المرسل"],
+intSenderAccount:["Compte source","Source account","الحساب المصدر"],
+intRecipientPhone:["Téléphone destinataire","Recipient phone","هاتف المستقبل"],
+intRecipientWallet:["Compte e-wallet","E-wallet account","الحساب الإلكتروني"],
+intTransferNotice:["Montant envoyé et débité. En cours de traitement.","Amount sent and debited. Processing.","تم إرسال المبلغ وخصمه. قيد المعالجة."],
+intTransferDone:["Virement international effectué avec succès.","International transfer completed successfully.","تم التحويل الدولي بنجاح."],
+intSelectWallet:["Sélectionnez le portefeuille","Select the wallet","اختر المحفظة"],
+intNoWallet:["Aucun portefeuille disponible pour ce pays","No wallet available for this country","لا يوجد محفظة لهذه الدولة"],
+intRateNote:["1 OMR = "+OMR_TO_XOF+" XOF","1 OMR = "+OMR_TO_XOF+" XOF","1 OMR = "+OMR_TO_XOF+" XOF"],
+intMinAmount:["Montant minimum 1 OMR","Minimum 1 OMR","الحد الأدنى 1 OMR"],
+intMaxAmount:["Montant maximum 10 000 OMR","Maximum 10 000 OMR","الحد الأقصى 10 000 OMR"],
+intBankUnavailable:["Virement bancaire bientôt disponible","Bank transfer coming soon","التحويل البنكي قريبًا"]
 };
 
 function $(s){return document.querySelector(s);}
 function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
 
 var DEFAULT_STATE={balanceBaisa:1250000,hidden:true,frozen:false,lang:"fr",
-transactions:[{id:"TX001",at:Date.now()-86400000*2,name:"FARD AL BALUSHI",destination:"+968 91257747",kind:"Transfert local",note:"",amountBaisa:15000,dir:"in"},{id:"TX002",at:Date.now()-86400000*5,name:"BASIM AL HINAI",destination:"+968 79323766",kind:"Transfert local",note:"",amountBaisa:7500,dir:"out"},{id:"TX003",at:Date.now()-86400000*12,name:"JEAN DUPONT",destination:"France",kind:"International",note:"",amountBaisa:20000,dir:"out"},{id:"TX004",at:Date.now()-86400000*20,name:"Rechargement",destination:"Portefeuille",kind:"Rechargement",note:"",amountBaisa:50000,dir:"in"}],
+transactions:[{id:"TX001",at:Date.now()-86400000*2,name:"FARD AL BALUSHI",destination:"+968 91257747",kind:"Transfert local",note:"",amountBaisa:15000,dir:"in",status:"completed"},{id:"TX002",at:Date.now()-86400000*5,name:"BASIM AL HINAI",destination:"+968 79323766",kind:"Transfert local",note:"",amountBaisa:7500,dir:"out",status:"completed"},{id:"TX003",at:Date.now()-86400000*12,name:"JEAN DUPONT",destination:"France",kind:"International",note:"",amountBaisa:20000,dir:"out",status:"completed"},{id:"TX004",at:Date.now()-86400000*20,name:"Rechargement",destination:"Portefeuille",kind:"Rechargement",note:"",amountBaisa:50000,dir:"in",status:"completed"}],
 cards:[{id:"c1",last4:"7216",exp:"05/27",type:"VISA",frozen:false,online:true,contactless:true,atm:true,dailyLimit:1000000},{id:"c2",last4:"4364",exp:"12/29",type:"MASTERCARD",frozen:false,online:true,contactless:true,atm:true,dailyLimit:1000000}],
 notifications:[{id:"n1",title:"Bienvenue sur Nizwa Wallet",body:"Votre portefeuille est prêt.",at:Date.now()-86400000,read:false,kind:"info"},{id:"n2",title:"Paiement reçu",body:"+ 150,000 OMR de FARD AL BALUSHI",at:Date.now()-3600000,read:false,kind:"in"},{id:"n3",title:"Nouvelle carte",body:"Votre carte VISA est active.",at:Date.now()-600000,read:false,kind:"card"}],
 notifPrefs:{transactions:true,promos:false,security:true},biometrics:false,twoFactor:true,savingMode:false,budgetAlertDismissed:false,directory:{},tickets:[],email:"ahmed.alqartoubi@example.com",phone:"+968 98869593",address:"Al Qurum, Muscat, Oman"};
 
 var state=JSON.parse(JSON.stringify(DEFAULT_STATE));
-for (var k in DEFAULT_DIRECTORY){ state.directory[k]=DEFAULT_DIRECTORY[k]; }
-
-try{var stored=localStorage.getItem(STORE);if (stored){var s=JSON.parse(stored);if (s&&typeof s==="object"){for (var key in s){if (key==="directory"&&s.directory&&typeof s.directory==="object"){for (var dk in s.directory){state.directory[dk]=s.directory[dk];}}else if (key!=="directory"&&key!=="hidden"){state[key]=s[key];}}}}}catch(e){}
+try{var stored=localStorage.getItem(STORE);if (stored){var s=JSON.parse(stored);if (s&&typeof s==="object"){for (var key in s){if (key!=="hidden"){state[key]=s[key];}}}}}catch(e){}
 state.hidden=true;
 
 function t(key){var arr=words[key];if (!arr) return key;return arr[state.lang==="fr"?0:state.lang==="en"?1:2];}
 function money(b){var n=b/1000;var p=Math.abs(n).toFixed(3).split(".");var i=p[0].replace(/\B(?=(\d{3})+(?!\d))/g," ");return i+"."+p[1];}
+function num(n){var p=Math.abs(n).toFixed(0).split(".");return p[0].replace(/\B(?=(\d{3})+(?!\d))/g," ");}
 function when(x){var d=new Date(x);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")+" "+String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");}
 function whenShort(x){var d=new Date(x);return String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0")+" "+String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");}
 function monthKey(x){var d=new Date(x);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");}
 function lookupDirectory(input){if (!input) return null;var c=String(input).replace(/\D/g,"");if (!c) return null;if (state.directory[c]) return {number:c,name:state.directory[c]};if (c.length===7&&state.directory["0"+c]) return {number:"0"+c,name:state.directory["0"+c]};if (c.length===8&&c.charAt(0)==="0"&&state.directory[c.slice(1)]) return {number:c.slice(1),name:state.directory[c.slice(1)]};return null;}
 
-var logged=false,page="login",pageParam=null,draft=null,raw="",filter="all",searchQuery="",receiptTx=null,pending=null,timer=null,started=0,toastTimer,modalTx=null,otpInput="",otpError=false,resendTimer=null,resendCountdown=0,iosNotifTimer=null,nameRevealTimer=null,chatTimers=[];
+var logged=false,page="login",pageParam=null,draft=null,raw="",filter="all",searchQuery="",receiptTx=null,pending=null,timer=null,started=0,toastTimer,modalTx=null,otpInput="",otpError=false,resendTimer=null,resendCountdown=0,iosNotifTimer=null,nameRevealTimer=null,chatTimers=[],intDraft=null,intTimer=null,intStarted=0,intRaw="",intOtp="",intOtpErr=false,intCountrySearch="",intNotifTimers=[];
 var view=$("#view"),modal=$("#modal");
 
-var paths={home:'<path d="m3 10 9-7 9 7v10H3zM9 20v-7h6v7"/>',send:'<path d="M6 18 18 6M8 6h10v10"/>',receive:'<path d="M18 6 6 18M16 18H6V8"/>',topup:'<rect x="3" y="6" width="18" height="12" rx="3"/><path d="M12 9v6M9 12h6"/>',more:'<circle cx="6" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="18" cy="12" r="1.2"/>',globe:'<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',bank:'<path d="m2 8 10-5 10 5H2ZM4 21h16M5 11v7M12 11v7M19 11v7"/>',back:'<path d="m15 5-7 7 7 7"/>',eye:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12"/><circle cx="12" cy="12" r="3"/>',eyeOff:'<path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a18.5 18.5 0 0 1 5.06-5.94M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22"/>',check:'<path d="m5 12 4 4L19 6"/>',bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/>',card:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/>',lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',unlock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.46-2"/>',shield:'<path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/>',smartphone:'<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M12 18h.01"/>',chevron:'<path d="m9 6 6 6-6 6"/>',plus:'<path d="M12 5v14M5 12h14"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/>',faceId:'<path d="M4 8V6a2 2 0 0 1 2-2h2M20 8V6a2 2 0 0 0-2-2h-2M4 16v2a2 2 0 0 0 2 2h2M20 16v2a2 2 0 0 1-2 2h-2"/><path d="M9 10v1M15 10v1M9 15s1 1 3 1 3-1 3-1"/>',download:'<path d="M12 3v12m-5-5 5 5 5-5M5 21h14"/>',share:'<path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v14"/>',print:'<path d="M6 9V2h12v7M6 18H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2M6 14h12v8H6z"/>',copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',sparkles:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/>',wallet:'<path d="M3 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M16 12h3"/>',trash:'<path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14M10 11v6M14 11v6"/>',edit:'<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/>',calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/>',chart:'<path d="M3 3v18h18M7 15l4-4 4 3 5-6"/>',gift:'<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13M12 8a3 3 0 1 0-3-3c0 1.5 1.5 3 3 3zM12 8a3 3 0 1 1 3-3c0 1.5-1.5 3-3 3z"/>',mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',phone:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',pin:'<path d="M12 2a6 6 0 0 0-6 6c0 3 2 5 3 7l1 4h4l1-4c1-2 3-4 3-7a6 6 0 0 0-6-6z"/>',file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>',help:'<circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/>',chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',star:'<path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>',logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',key:'<circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3"/>',settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>',search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/>',robot:'<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V5M8 3h8M9 14h.01M15 14h.01M9 17h6"/>',alert:'<path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>',contacts:'<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M8.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM20 8v6M23 11h-6"/>'};
+var paths={home:'<path d="m3 10 9-7 9 7v10H3zM9 20v-7h6v7"/>',send:'<path d="M6 18 18 6M8 6h10v10"/>',receive:'<path d="M18 6 6 18M16 18H6V8"/>',topup:'<rect x="3" y="6" width="18" height="12" rx="3"/><path d="M12 9v6M9 12h6"/>',more:'<circle cx="6" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="18" cy="12" r="1.2"/>',globe:'<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',bank:'<path d="m2 8 10-5 10 5H2ZM4 21h16M5 11v7M12 11v7M19 11v7"/>',back:'<path d="m15 5-7 7 7 7"/>',eye:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12"/><circle cx="12" cy="12" r="3"/>',eyeOff:'<path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a18.5 18.5 0 0 1 5.06-5.94M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22"/>',check:'<path d="m5 12 4 4L19 6"/>',bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/>',card:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/>',lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',unlock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.46-2"/>',shield:'<path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/>',smartphone:'<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M12 18h.01"/>',chevron:'<path d="m9 6 6 6-6 6"/>',plus:'<path d="M12 5v14M5 12h14"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/>',faceId:'<path d="M4 8V6a2 2 0 0 1 2-2h2M20 8V6a2 2 0 0 0-2-2h-2M4 16v2a2 2 0 0 0 2 2h2M20 16v2a2 2 0 0 1-2 2h-2"/><path d="M9 10v1M15 10v1M9 15s1 1 3 1 3-1 3-1"/>',download:'<path d="M12 3v12m-5-5 5 5 5-5M5 21h14"/>',share:'<path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v14"/>',print:'<path d="M6 9V2h12v7M6 18H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2M6 14h12v8H6z"/>',copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',sparkles:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/>',wallet:'<path d="M3 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M16 12h3"/>',trash:'<path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14M10 11v6M14 11v6"/>',edit:'<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/>',calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/>',chart:'<path d="M3 3v18h18M7 15l4-4 4 3 5-6"/>',gift:'<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13M12 8a3 3 0 1 0-3-3c0 1.5 1.5 3 3 3zM12 8a3 3 0 1 1 3-3c0 1.5-1.5 3-3 3z"/>',mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',phone:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',pin:'<path d="M12 2a6 6 0 0 0-6 6c0 3 2 5 3 7l1 4h4l1-4c1-2 3-4 3-7a6 6 0 0 0-6-6z"/>',file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>',help:'<circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/>',chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',star:'<path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>',logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',key:'<circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3"/>',settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>',search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/>',robot:'<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V5M8 3h8M9 14h.01M15 14h.01M9 17h6"/>',alert:'<path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>',contacts:'<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M8.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM20 8v6M23 11h-6"/>',down:'<path d="m6 9 6 6 6-6"/>',arrowRight:'<path d="M5 12h14M13 6l6 6-6 6"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'};
 function icon(n){return '<svg viewBox="0 0 24 24" aria-hidden="true">'+(paths[n]||paths.send)+'</svg>';}
 
 function back(p,title){return '<div class="back"><button class="icon" data-page="'+p+'" aria-label="'+esc(t("back"))+'">'+icon("back")+'</button>'+(title?'<span class="title">'+esc(title)+'</span>':'')+'<span style="width:42px"></span></div>';}
-function detail(k,v){return '<div class="detail"><dt>'+esc(t(k))+'</dt><dd>'+esc(v)+'</dd></div>';}
+function detail(k,v){return '<div class="detail"><dt>'+esc(typeof k==="string"&&words[k]?t(k):k)+'</dt><dd>'+esc(v)+'</dd></div>';}
 function rows(l){var out="";for (var i=0;i<l.length;i++) out+=detail(l[i][0],l[i][1]);return '<dl class="details">'+out+'</dl>';}
 function field(k,id,v,x){v=v||"";x=x||"";return '<label class="field"><span>'+esc(t(k))+'</span><input id="'+id+'" value="'+esc(v)+'" '+x+'></label>';}
 function formError(){return '<p id="formError" class="error" role="alert"></p>';}
@@ -417,7 +493,7 @@ function save(){try{var toSave=JSON.parse(JSON.stringify(state));delete toSave.h
 function applyAppearance(){document.documentElement.lang=state.lang;document.documentElement.dir=state.lang==="ar"?"rtl":"ltr";document.documentElement.dataset.theme="light";}
 function bankNizwaLogo(){return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V5l7 9 7-9v14"/></svg>';}
 
-function navigate(p,param){if (!logged) p="login";if ((p==="recipient"||p==="amount"||p==="review"||p==="otp")&&!draft) p="transfers";page=p;pageParam=param||null;render();window.scrollTo(0,0);}
+function navigate(p,param){if (!logged) p="login";if ((p==="recipient"||p==="amount"||p==="review"||p==="otp")&&!draft) p="transfers";if (p.indexOf("int")===0&&p!=="international"&&!intDraft) p="transfers";page=p;pageParam=param||null;render();window.scrollTo(0,0);}
 
 function render(){
 applyAppearance();
@@ -427,11 +503,14 @@ if (h) h.innerHTML=logged?'<div class="brand"><span class="logo">'+bankNizwaLogo
 var navEl=$("#nav");if (navEl) navEl.hidden=!logged||["home","transfers","cards","profile"].indexOf(page)===-1;
 var ni=$("#navInner");
 if (ni){var tabs=[["home","home","Accueil"],["transfers","send","Transferts"],["cards","card","Cartes"],["profile","user","Profil"]];var out="";for (var j=0;j<tabs.length;j++){var tb=tabs[j];out+='<button data-page="'+tb[0]+'" class="'+(page===tb[0]?"active":"")+'" aria-label="'+tb[2]+'">'+icon(tb[1])+'<span>'+tb[2]+'</span></button>';}ni.innerHTML=out;}
-var pages={login:login,home:home,transfers:transfers,recipient:recipient,amount:amount,review:review,otp:otp,processing:processing,success:success,history:history,cards:cards,cardDetail:cardDetail,cardSettings:cardSettings,profile:profile,notifications:notifications,scheduled:scheduled,limits:limits,statements:statements,accountInfo:accountInfo,security:security,changePassword:changePassword,changePin:changePin,personalInfo:personalInfo,editInfo:editInfo,help:help,faq:faq,terms:terms,about:about,referral:referral,fees:fees,directory:directory,contactForm:contactForm,support:support,supportTicket:supportTicket,ticketsList:ticketsList};
+var pages={login:login,home:home,transfers:transfers,recipient:recipient,amount:amount,review:review,otp:otp,processing:processing,success:success,history:history,cards:cards,cardDetail:cardDetail,cardSettings:cardSettings,profile:profile,notifications:notifications,scheduled:scheduled,limits:limits,statements:statements,accountInfo:accountInfo,security:security,changePassword:changePassword,changePin:changePin,personalInfo:personalInfo,editInfo:editInfo,help:help,faq:faq,terms:terms,about:about,referral:referral,fees:fees,directory:directory,contactForm:contactForm,support:support,supportTicket:supportTicket,ticketsList:ticketsList,international:international,intMethod:intMethod,intRecipient:intRecipient,intAmount:intAmount,intReview:intReview,intOtp:intOtp,intProcessing:intProcessing,intReceipt:intReceipt};
 var fn=pages[page]||home;if (view) view.innerHTML=fn();
 if (page==="amount"){updateAmount();startNameReveal();}
 if (page==="processing") updateProgress();
 if (page==="otp"&&!resendTimer) startResendTimer();
+if (page==="intAmount") updateIntAmount();
+if (page==="intProcessing") updateIntProgress();
+if (page==="intOtp"&&!resendTimer) startResendTimer();
 updateAi();
 }
 
@@ -461,14 +540,15 @@ function chartHTML(){var ms=[];var now=new Date();for (var i=5;i>=0;i--){var d=n
 
 function transfers(){var lock=state.frozen?"disabled":"";return '<h1>'+esc(t("transfers"))+'</h1><div class="grid">'+
 '<button class="tile" data-action="start" data-kind="local" '+lock+'><i>'+icon("send")+'</i><strong>'+esc(t("local"))+'</strong></button>'+
-'<button class="tile" data-action="start" data-kind="international" '+lock+'><i>'+icon("globe")+'</i><strong>'+esc(t("international"))+'</strong></button>'+
-'<button class="tile" data-action="start" data-kind="bank" '+lock+'><i>'+icon("bank")+'</i><strong>'+esc(t("bank"))+'</strong></button>'+
+'<button class="tile" data-action="startInt"><i>'+icon("globe")+'</i><strong>'+esc(t("international"))+'</strong></button>'+
+'<button class="tile" data-action="bankSoon"><i>'+icon("bank")+'</i><strong>'+esc(t("bank"))+'</strong></button>'+
 '<button class="tile" data-action="request"><i>'+icon("receive")+'</i><strong>'+esc(t("request"))+'</strong></button>'+
 '<button class="tile" data-action="topup" '+lock+'><i>'+icon("topup")+'</i><strong>'+esc(t("topup"))+'</strong></button>'+
 '<button class="tile" data-action="addCard"><i>'+icon("card")+'</i><strong>'+esc(t("addCard"))+'</strong></button>'+
 '</div><div class="card menu-list">'+menuItem(t("scheduled"),{icon:"calendar",page:"scheduled",sub:t("noScheduled")})+menuItem(t("limits"),{icon:"chart",page:"limits",sub:money(DAILY_LIMIT)+" OMR"})+'</div>';}
 
-function startTransfer(k){if (["local","international","bank"].indexOf(k)===-1) return;draft={kind:k,name:"",number:"",bank:"",country:"FR",note:"",amountBaisa:0};raw="";navigate("recipient");}
+function startTransfer(k){if (["local","international","bank"].indexOf(k)===-1) return;if (k==="international"){startInt();return;}draft={kind:k,name:"",number:"",bank:"",country:"FR",note:"",amountBaisa:0};raw="";navigate("recipient");}
+function startInt(){intDraft={country:null,method:null,wallet:null,name:"",phone:"",amountBaisa:0};intRaw="";intOtp="";intOtpErr=false;navigate("international");}
 
 function recipient(){var local=draft.kind==="local";return back("transfers",t(draft.kind))+'<form id="recipientForm">'+
 (local?'<label class="field"><span>'+esc(t("number"))+'</span><input id="number" inputmode="tel" maxlength="24" value="'+esc(draft.number)+'" placeholder="+968" required autocomplete="off"></label>':field("name","name",draft.name,'maxlength="60" required'))+
@@ -502,22 +582,23 @@ return '<div class="back"><button class="icon" data-action="cancelOtp">'+icon("b
 
 function pressOtp(k){if (otpError){otpInput="";otpError=false;}if (k==="⌫") otpInput=otpInput.slice(0,-1);else if (/^\d$/.test(k)){if (otpInput.length<6) otpInput+=k;}if (otpInput.length===6){var c=otpInput;render();setTimeout(function(){if (otpInput!==c) return;if (c===OTP_CODE) startProcessing();else{otpError=true;render();setTimeout(function(){otpInput="";otpError=false;render();},TIMING.otpErrorReset);}},TIMING.otpAutoSubmit);}else render();}
 
-function startResendTimer(){clearInterval(resendTimer);resendCountdown=TIMING.otpResend;resendTimer=setInterval(function(){if (page!=="otp"){clearInterval(resendTimer);resendTimer=null;return;}resendCountdown=Math.max(0,resendCountdown-1);var l=$("#resendLine");if (l){l.innerHTML=resendCountdown>0?(esc(t("otpResend"))+' <b>00:'+String(resendCountdown).padStart(2,"0")+'</b>'):'<button class="link" data-action="resendOtp" style="min-height:auto">'+esc(t("otpResendNow"))+'</button>';}if (resendCountdown<=0){clearInterval(resendTimer);resendTimer=null;}},1000);}
+function startResendTimer(){clearInterval(resendTimer);resendCountdown=TIMING.otpResend;resendTimer=setInterval(function(){if (page!=="otp"&&page!=="intOtp"){clearInterval(resendTimer);resendTimer=null;return;}resendCountdown=Math.max(0,resendCountdown-1);var l=$("#resendLine");if (l){l.innerHTML=resendCountdown>0?(esc(t("otpResend"))+' <b>00:'+String(resendCountdown).padStart(2,"0")+'</b>'):'<button class="link" data-action="resendOtp" style="min-height:auto">'+esc(t("otpResendNow"))+'</button>';}if (resendCountdown<=0){clearInterval(resendTimer);resendTimer=null;}},1000);}
 
 function processing(){return '<div class="process"><div class="reactor-wrap"><div class="reactor"><div class="reactor-core"></div></div></div><h2 class="process-title">'+esc(t("processing"))+'</h2><button class="btn ghost process-cancel" id="cancelProcessBtn" data-action="cancelProcess">'+esc(t("cancel"))+'</button></div>';}
 function updateProgress(){if (!pending) return;var e=Date.now()-started;var l=Math.min(1,e/TIMING.processing);var b=$("#cancelProcessBtn");if (b){if (l>0.55){b.style.opacity="0";b.style.pointerEvents="none";}else{b.style.opacity="1";b.style.pointerEvents="auto";}}}
 
 function startProcessing(){var b=parseAmount(raw);if (!b||b<=0){toast(t("invalidAmount"));navigate("amount");return;}if (b>state.balanceBaisa){toast(t("insufficient"));navigate("amount");return;}pending={amountBaisa:b};started=Date.now();clearInterval(timer);timer=setInterval(function(){updateProgress();if (Date.now()-started>=TIMING.processing){clearInterval(timer);timer=null;finishProcessing();}},150);navigate("processing");}
 function cancelProcessing(){if (timer){clearInterval(timer);timer=null;}pending=null;raw="";otpInput="";if (resendTimer){clearInterval(resendTimer);resendTimer=null;}toast(t("cancelled"));navigate("home");}
-function finishProcessing(){if (!pending||!draft) return;var b=pending.amountBaisa;var tx={id:"NW"+Date.now().toString(36).toUpperCase()+Math.floor(Math.random()*900+100),at:Date.now(),name:draft.name||t("wallet"),destination:destination(draft),kind:t(draft.kind),note:draft.note||"",amountBaisa:b,dir:"out"};state.transactions.unshift(tx);state.balanceBaisa-=b;state.notifications.unshift({id:"n"+Date.now(),title:t("success"),body:money(b)+" OMR · "+tx.name,at:Date.now(),read:false,kind:"out"});save();receiptTx=tx;var cp=JSON.parse(JSON.stringify(tx));setTimeout(function(){showIosStyleNotif(cp);},TIMING.notifDelay);pending=null;draft=null;raw="";otpInput="";if (resendTimer){clearInterval(resendTimer);resendTimer=null;}navigate("success");}
+function finishProcessing(){if (!pending||!draft) return;var b=pending.amountBaisa;var tx={id:"NW"+Date.now().toString(36).toUpperCase()+Math.floor(Math.random()*900+100),at:Date.now(),name:draft.name||t("wallet"),destination:destination(draft),kind:t(draft.kind),note:draft.note||"",amountBaisa:b,dir:"out",status:"pending"};state.transactions.unshift(tx);state.balanceBaisa-=b;state.notifications.unshift({id:"n"+Date.now(),title:t("success"),body:money(b)+" OMR · "+tx.name,at:Date.now(),read:false,kind:"out"});save();receiptTx=tx;var cp=JSON.parse(JSON.stringify(tx));setTimeout(function(){showIosStyleNotif(cp,"pending");},TIMING.intNotif1Delay);setTimeout(function(){markTxCompleted(cp.id);showIosStyleNotif(cp,"success");},TIMING.intNotif2Delay);pending=null;draft=null;raw="";otpInput="";if (resendTimer){clearInterval(resendTimer);resendTimer=null;}navigate("success");}
+function markTxCompleted(id){for (var i=0;i<state.transactions.length;i++){if (state.transactions[i].id===id){state.transactions[i].status="completed";break;}}save();if (page==="history"||page==="home") render();}
 
-function showIosStyleNotif(tx){var el=document.getElementById("iosNotif");if (!el) return;var isIn=tx.dir==="in";var sign=isIn?"+":"−";var title=isIn?"Montant reçu":"Transfert effectué";var amount=sign+money(tx.amountBaisa)+" OMR";var tm=new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});el.innerHTML='<div class="ios-notif-icon">'+icon("check")+'</div><div class="ios-notif-content"><div class="ios-notif-header"><span class="ios-notif-app">Nizwa Wallet</span><span class="ios-notif-time">'+tm+'</span></div><div class="ios-notif-title">'+esc(title)+'</div><div class="ios-notif-body"><b>'+esc(tx.name)+'</b> — '+amount+'</div></div>';el.classList.remove("show");void el.offsetWidth;el.classList.add("show");clearTimeout(iosNotifTimer);iosNotifTimer=setTimeout(function(){el.classList.remove("show");},TIMING.iosNotif);}
+function showIosStyleNotif(tx,mode){var el=document.getElementById("iosNotif");if (!el) return;var isIn=tx.dir==="in";var sign=isIn?"+":"−";var title,body,cls;if (mode==="pending"){title=state.lang==="ar"?"قيد التنفيذ":"Pending";body="Nizwa Wallet · "+sign+money(tx.amountBaisa)+" OMR";cls="";}else{title=state.lang==="ar"?"تم بنجاح":"Completed";body=esc(tx.name)+" — "+sign+money(tx.amountBaisa)+" OMR";cls=" success";}var tm=new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});el.innerHTML='<div class="ios-notif-icon'+cls+'">'+icon("check")+'</div><div class="ios-notif-content"><div class="ios-notif-header"><span class="ios-notif-app">Nizwa Wallet</span><span class="ios-notif-time">'+tm+'</span></div><div class="ios-notif-title">'+esc(title)+'</div><div class="ios-notif-body">'+body+'</div></div>';el.classList.remove("show");void el.offsetWidth;el.classList.add("show");clearTimeout(iosNotifTimer);iosNotifTimer=setTimeout(function(){el.classList.remove("show");},TIMING.iosNotif);}
 
-function success(){var x=receiptTx;if (!x) return home();return '<div class="center"><div class="check">'+icon("check")+'</div><h1>'+esc(t("success"))+'</h1></div><div class="card receipt"><div class="bank-logo"><div class="emblem">'+bankNizwaLogo()+'</div><div class="name">Bank Nizwa</div><div class="sub">'+esc(t("receipt"))+'</div></div>'+rows([["status",t("success")],["amount",money(x.amountBaisa)+" OMR"],["recipient",x.name],["destination",x.destination],["sender",ACCOUNT],["date",when(x.at)],["id",x.id]].concat(x.note?[["note",x.note]]:[]))+'</div><button class="btn primary" data-action="share">'+icon("share")+' '+esc(t("share"))+'</button><p style="height:10px"></p><div class="grid"><button class="btn" data-action="print">'+icon("print")+' '+esc(t("print"))+'</button><button class="btn" data-action="download">'+icon("download")+' '+esc(t("download"))+'</button></div><p style="height:10px"></p><button class="btn" data-action="copyInfo">'+icon("copy")+' '+esc(t("copyInfo"))+'</button><p style="height:10px"></p><button class="btn ghost" data-page="home">'+esc(t("home"))+'</button>';}
+function success(){var x=receiptTx;if (!x) return home();return '<div class="center"><div class="check">'+icon("check")+'</div><h1>'+esc(t("success"))+'</h1></div><div class="card receipt"><div class="bank-logo"><div class="emblem">'+bankNizwaLogo()+'</div><div class="name">Bank Nizwa</div><div class="sub">'+esc(t("receipt"))+'</div></div>'+rows([["status",t("intPending")],["amount",money(x.amountBaisa)+" OMR"],["recipient",x.name],["destination",x.destination],["sender",ACCOUNT],["date",when(x.at)],["id",x.id]].concat(x.note?[["note",x.note]]:[]))+'</div><button class="btn primary" data-action="share">'+icon("share")+' '+esc(t("share"))+'</button><p style="height:10px"></p><div class="grid"><button class="btn" data-action="print">'+icon("print")+' '+esc(t("print"))+'</button><button class="btn" data-action="download">'+icon("download")+' '+esc(t("download"))+'</button></div><p style="height:10px"></p><button class="btn ghost" data-page="home">'+esc(t("home"))+'</button>';}
 
 function history(){var list=state.transactions.filter(function(x){return filter==="all"||x.dir===filter;});if (searchQuery){var q=searchQuery.toLowerCase();list=list.filter(function(x){return (x.name||"").toLowerCase().indexOf(q)>=0||(x.destination||"").toLowerCase().indexOf(q)>=0;});}return '<h1>'+esc(t("history"))+'</h1><div class="search-bar">'+icon("search")+'<input id="txSearch" type="search" placeholder="'+esc(t("searchPlaceholder"))+'" value="'+esc(searchQuery)+'"></div><div class="filters">'+[["all","all"],["in","in"],["out","out"]].map(function(p){return '<button type="button" class="filter '+(filter===p[0]?"active":"")+'" data-filter="'+p[0]+'">'+esc(t(p[1]))+'</button>';}).join("")+'</div><div class="card">'+txList(list)+'</div>';}
 
-function txList(list){if (!list.length) return '<p class="muted center" style="padding:20px 0">'+esc(t("empty"))+'</p>';return list.map(function(x){return '<button type="button" class="tx" data-ref="'+esc(x.id)+'"><i>'+icon(x.dir==="in"?"receive":"send")+'</i><span><strong>'+esc(x.name)+'</strong><small>'+esc(whenShort(x.at))+' · '+esc(x.kind||"")+'</small></span><b class="'+(x.dir==="in"?"in":"")+'">'+(x.dir==="in"?"+":"−")+money(x.amountBaisa)+'</b></button>';}).join("");}
+function txList(list){if (!list.length) return '<p class="muted center" style="padding:20px 0">'+esc(t("empty"))+'</p>';return list.map(function(x){var status=x.status||"completed";var badge=status==="pending"?'<span class="pending-badge">'+icon("clock")+' '+esc(t("intPending"))+'</span>':'<span class="done-badge">'+icon("check")+' '+esc(t("intCompleted"))+'</span>';return '<button type="button" class="tx" data-ref="'+esc(x.id)+'"><i>'+icon(x.dir==="in"?"receive":"send")+'</i><span><strong>'+esc(x.name)+'</strong><small>'+esc(whenShort(x.at))+' · '+esc(x.kind||"")+'</small><div style="margin-top:4px">'+badge+'</div></span><b class="'+(x.dir==="in"?"in":"")+'">'+(x.dir==="in"?"+":"−")+money(x.amountBaisa)+'</b></button>';}).join("");}
 
 function cards(){return '<h1>'+esc(t("cards"))+'</h1>'+state.cards.map(function(c){var f=c.frozen||state.frozen;return '<div class="card" data-page="cardDetail" data-param="'+esc(c.id)+'" style="cursor:pointer;padding:18px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><strong style="font-size:14.5px">'+esc(c.type)+'</strong>'+(f?'<span style="background:var(--field);color:var(--violet);padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700">'+esc(t("frozen"))+'</span>':'<span style="background:var(--field);color:var(--violet);padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700">'+esc(t("active"))+'</span>')+'</div><div style="font:600 14px ui-monospace,monospace;letter-spacing:2px;direction:ltr;margin-bottom:10px">•••• •••• •••• '+esc(c.last4)+'</div><div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted)"><span>'+esc(t("holder"))+' · '+HOLDER.split(" ")[0]+'</span><span>'+esc(t("expires"))+' '+esc(c.exp)+'</span></div></div>';}).join("")+'<button class="btn" data-action="addCard">'+icon("plus")+' '+esc(t("addCard"))+'</button><div class="card menu-list" style="margin-top:14px">'+menuItem(t("cardSettings"),{icon:"settings",page:"cardSettings",param:state.cards[0]?state.cards[0].id:"",sub:state.cards[0]?(state.cards[0].type+" •••• "+state.cards[0].last4):""})+menuItem(t("limits"),{icon:"chart",page:"limits"})+'</div>';}
 
@@ -529,11 +610,11 @@ function profile(){return '<div class="card" style="text-align:center;padding:24
 '<div class="card menu-list">'+menuItem(t("personalInfo"),{icon:"user",page:"personalInfo"})+menuItem(t("accountInfo"),{icon:"wallet",page:"accountInfo"})+menuItem(t("security"),{icon:"shield",page:"security"})+menuItem(t("statements"),{icon:"file",page:"statements"})+menuItem(t("scheduled"),{icon:"calendar",page:"scheduled"})+menuItem(t("limits"),{icon:"chart",page:"limits"})+'</div>'+
 '<div class="card menu-list">'+menuItem(t("language")+" · "+state.lang.toUpperCase(),{icon:"globe",action:"langPicker"})+menuItem(t("notificationsPrefs"),{icon:"bell",action:"notifPrefs"})+menuItem(t("hideBalance"),{icon:state.hidden?"eyeOff":"eye",action:"toggleBalance"})+menuItem(t("nizwaDirectory"),{icon:"contacts",page:"directory",sub:t("directorySub")})+'</div>'+
 '<div class="card menu-list">'+menuItem(t("support"),{icon:"chat",page:"support",sub:t("supportSub")})+menuItem(t("referral"),{icon:"gift",page:"referral"})+menuItem(t("fees2"),{icon:"info",page:"fees"})+menuItem(t("helpTitle"),{icon:"help",page:"help"})+menuItem(t("about"),{icon:"info",page:"about"})+'</div>'+
-'<button class="btn yellow" data-action="logout">'+icon("logout")+' '+esc(t("logout"))+'</button><p class="caption">'+APP+' · Version 32.0.0</p>';}
+'<button class="btn yellow" data-action="logout">'+icon("logout")+' '+esc(t("logout"))+'</button><p class="caption">'+APP+' · Version 33.0.0</p>';}
 
 function notifications(){var list=state.notifications.slice().sort(function(a,b){return b.at-a.at;});var u=0;for (var i=0;i<list.length;i++){if (!list[i].read) u++;}return back("home",t("notifications"))+'<div class="card" style="padding:12px 18px"><div style="display:flex;justify-content:space-between;align-items:center"><span class="muted" style="font-size:12.5px">'+u+' '+(state.lang==="fr"?"nouvelles":"")+'</span><button class="link" data-action="markAllRead">'+esc(t("markRead"))+'</button></div></div>'+(list.length?list.map(function(n){return '<div class="card" style="padding:14px;'+(n.read?"opacity:.65":"")+'"><div style="display:flex;gap:11px;align-items:flex-start"><i style="width:38px;height:38px;border-radius:50%;background:var(--field);color:var(--violet);display:flex;align-items:center;justify-content:center;flex-shrink:0">'+icon(n.kind==="in"?"receive":n.kind==="card"?"card":"bell")+'</i><div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between;gap:8px"><strong style="font-size:13.5px">'+esc(n.title)+'</strong>'+(n.read?"":'<span style="width:7px;height:7px;border-radius:50%;background:var(--violet);margin-top:6px;flex-shrink:0"></span>')+'</div><p class="muted" style="margin:4px 0;font-size:12.5px;line-height:1.5">'+esc(n.body)+'</p><small style="font-size:11px">'+esc(whenShort(n.at))+'</small></div></div></div>';}).join(""):'<div class="card center" style="padding:36px 18px"><div class="muted">'+esc(t("notificationsEmpty"))+'</div></div>');}
 
-function directory(){var e=Object.keys(state.directory).sort().map(function(k){return [k,state.directory[k]];});return back("profile",t("nizwaDirectory"))+'<div class="card" style="padding:14px 18px"><p class="muted" style="margin:0;font-size:12px;line-height:1.6">'+(state.lang==="fr"?"Ces numéros sont reconnus automatiquement lors d'un transfert.":"يتم التعرف على هذه الأرقام تلقائيًا عند التحويل.")+'</p></div><div class="card" style="padding:6px 18px">'+(e.length?e.map(function(er){var n=er[0],nm=er[1];var ini=(nm.replace(/[^A-Za-z\u0600-\u06FF]/g,"").charAt(0)||"?").toUpperCase();return '<div class="dir-row"><div class="dir-avatar">'+esc(ini)+'</div><div class="dir-info"><div class="dir-name">'+esc(nm)+'</div><div class="dir-num">+968 '+esc(n)+'</div></div><button type="button" class="icon" style="width:34px;height:34px" data-action="deleteContact" data-param="'+esc(n)+'">'+icon("trash")+'</button></div>';}).join(""):'<p class="muted center" style="padding:20px 0">'+esc(t("directoryEmpty"))+'</p>')+'</div><button class="btn primary" data-page="contactForm">'+icon("plus")+' '+esc(t("addContact"))+'</button>';}
+function directory(){var e=Object.keys(state.directory).sort().map(function(k){return [k,state.directory[k]];});return back("profile",t("nizwaDirectory"))+'<div class="card" style="padding:14px 18px"><p class="muted" style="margin:0;font-size:12px;line-height:1.6">'+esc(state.lang==="fr"?"Ces numéros sont reconnus automatiquement lors d'un transfert.":"يتم التعرف على هذه الأرقام تلقائيًا عند التحويل.")+'</p></div><div class="card" style="padding:6px 18px">'+(e.length?e.map(function(er){var n=er[0],nm=er[1];var ini=(nm.replace(/[^A-Za-z\u0600-\u06FF]/g,"").charAt(0)||"?").toUpperCase();return '<div class="dir-row"><div class="dir-avatar">'+esc(ini)+'</div><div class="dir-info"><div class="dir-name">'+esc(nm)+'</div><div class="dir-num">+968 '+esc(n)+'</div></div><button type="button" class="icon" style="width:34px;height:34px" data-action="deleteContact" data-param="'+esc(n)+'">'+icon("trash")+'</button></div>';}).join(""):'<p class="muted center" style="padding:20px 0">'+esc(t("directoryEmpty"))+'</p>')+'</div><button class="btn primary" data-page="contactForm">'+icon("plus")+' '+esc(t("addContact"))+'</button>';}
 
 function contactForm(){return back("directory",t("addContact"))+'<form id="contactForm">'+field("contactNumber","cNumber","",'inputmode="numeric" maxlength="12" required autocomplete="off" placeholder="XXXXXXXX"')+field("contactName","cName","",'maxlength="60" required')+formError()+'<button type="submit" class="btn primary">'+esc(t("save"))+'</button></form><p class="hint">'+esc(state.lang==="fr"?"Le numéro peut contenir 7 ou 8 chiffres.":"يمكن أن يكون الرقم 7 أو 8 خانات.")+'</p>';}
 
@@ -541,12 +622,170 @@ function support(){return back("profile",t("support"))+'<div class="card" style=
 '<div class="grid"><button class="tile" data-action="openChat"><i>'+icon("chat")+'</i><strong>'+esc(t("supportChat"))+'</strong><small>'+esc(t("supportChatDesc"))+'</small></button><button class="tile" data-action="callSupport"><i>'+icon("phone")+'</i><strong>'+esc(t("supportCall"))+'</strong><small>'+esc(t("supportCallDesc"))+'</small></button><button class="tile" data-action="emailSupport"><i>'+icon("mail")+'</i><strong>'+esc(t("supportEmail"))+'</strong><small>'+esc(t("supportEmailDesc"))+'</small></button><button class="tile" data-page="supportTicket"><i>'+icon("edit")+'</i><strong>'+esc(t("supportTicket"))+'</strong><small>'+esc(t("supportReportDesc"))+'</small></button></div>'+
 '<div class="card menu-list">'+menuItem(t("supportFaq"),{icon:"help",page:"faq",sub:t("supportFaqDesc")})+menuItem(t("supportHistory"),{icon:"file",action:"viewTickets",sub:String((state.tickets||[]).length)+" ticket(s)"})+'</div>';}
 
-function supportTicket(){return back("support",t("supportTicket"))+'<form id="supportTicketForm"><label class="field"><span>'+esc(t("supportTicketTitle"))+'</span><select id="ticketSubject"><option value="">— '+esc(t("supportSubjectRequired"))+' —</option><option value="transaction">'+esc(t("supportSubjectTransaction"))+'</option><option value="card">'+esc(t("supportSubjectCard"))+'</option><option value="login">'+esc(t("supportSubjectLogin"))+'</option><option value="other">'+esc(t("supportSubjectOther"))+'</option></select></label><label class="field"><span>'+esc(t("supportTicketDesc"))+'</span><textarea id="ticketDesc" maxlength="500" required placeholder="'+esc(t("supportTicketDesc"))+'" style="min-height:140px"></textarea></label>'+formError()+'<button type="submit" class="btn primary">'+icon("send")+' '+esc(t("generate"))+'</button></form><p class="hint">'+esc(state.lang==="fr"?"Un agent vous répondra sous 24h.":"سيرد عليك موظف خلال 24 ساعة.")+'</p>';}
+function supportTicket(){return back("support",t("supportTicket"))+'<form id="supportTicketForm"><label class="field"><span>'+esc(t("supportTicketTitle"))+'</span><select id="ticketSubject"><option value="">— '+esc(t("supportSubjectRequired"))+' —</option><option value="transaction">'+esc(t("supportSubjectTransaction"))+'</option><option value="card">'+esc(t("supportSubjectCard"))+'</option><option value="login">'+esc(t("supportSubjectLogin"))+'</option><option value="other">'+esc(t("supportSubjectOther"))+'</option></select></label><label class="field"><span>'+esc(t("supportTicketDesc"))+'</span><textarea id="ticketDesc" maxlength="500" required placeholder="'+esc(t("supportTicketDesc"))+'" style="min-height:140px"></textarea></label>'+formError()+'<button type="submit" class="btn primary">'+icon("send")+' '+esc(t("generate"))+'</button></form>';}
 
 function ticketsList(){var list=state.tickets||[];return back("support",t("supportHistory"))+(list.length?list.map(function(tk){var sl=tk.status==="open"?t("supportOpen"):tk.status==="progress"?t("supportInProgress"):t("supportClosed");var sc=tk.status==="open"?"var(--yellow)":tk.status==="progress"?"var(--violet)":"var(--success)";return '<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><strong style="font-size:13.5px">'+esc(tk.subject)+'</strong><span style="background:rgba(124,58,237,.1);color:'+sc+';padding:3px 10px;border-radius:999px;font-size:10.5px;font-weight:800;text-transform:uppercase">'+sl+'</span></div><p class="muted" style="margin:0 0 8px;font-size:12.5px;line-height:1.5">'+esc(tk.description)+'</p><small style="font-size:10.5px">#'+esc(tk.ref)+' · '+esc(whenShort(tk.at))+'</small></div>';}).join(""):'<div class="card center" style="padding:40px 20px"><div class="muted">'+esc(t("supportNoTickets"))+'</div></div>');}
 
+// ============= INTERNATIONAL =============
+
+function international(){
+var search=intCountrySearch.toLowerCase();
+var filtered=COUNTRIES.filter(function(c){return !search||c.n.toLowerCase().indexOf(search)>=0||c.d.indexOf(search)>=0;});
+return back("transfers",t("intTitle"))+
+'<div class="search-bar">'+icon("search")+'<input id="intCountrySearch" type="search" placeholder="'+esc(t("intSearch"))+'" value="'+esc(intCountrySearch)+'"></div>'+
+'<div class="card" style="padding:6px 18px;max-height:60vh;overflow:auto">'+
+(filtered.length?filtered.map(function(c){return '<div class="country-row" data-country="'+c.c+'"><span class="country-flag">'+c.f+'</span><span class="country-info"><span class="country-name">'+esc(c.n)+'</span><span class="country-dial">'+c.d+'</span></span><span class="chev">'+icon("chevron")+'</span></div>';}).join(""):'<p class="muted center" style="padding:20px 0">—</p>')+
+'</div>';
+}
+
+function intMethod(){
+var c=intDraft.country;
+if (!c) return international();
+return back("international",t("intMethod"))+
+'<div class="card" style="padding:14px 18px;text-align:center"><div style="font-size:28px;margin-bottom:4px">'+c.f+'</div><div style="font-weight:800;font-size:15px">'+esc(c.n)+'</div><div class="muted" style="font-size:12px">'+c.d+'</div></div>'+
+'<div style="display:flex;flex-direction:column;gap:10px">'+
+'<button type="button" class="method-tile" data-intmethod="moneygram"><i>'+icon("send")+'</i><strong>'+esc(t("intMoneyGram"))+'</strong><small>'+esc(t("intMoneyGramDesc"))+'</small></button>'+
+'<button type="button" class="method-tile" data-intmethod="ewallet"><i>'+icon("wallet")+'</i><strong>'+esc(t("intEwallet"))+'</strong><small>'+esc(t("intEwalletDesc"))+'</small></button>'+
+'</div>';
+}
+
+function intWalletPicker(){
+var c=intDraft.country;
+if (!c.w||!c.w.length) return '<p class="muted center" style="padding:20px 0">'+esc(t("intNoWallet"))+'</p>';
+return '<div class="card" style="padding:14px 18px"><div style="font-weight:700;font-size:13px;margin-bottom:10px">'+esc(t("intSelectWallet"))+'</div><div style="display:flex;flex-wrap:wrap;gap:8px">'+c.w.map(function(w){var wl=w.toLowerCase();var cls="wallet-chip";if (wl.indexOf("mtn")>=0) cls+=" mtn";else if (wl.indexOf("orange")>=0) cls+=" orange";else if (wl.indexOf("moov")>=0) cls+=" moov";return '<button type="button" class="'+cls+'" data-intwallet="'+esc(w)+'">'+esc(w)+'</button>';}).join("")+'</div></div>';
+}
+
+function intRecipient(){
+var c=intDraft.country;
+if (!c||!intDraft.method) return international();
+var isMG=intDraft.method==="moneygram";
+return back("intMethod",t("intRecipientInfo"))+
+'<div class="card" style="padding:14px 18px;text-align:center"><div style="font-size:24px;margin-bottom:4px">'+c.f+'</div><div style="font-weight:800;font-size:14px">'+esc(c.n)+'</div><div class="muted" style="font-size:11.5px;margin-top:4px">'+esc(isMG?t("intMoneyGram"):(intDraft.wallet||t("intEwallet")))+'</div></div>'+
+'<form id="intRecipientForm">'+
+field("intFullName","intName",intDraft.name,'maxlength="80" required placeholder="'+esc(t("intFullNamePh"))+'"')+
+(isMG
+  ?field("intPhoneNumber","intPhone",intDraft.phone,'inputmode="tel" maxlength="20" required placeholder="'+esc(t("intPhonePh"))+'"')
+  :field("intWalletNumber","intWallet",intDraft.phone,'inputmode="tel" maxlength="20" required placeholder="'+esc(t("intWalletNumberPh"))+'"'))+
+formError()+
+'<button type="submit" class="btn primary">'+esc(t("next"))+'</button>'+
+'</form>';
+}
+
+function intAmount(){
+var c=intDraft.country;
+if (!c||!intDraft.method) return international();
+var amountB=parseAmount(intRaw)||0;
+var amountOMR=amountB/1000;
+var xof=Math.round(amountOMR*OMR_TO_XOF);
+var totalB=amountB+INT_FEES_BAISA;
+return back("intRecipient",t("intAmountTitle"))+
+'<div class="card" style="text-align:center;padding:18px"><div style="font-size:28px;margin-bottom:6px">'+c.f+'</div><div style="font-weight:800;font-size:15px">'+esc(c.n)+'</div><div class="muted" style="font-size:12px;margin-top:4px"><b>'+esc(intDraft.name)+'</b> · '+esc(intDraft.phone)+'</div></div>'+
+'<div class="converter-box"><div class="converter-row"><span class="converter-label">'+esc(t("intYouSend"))+'</span><span class="converter-value">'+(intRaw===""?"0":intRaw)+' OMR</span></div><div class="converter-arrow">'+icon("down")+'</div><div class="converter-row"><span class="converter-label">'+esc(t("intTheyReceive"))+'</span><span class="converter-value" style="color:var(--violet)">'+num(xof)+' XOF</span></div><div style="border-top:1px dashed var(--line);margin:10px 0;padding-top:10px"><div class="converter-row"><span class="converter-label">'+esc(t("intRate"))+'</span><span style="font-size:12px;font-weight:700">'+esc(t("intRateNote"))+'</span></div><div class="converter-row"><span class="converter-label">'+esc(t("intFees"))+'</span><span class="converter-value">3.000 OMR</span></div><div class="converter-row"><span class="converter-label">'+esc(t("intTotalDebit"))+'</span><span class="converter-value" style="color:var(--violet)">'+money(totalB)+' OMR</span></div></div></div>'+
+'<div class="keypad">'+["1","2","3","4","5","6","7","8","9",".","0","⌫"].map(function(k){return '<button type="button" class="key" data-intkey="'+k+'">'+k+'</button>';}).join("")+'</div>'+
+formError()+'<button class="btn primary" data-action="intContinue">'+esc(t("next"))+'</button>';
+}
+
+function intPressKey(k){if (k==="⌫") intRaw=intRaw.slice(0,-1);else if (k==="."){if (intRaw.indexOf(".")>=0) return;intRaw=(intRaw||"0")+".";}else{var p=intRaw.split(".");if (p[1]&&p[1].length>=3) return;if (intRaw==="0") intRaw=k;else intRaw+=k;if (intRaw.replace(".","").length>10) intRaw=intRaw.slice(0,-1);}updateIntAmount();}
+function updateIntAmount(){var els=document.querySelectorAll(".converter-value");var amountB=parseAmount(intRaw)||0;var amountOMR=amountB/1000;var xof=Math.round(amountOMR*OMR_TO_XOF);if (els[0]) els[0].textContent=(intRaw===""?"0":intRaw)+" OMR";if (els[1]) els[1].textContent=num(xof)+" XOF";if (els[2]) els[2].textContent=money(amountB+INT_FEES_BAISA)+" OMR";}
+
+function intReview(){
+var c=intDraft.country;
+if (!c) return international();
+var amountB=parseAmount(intRaw)||0;var amountOMR=amountB/1000;var xof=Math.round(amountOMR*OMR_TO_XOF);
+var isMG=intDraft.method==="moneygram";
+return back("intAmount",t("intReviewTitle"))+
+'<div class="card">'+rows([
+["intService",isMG?t("intMoneyGram"):(intDraft.wallet||t("intEwallet"))],
+["intFullName",intDraft.name],
+[isMG?"intPhoneNumber":"intWalletNumber",intDraft.phone],
+["intYouSend",money(amountB)+" OMR"],
+["intTheyReceive",num(xof)+" XOF"],
+["intRate",t("intRateNote")],
+["intFees",money(INT_FEES_BAISA)+" OMR"],
+["intTotalDebit",money(amountB+INT_FEES_BAISA)+" OMR"]
+])+'</div>'+
+'<button class="btn primary" data-action="intConfirm">'+esc(t("confirm"))+'</button><p style="height:10px"></p><button class="btn ghost" data-page="intAmount">'+esc(t("back"))+'</button>';
+}
+
+function intOtp(){
+var bx="";for (var i=0;i<6;i++){var f=intOtp[i]||"";var a=i===intOtp.length&&!intOtpErr;var cls="otp-box"+(f?" filled":"")+(a?" active":"")+(intOtpErr?" error":"");bx+='<div class="'+cls+'">'+f+'</div>';}
+return '<div class="back"><button class="icon" data-action="intCancelOtp">'+icon("back")+'</button></div><div class="card" style="text-align:center"><div class="otp-shield">'+icon("shield")+'</div><h1 style="margin-bottom:8px">'+esc(t("otpTitle"))+'</h1><p class="muted" style="margin-bottom:16px">'+esc(t("otpDesc"))+'</p><div class="otp-phone">'+icon("smartphone")+' '+OTP_PHONE+'</div><div class="otp-boxes">'+bx+'</div>'+(intOtpErr?'<p class="error center">'+esc(t("otpInvalid"))+'</p>':'<p class="error center"></p>')+'<p class="resend" id="resendLine">'+(resendCountdown>0?esc(t("otpResend"))+' <b>00:'+String(resendCountdown).padStart(2,"0")+'</b>':'<button class="link" data-action="intResendOtp" style="min-height:auto">'+esc(t("otpResendNow"))+'</button>')+'</p></div><div class="keypad">'+["1","2","3","4","5","6","7","8","9","","0","⌫"].map(function(k){if (k==="") return '<button type="button" class="key" disabled style="opacity:0"></button>';return '<button type="button" class="key" data-intotpkey="'+k+'">'+k+'</button>';}).join("")+'</div><button class="btn primary" data-action="intSubmitOtp" '+(intOtp.length!==6?"disabled":"")+'>'+esc(t("otpConfirm"))+'</button>';
+}
+
+function intPressOtp(k){if (intOtpErr){intOtp="";intOtpErr=false;}if (k==="⌫") intOtp=intOtp.slice(0,-1);else if (/^\d$/.test(k)){if (intOtp.length<6) intOtp+=k;}if (intOtp.length===6){var c=intOtp;render();setTimeout(function(){if (intOtp!==c) return;if (c===OTP_CODE) startIntProcessing();else{intOtpErr=true;render();setTimeout(function(){intOtp="";intOtpErr=false;render();},TIMING.otpErrorReset);}},TIMING.otpAutoSubmit);}else render();}
+
+function intProcessing(){return '<div class="process"><div class="reactor-wrap"><div class="reactor"><div class="reactor-core"></div></div></div><h2 class="process-title">'+esc(t("intProcessingTitle"))+'</h2><button class="btn ghost process-cancel" id="cancelIntBtn" data-action="cancelIntProcess">'+esc(t("cancel"))+'</button></div>';}
+function updateIntProgress(){if (!intDraft) return;var e=Date.now()-intStarted;var l=Math.min(1,e/TIMING.intProcessing);var b=$("#cancelIntBtn");if (b){if (l>0.55){b.style.opacity="0";b.style.pointerEvents="none";}else{b.style.opacity="1";b.style.pointerEvents="auto";}}}
+
+function startIntProcessing(){var b=parseAmount(intRaw);if (!b||b<=0){toast(t("invalidAmount"));navigate("intAmount");return;}var total=b+INT_FEES_BAISA;if (total>state.balanceBaisa){toast(t("insufficient"));navigate("intAmount");return;}intDraft.amountBaisa=b;intStarted=Date.now();clearInterval(intTimer);intTimer=setInterval(function(){updateIntProgress();if (Date.now()-intStarted>=TIMING.intProcessing){clearInterval(intTimer);intTimer=null;finishIntProcessing();}},150);navigate("intProcessing");}
+function cancelIntProcess(){if (intTimer){clearInterval(intTimer);intTimer=null;}intDraft=null;intRaw="";intOtp="";if (resendTimer){clearInterval(resendTimer);resendTimer=null;}toast(t("cancelled"));navigate("home");}
+
+function finishIntProcessing(){
+if (!intDraft) return;
+var b=intDraft.amountBaisa;var total=b+INT_FEES_BAISA;
+var ref="IN"+Date.now().toString(36).toUpperCase()+Math.floor(Math.random()*900+100);
+var amountOMR=b/1000;var xof=Math.round(amountOMR*OMR_TO_XOF);
+var serviceLabel=intDraft.method==="moneygram"?t("intMoneyGram"):(intDraft.wallet||t("intEwallet"));
+var tx={
+id:ref,at:Date.now(),
+name:intDraft.name,
+destination:intDraft.phone,
+kind:serviceLabel,
+note:"",
+amountBaisa:total,
+dir:"out",
+status:"pending",
+isInt:true,
+intCountry:intDraft.country.c,
+intService:serviceLabel,
+intAmountOriginalBaisa:b,
+intAmountXOF:xof,
+intFeesBaisa:INT_FEES_BAISA,
+intRate:OMR_TO_XOF,
+intPhone:intDraft.phone
+};
+state.transactions.unshift(tx);
+state.balanceBaisa-=total;
+state.notifications.unshift({id:"n"+Date.now(),title:t("intProcessingTitle"),body:money(b)+" OMR · "+tx.name,at:Date.now(),read:false,kind:"out"});
+save();
+receiptTx=tx;
+var txCopy=JSON.parse(JSON.stringify(tx));
+setTimeout(function(){showIosStyleNotif(txCopy,"pending");},TIMING.intNotif1Delay);
+setTimeout(function(){markTxCompleted(txCopy.id);showIosStyleNotif(txCopy,"success");},TIMING.intNotif2Delay);
+intDraft=null;intRaw="";intOtp="";
+if (resendTimer){clearInterval(resendTimer);resendTimer=null;}
+navigate("intReceipt");
+}
+
+function intReceipt(){
+var x=receiptTx;
+if (!x||!x.isInt) return home();
+var amountOMR=x.intAmountOriginalBaisa/1000;
+return '<div class="center" style="margin-bottom:6px"><div class="check">'+icon("check")+'</div><h1>'+esc(t("intReceiptTitle"))+'</h1></div>'+
+'<div class="int-receipt-header"><div class="irh-emblem">'+bankNizwaLogo()+'</div><div class="irh-title">NIZWA WALLET</div><div class="irh-sub">'+esc(t("intReceiptTitle"))+'</div><div class="irh-amount">'+money(x.intAmountOriginalBaisa)+' <small>OMR</small></div><div class="irh-xof">= '+num(x.intAmountXOF)+' XOF</div><div class="int-badge-row"><span class="int-badge">'+esc(x.intService)+'</span><span class="int-badge">'+x.intCountry+'</span></div></div>'+
+'<div class="card">'+rows([
+["intService",x.intService],
+["intFullName",x.name],
+["intPhoneNumber",x.intPhone],
+["intYouSend",money(x.intAmountOriginalBaisa)+" OMR"],
+["intTheyReceive",num(x.intAmountXOF)+" XOF"],
+["intRate",t("intRateNote")],
+["intFees",money(x.intFeesBaisa)+" OMR"],
+["intTotalDebit",money(x.amountBaisa)+" OMR"],
+["intSenderName",HOLDER],
+["intSenderAccount",ACCOUNT],
+["intRef",x.id],
+["date",when(x.at)]
+])+'</div>'+
+'<div class="grid"><button class="btn" data-action="printInt">'+icon("print")+' '+esc(t("print"))+'</button><button class="btn" data-action="shareInt">'+icon("share")+' '+esc(t("share"))+'</button></div><p style="height:10px"></p>'+
+'<button class="btn" data-action="copyInt">'+icon("copy")+' '+esc(t("copyInfo"))+'</button><p style="height:10px"></p>'+
+'<button class="btn ghost" data-page="home">'+esc(t("home"))+'</button>';
+}
+
+// END INTERNATIONAL
+
 function scheduled(){return back("transfers",t("scheduled"))+'<div class="card center" style="padding:28px"><p class="muted">'+esc(t("noScheduled"))+'</p></div>';}
-function limits(){return back("profile",t("limits"))+'<div class="card"><h3>'+esc(t("dailyLimit"))+'</h3><div style="font-size:22px;font-weight:800;margin:8px 0">'+money(DAILY_LIMIT)+' <small style="font-size:12.5px;font-weight:600">OMR</small></div><small>'+esc(t("usedToday"))+': '+money(0)+' OMR</small></div><div class="card"><h3>'+esc(t("monthlyLimit"))+'</h3><div style="font-size:22px;font-weight:800;margin:8px 0">'+money(DAILY_LIMIT*20)+' OMR</div></div>';}
+function limits(){return back("profile",t("limits"))+'<div class="card"><h3>'+esc(t("dailyLimit"))+'</h3><div style="font-size:22px;font-weight:800;margin:8px 0">'+money(DAILY_LIMIT)+' OMR</div><small>'+esc(t("usedToday"))+': '+money(0)+' OMR</small></div><div class="card"><h3>'+esc(t("monthlyLimit"))+'</h3><div style="font-size:22px;font-weight:800;margin:8px 0">'+money(DAILY_LIMIT*20)+' OMR</div></div>';}
 function statements(){var ms=["Août 2026","Juillet 2026","Juin 2026","Mai 2026","Avril 2026","Mars 2026"];return back("profile",t("statements"))+'<div class="card menu-list">'+ms.map(function(m){return menuItem(m,{icon:"file",action:"downloadStatement",param:m,sub:"PDF"});}).join("")+'</div>';}
 function accountInfo(){return back("profile",t("accountInfo"))+'<div class="card">'+rows([["account",ACCOUNT],["iban","OM12 0000 1234 5678 9012 345"],["swift","BNIZOMRU"],["branch","Muscat – Al Qurum"],["accountType",t("accountTypeValue")],["holder",HOLDER]])+'</div><button class="btn" data-action="copyAccount">'+icon("copy")+' '+esc(t("copyInfo"))+'</button>';}
 function security(){return back("profile",t("security"))+'<div class="card menu-list">'+menuItem(t("changePassword"),{icon:"key",page:"changePassword"})+menuItem(t("changePin"),{icon:"pin",page:"changePin"})+'</div><div class="card"><div class="setting"><span>'+esc(t("biometrics"))+'</span><button type="button" class="switch" role="switch" aria-checked="'+state.biometrics+'" data-toggle="biometrics"></button></div><div class="setting"><span>'+esc(t("twoFactor"))+'</span><button type="button" class="switch" role="switch" aria-checked="'+state.twoFactor+'" data-toggle="twoFactor"></button></div></div>';}
@@ -557,9 +796,9 @@ function editInfo(){return back("personalInfo",t("edit"))+'<form id="editInfoFor
 function help(){return back("profile",t("helpTitle"))+'<div class="card menu-list">'+menuItem(t("faq"),{icon:"help",page:"faq"})+menuItem(t("liveChat"),{icon:"chat",action:"liveChat"})+menuItem(t("callUs"),{icon:"phone",action:"callUs",sub:"+968 24 000 000"})+menuItem(t("emailUs"),{icon:"mail",action:"emailUs",sub:"support@nizwawallet.om"})+'</div>';}
 function faq(){var items=[["Comment effectuer un transfert ?","Ouvrez l'onglet Transferts, choisissez le type puis suivez les étapes."],["Le code OTP n'arrive pas","Vérifiez votre réseau, puis appuyez sur « Renvoyer le code »."],["Comment gérer le répertoire ?","Profil > Répertoire Nizwa."]];return back("help",t("faq"))+items.map(function(it){return '<div class="card"><h3 style="margin-bottom:8px">'+esc(it[0])+'</h3><p class="muted" style="margin:0;font-size:12.5px;line-height:1.6">'+esc(it[1])+'</p></div>';}).join("");}
 function terms(){return back("about",t("terms"))+'<div class="card"><p class="muted" style="line-height:1.8;font-size:12.5px">'+esc(t("help"))+'</p></div>';}
-function about(){return back("profile",t("about"))+'<div class="card" style="text-align:center;padding:28px 18px"><div class="otp-shield" style="width:68px;height:68px">'+bankNizwaLogo()+'</div><h2 style="margin:6px 0 4px">Nizwa Wallet</h2><p class="muted" style="font-size:12.5px;margin:0">Version 32.0.0</p></div><div class="card menu-list">'+menuItem(t("terms"),{icon:"file",page:"terms"})+menuItem(t("privacyPolicy"),{icon:"shield",page:"terms"})+menuItem(t("rateApp"),{icon:"star",action:"rateApp"})+menuItem(t("shareApp"),{icon:"share",action:"shareApp"})+'</div><p class="caption" lang="ar" dir="rtl">'+ARABIC_NAME+'</p>';}
+function about(){return back("profile",t("about"))+'<div class="card" style="text-align:center;padding:28px 18px"><div class="otp-shield" style="width:68px;height:68px">'+bankNizwaLogo()+'</div><h2 style="margin:6px 0 4px">Nizwa Wallet</h2><p class="muted" style="font-size:12.5px;margin:0">Version 33.0.0</p></div><div class="card menu-list">'+menuItem(t("terms"),{icon:"file",page:"terms"})+menuItem(t("privacyPolicy"),{icon:"shield",page:"terms"})+menuItem(t("rateApp"),{icon:"star",action:"rateApp"})+menuItem(t("shareApp"),{icon:"share",action:"shareApp"})+'</div><p class="caption" lang="ar" dir="rtl">'+ARABIC_NAME+'</p>';}
 function referral(){return back("profile",t("referral"))+'<div class="card" style="text-align:center;padding:28px 18px"><div class="otp-shield" style="width:68px;height:68px">'+icon("gift")+'</div><h2 style="margin:6px 0">Parrainez vos amis</h2><p class="muted" style="font-size:12.5px">Obtenez 5 OMR pour chaque ami.</p><div class="otp-phone" style="margin-top:14px">CODE : AHMED2026</div></div><button class="btn primary" data-action="shareReferral">'+icon("share")+' '+esc(t("inviteFriend"))+'</button>';}
-function fees(){return back("profile",t("fees2"))+'<div class="card">'+rows([["Transfert local","Gratuit"],["Transfert international","2,000 OMR"],["Virement bancaire","1,000 OMR"],["Rechargement","Gratuit"]])+'</div>';}
+function fees(){return back("profile",t("fees2"))+'<div class="card">'+rows([["Transfert local","Gratuit"],["Transfert international","3.000 OMR"],["MoneyGram","3.000 OMR"],["E-wallet","3.000 OMR"],["Rechargement","Gratuit"]])+'</div>';}
 
 function doLogin(){var a=$("#loginAccount").value.trim();var p=$("#loginPassword").value;if (a===ACCOUNT&&p===PASSWORD){logged=true;navigate("home");}else error(t("invalidLogin"));}
 function faceIdLogin(){logged=true;toast("Face ID");setTimeout(function(){navigate("home");},250);}
@@ -574,17 +813,19 @@ function addContact(){var num=($("#cNumber")?$("#cNumber").value:"").replace(/\D
 function deleteContact(num){if (!confirm(t("deleteContactConfirm"))) return;delete state.directory[num];save();toast(t("contactDeleted"));render();}
 function copyText(s){try{if (navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(s);toast(t("copied"));return;}}catch(e){}var ta=document.createElement("textarea");ta.value=s;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast(t("copied"));}catch(x){toast("Copié");}ta.remove();}
 function receiptText(){var x=receiptTx;if (!x) return "";return [APP+" — Bank Nizwa",t("id")+": "+x.id,t("date")+": "+when(x.at),t("recipient")+": "+x.name,t("destination")+": "+x.destination,t("amount")+": "+money(x.amountBaisa)+" OMR",t("status")+": "+t("success")].join("\n");}
-function shareReceipt(){if (!receiptTx) return;var txt=receiptText();if (navigator.share) navigator.share({title:APP,text:txt}).catch(function(){copyText(txt);});else copyText(txt);}
-function downloadReceipt(){if (!receiptTx) return;var b=new Blob([receiptText()],{type:"text/plain;charset=utf-8"});var u=URL.createObjectURL(b);var a=document.createElement("a");a.href=u;a.download="recu-"+receiptTx.id+".txt";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u);},2000);}
-function preparePrint(){var x=receiptTx;if (!x) return;$("#printArea").innerHTML='<div style="padding:24px;font-family:system-ui"><h1 style="color:#5b21b6">Nizwa Wallet</h1><h2>Bank Nizwa — '+esc(t("receipt"))+'</h2>'+rows([["status",t("success")],["amount",money(x.amountBaisa)+" OMR"],["recipient",x.name],["destination",x.destination],["sender",ACCOUNT],["date",when(x.at)],["id",x.id]])+'</div>';}
+function intReceiptText(){var x=receiptTx;if (!x||!x.isInt) return "";return ["Nizwa Wallet — International Transfer Receipt","Reference: "+x.id,"Date: "+when(x.at),"Service: "+x.intService,"Recipient: "+x.name,"Phone: "+x.intPhone,"You sent: "+money(x.intAmountOriginalBaisa)+" OMR","They receive: "+num(x.intAmountXOF)+" XOF","Rate: 1 OMR = "+x.intRate+" XOF","Fees: "+money(x.intFeesBaisa)+" OMR","Total: "+money(x.amountBaisa)+" OMR","Sender: "+HOLDER,"Account: "+ACCOUNT].join("\n");}
+function shareReceipt(){if (!receiptTx) return;var txt=receiptTx.isInt?intReceiptText():receiptText();if (navigator.share) navigator.share({title:APP,text:txt}).catch(function(){copyText(txt);});else copyText(txt);}
+function shareInt(){shareReceipt();}
+function downloadReceipt(){if (!receiptTx) return;var txt=receiptTx.isInt?intReceiptText():receiptText();var b=new Blob([txt],{type:"text/plain;charset=utf-8"});var u=URL.createObjectURL(b);var a=document.createElement("a");a.href=u;a.download="recu-"+receiptTx.id+".txt";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u);},2000);}
+function preparePrint(){var x=receiptTx;if (!x) return;if (x.isInt){$("#printArea").innerHTML='<div style="padding:24px;font-family:system-ui"><h1 style="color:#5b21b6">Nizwa Wallet — International Transfer</h1><h2>Receipt '+esc(x.id)+'</h2>'+rows([["Service",x.intService],["Recipient",x.name],["Phone",x.intPhone],["You sent",money(x.intAmountOriginalBaisa)+" OMR"],["They receive",num(x.intAmountXOF)+" XOF"],["Rate","1 OMR = "+x.intRate+" XOF"],["Fees",money(x.intFeesBaisa)+" OMR"],["Total",money(x.amountBaisa)+" OMR"],["Sender",HOLDER],["Account",ACCOUNT],["Date",when(x.at)]])+'</div>';}else{$("#printArea").innerHTML='<div style="padding:24px;font-family:system-ui"><h1 style="color:#5b21b6">Nizwa Wallet</h1><h2>Bank Nizwa — '+esc(t("receipt"))+'</h2>'+rows([["status",t("success")],["amount",money(x.amountBaisa)+" OMR"],["recipient",x.name],["destination",x.destination],["sender",ACCOUNT],["date",when(x.at)],["id",x.id]])+'</div>';}}
+function printInt(){preparePrint();setTimeout(function(){window.print();},80);}
+function copyInt(){copyText(intReceiptText());}
 function openTx(ref){var x=null;for (var i=0;i<state.transactions.length;i++){if (state.transactions[i].id===ref) x=state.transactions[i];}if (!x) return;modalTx=x;openModal("tx");}
 
 function clearChatTimers(){chatTimers.forEach(function(t){clearTimeout(t);});chatTimers=[];}
-
 function openChatSequence(){openModal("liveChat");setTimeout(function(){var box=document.getElementById("chatBox");if (!box) return;box.innerHTML="";var msgs=[{at:400,text:t("supportChatMsg1"),side:"left"},{at:2600,text:state.lang==="fr"?"Oui, un transfert a été effectué ce matin.":"Yes, a transfer was made this morning.",side:"right"},{at:5200,text:t("supportChatMsg2"),side:"left"},{at:8200,text:t("supportChatMsg3"),side:"left"}];msgs.forEach(function(m){var tm=setTimeout(function(){var b=document.getElementById("chatBox");if (!b) return;var isR=m.side==="right";var div=document.createElement("div");div.className="chat-msg "+(isR?"right":"left");div.textContent=m.text;if (isR) div.style.marginLeft="auto";else div.style.marginRight="auto";b.appendChild(div);b.scrollTop=b.scrollHeight;},m.at);chatTimers.push(tm);});},300);}
 
-function openModal(kind){
-var title="",body="";
+function openModal(kind){var title="",body="";
 if (kind==="note"){title=t("note");body='<label class="field"><span>'+esc(t("note"))+'</span><textarea id="noteText" maxlength="140">'+esc(draft?draft.note:"")+'</textarea></label><button class="btn primary" data-action="saveNote">'+esc(t("save"))+'</button>';}
 else if (kind==="topup"){title=t("topup");body='<label class="field"><span>'+esc(t("amount"))+'</span><input id="topupAmount" inputmode="decimal" placeholder="10.000"></label><button class="btn primary" data-action="doTopup">'+esc(t("topup"))+'</button>';}
 else if (kind==="request"){title=t("request");body='<label class="field"><span>'+esc(t("amount"))+'</span><input id="reqAmount" inputmode="decimal" placeholder="10.000"></label><button class="btn primary" data-action="generate">'+esc(t("generate"))+'</button><div id="reqOut"></div>';}
@@ -594,13 +835,13 @@ else if (kind==="cardFullDetails"){var c=null;for (var i=0;i<state.cards.length;
 else if (kind==="cardLimit"){var c2=null;for (var j=0;j<state.cards.length;j++){if (state.cards[j].id===pageParam) c2=state.cards[j];}if (!c2) c2=state.cards[0];if (!c2) return;title=t("cardLimitDaily");body='<label class="field"><span>'+esc(t("amount"))+' (OMR)</span><input id="newLimit" inputmode="decimal" value="'+(c2.dailyLimit/1000).toFixed(3)+'"></label><button class="btn primary" data-action="saveCardLimit" data-param="'+esc(c2.id)+'">'+esc(t("save"))+'</button>';}
 else if (kind==="aiChat"){title=t("aiTitle");body='<div class="ai-card" style="margin-bottom:14px"><div class="ai-avatar">'+icon("robot")+'</div><div class="ai-text">'+esc(t("aiReply"))+'</div></div><div class="card" style="margin:0 0 12px">'+rows([["totalSpent",money(monthlySpent())+" OMR"],["balance",(state.hidden?"••••••":money(state.balanceBaisa))+" OMR"],["recent",String(state.transactions.length)]])+'</div><button class="btn primary" data-action="aiTip">'+icon("sparkles")+' Conseil</button>';}
 else if (kind==="liveChat"){title=t("supportChat");body='<div id="chatBox" style="background:rgba(124,58,237,.04);border-radius:16px;padding:14px;min-height:260px;max-height:50vh;overflow:auto;margin-bottom:12px;display:flex;flex-direction:column"></div><p class="hint" style="margin-top:10px;font-size:11px">'+esc(t("supportLiveChatSoon"))+'</p>';}
-else if (kind==="tx"&&modalTx){var x=modalTx;title=t("receipt");body='<div class="card receipt" style="margin:0"><div class="bank-logo"><div class="emblem">'+bankNizwaLogo()+'</div><div class="name">Bank Nizwa</div></div>'+rows([["recipient",x.name],["destination",x.destination],["amount",money(x.amountBaisa)+" OMR"],["date",when(x.at)],["id",x.id]].concat(x.note?[["note",x.note]]:[]))+'</div><p style="height:10px"></p><button class="btn" data-action="copyRef">'+icon("copy")+' '+esc(t("copyRef"))+'</button>';}
+else if (kind==="tx"&&modalTx){var x=modalTx;title=t("receipt");if (x.isInt){body='<div class="int-receipt-header"><div class="irh-emblem">'+bankNizwaLogo()+'</div><div class="irh-title">NIZWA WALLET</div><div class="irh-sub">'+esc(t("intReceiptTitle"))+'</div><div class="irh-amount">'+money(x.intAmountOriginalBaisa)+' <small>OMR</small></div><div class="irh-xof">= '+num(x.intAmountXOF)+' XOF</div></div>'+rows([["intService",x.intService],["intFullName",x.name],["intPhoneNumber",x.intPhone],["intRef",x.id],["date",when(x.at)]])+'<button class="btn" data-action="copyRef" style="margin-top:12px">'+icon("copy")+' '+esc(t("copyRef"))+'</button>';}else{body='<div class="card receipt" style="margin:0"><div class="bank-logo"><div class="emblem">'+bankNizwaLogo()+'</div><div class="name">Bank Nizwa</div></div>'+rows([["recipient",x.name],["destination",x.destination],["amount",money(x.amountBaisa)+" OMR"],["date",when(x.at)],["id",x.id]].concat(x.note?[["note",x.note]]:[]))+'</div><p style="height:10px"></p><button class="btn" data-action="copyRef">'+icon("copy")+' '+esc(t("copyRef"))+'</button>';}}
 modal.innerHTML='<div class="modal-head"><h2>'+esc(title)+'</h2><button type="button" class="icon" data-close>✕</button></div>'+body;
 if (!modal.open) modal.showModal();
 }
 function closeModal(){clearChatTimers();if (!modal.open) return;modal.close();}
 function saveNote(){if (!draft) return;var ta=$("#noteText");if (!ta) return;draft.note=ta.value.trim().slice(0,140);closeModal();render();}
-function doTopup(){var b=parseAmount($("#topupAmount").value);if (!b||b<=0){toast(t("invalidAmount"));return;}state.balanceBaisa+=b;state.transactions.unshift({id:"NW"+Date.now().toString(36).toUpperCase(),at:Date.now(),name:t("wallet"),destination:t("wallet"),kind:t("topup"),note:"",amountBaisa:b,dir:"in"});state.notifications.unshift({id:"n"+Date.now(),title:t("topupDone"),body:"+"+money(b)+" OMR",at:Date.now(),read:false,kind:"in"});save();closeModal();toast(t("topupDone"));render();}
+function doTopup(){var b=parseAmount($("#topupAmount").value);if (!b||b<=0){toast(t("invalidAmount"));return;}state.balanceBaisa+=b;state.transactions.unshift({id:"NW"+Date.now().toString(36).toUpperCase(),at:Date.now(),name:t("wallet"),destination:t("wallet"),kind:t("topup"),note:"",amountBaisa:b,dir:"in",status:"completed"});state.notifications.unshift({id:"n"+Date.now(),title:t("topupDone"),body:"+"+money(b)+" OMR",at:Date.now(),read:false,kind:"in"});save();closeModal();toast(t("topupDone"));render();}
 function genRequest(){var b=parseAmount($("#reqAmount").value);if (!b||b<=0){toast(t("invalidAmount"));return;}var txt=t("request")+" — "+money(b)+" OMR\nNizwa Wallet · Bank Nizwa\n"+ACCOUNT+"\n"+HOLDER;var out=$("#reqOut");if (out) out.innerHTML='<pre>'+esc(txt)+'</pre><button class="btn" data-action="copyInfo">'+icon("copy")+' '+esc(t("copyInfo"))+'</button>';modalTx={reqText:txt};}
 
 document.addEventListener("submit",function(e){
@@ -608,6 +849,7 @@ if (e.target.id==="loginForm"){e.preventDefault();doLogin();}
 else if (e.target.id==="recipientForm"){e.preventDefault();submitRecipient();}
 else if (e.target.id==="contactForm"){e.preventDefault();addContact();}
 else if (e.target.id==="supportTicketForm"){e.preventDefault();var subj=$("#ticketSubject").value;var desc=$("#ticketDesc").value.trim();if (!subj){error(t("supportSubjectRequired"));return;}if (desc.length<10){error(t("supportDescRequired"));return;}if (!state.tickets) state.tickets=[];var ref="TK"+Date.now().toString(36).toUpperCase().slice(-6);state.tickets.unshift({id:"t"+Date.now(),ref:ref,subject:t("supportSubject"+subj.charAt(0).toUpperCase()+subj.slice(1)),subjectKey:subj,description:desc,at:Date.now(),status:"open"});state.notifications.unshift({id:"n"+Date.now(),title:t("supportTicket"),body:"#"+ref+" — "+desc.slice(0,50),at:Date.now(),read:false,kind:"info"});save();toast(t("supportTicketSent"));navigate("support");}
+else if (e.target.id==="intRecipientForm"){e.preventDefault();var nm=$("#intName").value.trim();var ph=$("#intPhone")?$("#intPhone").value.trim():$("#intWallet").value.trim();if (!nm||!ph){error(t("required"));return;}intDraft.name=nm;intDraft.phone=ph;navigate("intAmount");}
 else if (e.target.id==="cpForm"){e.preventDefault();var a=$("#cpCurrent").value,b=$("#cpNew").value,c=$("#cpConfirm").value;if (a!==PASSWORD){error("Mot de passe actuel incorrect");return;}if (b.length<6){error("6 caractères minimum");return;}if (b!==c){error("Les mots de passe ne correspondent pas");return;}toast(t("saved"));navigate("security");}
 else if (e.target.id==="cpinForm"){e.preventDefault();var a2=$("#pinCurrent").value,b2=$("#pinNew").value,c2=$("#pinConfirm").value;if (a2!==PIN_CODE){error("PIN actuel incorrect");return;}if (!/^\d{4}$/.test(b2)){error("4 chiffres");return;}if (b2!==c2){error("Les PIN ne correspondent pas");return;}toast(t("saved"));navigate("security");}
 else if (e.target.id==="editInfoForm"){e.preventDefault();state.email=$("#edEmail").value.trim();state.phone=$("#edPhone").value.trim();state.address=$("#edAddress").value.trim();save();toast(t("saved"));navigate("personalInfo");}
@@ -615,23 +857,29 @@ else if (e.target.id==="editInfoForm"){e.preventDefault();state.email=$("#edEmai
 
 document.addEventListener("input",function(e){
 if (e.target.id==="txSearch"){searchQuery=e.target.value;render();var i=$("#txSearch");if (i){i.focus();var v=i.value;i.value="";i.value=v;}}
+else if (e.target.id==="intCountrySearch"){intCountrySearch=e.target.value;var box=e.target.closest("main");render();setTimeout(function(){var inp=document.getElementById("intCountrySearch");if (inp){inp.focus();var v=inp.value;inp.value="";inp.value=v;}},10);}
 });
 
 document.addEventListener("click",function(e){
 if (e.target===modal){closeModal();return;}
 var cl=e.target.closest("[data-close]");if (cl){e.preventDefault();closeModal();return;}
 var kind=e.target.closest("[data-kind]");if (kind){e.preventDefault();startTransfer(kind.dataset.kind);return;}
+var ctry=e.target.closest("[data-country]");if (ctry){e.preventDefault();var cc=ctry.dataset.country;var found=COUNTRIES.filter(function(x){return x.c===cc;});if (found.length){intDraft.country=found[0];navigate("intMethod");}return;}
+var im=e.target.closest("[data-intmethod]");if (im){e.preventDefault();intDraft.method=im.dataset.intmethod;if (im.dataset.intmethod==="ewallet"){intDraft.wallet=null;var c=intDraft.country;if (c&&c.w&&c.w.length===1){intDraft.wallet=c.w[0];navigate("intRecipient");}else{navigate("intMethodWallet");}}else{intDraft.wallet=null;navigate("intRecipient");}return;}
+var iw=e.target.closest("[data-intwallet]");if (iw){e.preventDefault();intDraft.wallet=iw.dataset.intwallet;navigate("intRecipient");return;}
 var a=e.target.closest("[data-action]");if (a){e.preventDefault();handleAction(a.dataset.action,a.dataset.param);return;}
 var tog=e.target.closest("[data-toggle]");if (tog){e.preventDefault();var k=tog.dataset.toggle;if (k.indexOf("notif_")===0){var key=k.slice(6);state.notifPrefs[key]=!state.notifPrefs[key];save();tog.setAttribute("aria-checked",String(state.notifPrefs[key]));}else toggleSetting(k,tog.dataset.card);return;}
 var tx=e.target.closest("[data-ref]");if (tx){e.preventDefault();openTx(tx.dataset.ref);return;}
 var pg=e.target.closest("[data-page]");if (pg){e.preventDefault();navigate(pg.dataset.page,pg.dataset.param||null);return;}
 var f=e.target.closest("[data-filter]");if (f){e.preventDefault();filter=f.dataset.filter;render();return;}
 var k2=e.target.closest("[data-key]");if (k2){e.preventDefault();pressKey(k2.dataset.key);return;}
+var ik=e.target.closest("[data-intkey]");if (ik){e.preventDefault();intPressKey(ik.dataset.intkey);return;}
 var ok=e.target.closest("[data-otpkey]");if (ok){e.preventDefault();pressOtp(ok.dataset.otpkey);return;}
+var iok=e.target.closest("[data-intotpkey]");if (iok){e.preventDefault();intPressOtp(iok.dataset.intotpkey);return;}
 });
 
 modal.addEventListener("cancel",function(e){e.preventDefault();closeModal();});
-document.addEventListener("keydown",function(e){if (page!=="otp") return;if (/^\d$/.test(e.key)){e.preventDefault();pressOtp(e.key);}else if (e.key==="Backspace"){e.preventDefault();pressOtp("⌫");}});
+document.addEventListener("keydown",function(e){if (page==="otp"){if (/^\d$/.test(e.key)){e.preventDefault();pressOtp(e.key);}else if (e.key==="Backspace"){e.preventDefault();pressOtp("⌫");}}else if (page==="intOtp"){if (/^\d$/.test(e.key)){e.preventDefault();intPressOtp(e.key);}else if (e.key==="Backspace"){e.preventDefault();intPressOtp("⌫");}}});
 
 function handleAction(a,param){
 switch(a){
@@ -641,12 +889,24 @@ case "note":openModal("note");break;
 case "request":openModal("request");break;
 case "topup":openModal("topup");break;
 case "transfers":navigate("transfers");break;
+case "start":startTransfer(param||"local");break;
+case "startInt":startInt();break;
+case "bankSoon":toast(t("intBankUnavailable"));break;
 case "review":goToOtp();break;
 case "confirm":goToOtp();break;
 case "submitOtp":pressOtp("");break;
 case "cancelOtp":if (resendTimer){clearInterval(resendTimer);resendTimer=null;}otpInput="";otpError=false;navigate("review");break;
 case "resendOtp":toast(t("otpSent"));startResendTimer();break;
 case "cancelProcess":cancelProcessing();break;
+case "intContinue":var b=parseAmount(intRaw);if (!b||b<=0){error(t("invalidAmount"));return;}var total=b+INT_FEES_BAISA;if (total>state.balanceBaisa){error(t("insufficient"));return;}var overlay=document.createElement("div");overlay.id="intDelayOverlay";overlay.style.cssText="position:fixed;inset:0;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;z-index:99999;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)";overlay.innerHTML='<div class="reactor-wrap"><div class="reactor"><div class="reactor-core"></div></div></div><div style="font-weight:700;color:var(--text)">'+esc(t("processing"))+'</div>';document.body.appendChild(overlay);setTimeout(function(){overlay.remove();navigate("intReview");},TIMING.intReviewDelay);break;
+case "intConfirm":var b2=parseAmount(intRaw);if (!b2||b2<=0){error(t("invalidAmount"));return;}var overlay2=document.createElement("div");overlay2.id="intDelayOverlay2";overlay2.style.cssText="position:fixed;inset:0;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;z-index:99999;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)";overlay2.innerHTML='<div class="reactor-wrap"><div class="reactor"><div class="reactor-core"></div></div></div><div style="font-weight:700;color:var(--text)">'+esc(t("processing"))+'</div>';document.body.appendChild(overlay2);setTimeout(function(){overlay2.remove();intOtp="";intOtpErr=false;if (resendTimer){clearInterval(resendTimer);resendTimer=null;}navigate("intOtp");},TIMING.intOtpDelay);break;
+case "intSubmitOtp":intPressOtp("");break;
+case "intCancelOtp":if (resendTimer){clearInterval(resendTimer);resendTimer=null;}intOtp="";intOtpErr=false;navigate("intReview");break;
+case "intResendOtp":toast(t("otpSent"));startResendTimer();break;
+case "cancelIntProcess":cancelIntProcess();break;
+case "printInt":printInt();break;
+case "shareInt":shareInt();break;
+case "copyInt":copyInt();break;
 case "password":togglePassword();break;
 case "faceId":faceIdLogin();break;
 case "saveNote":saveNote();break;
@@ -666,7 +926,7 @@ case "deleteContact":deleteContact(param);break;
 case "toggleCardFreeze":for (var i=0;i<state.cards.length;i++){if (state.cards[i].id===param){state.cards[i].frozen=!state.cards[i].frozen;break;}}save();render();break;
 case "cardFullDetails":pageParam=param;openModal("cardFullDetails");break;
 case "cardLimit":pageParam=param;openModal("cardLimit");break;
-case "saveCardLimit":var c=null;for (var j=0;j<state.cards.length;j++){if (state.cards[j].id===param) c=state.cards[j];}var b=parseAmount($("#newLimit").value);if (c&&b&&b>0){c.dailyLimit=b;save();closeModal();render();toast(t("saved"));}break;
+case "saveCardLimit":var c=null;for (var j=0;j<state.cards.length;j++){if (state.cards[j].id===param) c=state.cards[j];}var b3=parseAmount($("#newLimit").value);if (c&&b3&&b3>0){c.dailyLimit=b3;save();closeModal();render();toast(t("saved"));}break;
 case "removeCard":removeCard(param);break;
 case "downloadStatement":toast(t("saved"));break;
 case "liveChat":openChatSequence();break;
@@ -683,8 +943,7 @@ case "toggleSaving":toggleSavingMode();break;
 case "aiChat":openModal("aiChat");break;
 case "aiTip":toast(state.savingMode?t("aiSavingOn"):t("aiInsight").replace("{x}",money(monthlySpent())));break;
 case "dismissBudget":state.budgetAlertDismissed=true;save();render();break;
-case "start":startTransfer(param||"local");break;
-case "logout":if (timer){clearInterval(timer);timer=null;}if (resendTimer){clearInterval(resendTimer);resendTimer=null;}logged=false;draft=null;pending=null;raw="";receiptTx=null;filter="all";searchQuery="";otpInput="";navigate("login");break;
+case "logout":if (timer){clearInterval(timer);timer=null;}if (resendTimer){clearInterval(resendTimer);resendTimer=null;}if (intTimer){clearInterval(intTimer);intTimer=null;}logged=false;draft=null;pending=null;raw="";receiptTx=null;filter="all";searchQuery="";otpInput="";intDraft=null;intRaw="";intOtp="";navigate("login");break;
 }
 }
 
